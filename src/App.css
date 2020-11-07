@@ -1,38 +1,68 @@
+
 .App {
-  text-align: center;
+  text-align: center; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Main-header {
+margin-top: 1%;
+color: rgba(0, 0, 0, 0.5);
+font-family: Arial, Helvetica, sans-serif;
+font-size: 64px;
+margin-bottom: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.UploadPDF-btn {
+
+  margin-top: 5%;
+  margin-bottom: 10px;
+  
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.Main-header{
+  font-weight: 500;
+}
+
+.top-key-words-container {
+  background-color: white;
+  border-radius: 26px;
+  margin-top: 20px;
+ 
+  width: 80%;
+  left: 10%;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.14));
+
 }
 
-.App-link {
-  color: #61dafb;
+
+
+.top-key-words-container > p {
+  padding-top: 20px;
+  font-size: 22px;
+  color: rgba(20, 20, 43, 0.36);
+  text-align: left;
+  font-weight: 400;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.keyword {
+  background: #E5E5E5;
+  border-radius: 7px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+ 
 }
+
+.prediction-content {
+  text-align: justify;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+  font-size: 18px;
+}
+
+
+
