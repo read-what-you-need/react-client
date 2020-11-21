@@ -1,38 +1,70 @@
-import React from 'react';
-
+import React, { useEffect, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import TopWords from './TopWords'
 import ImpLines from './ImpLines'
+
+import Discover from './Discover'
+
 
 import { Container, Row, Col } from 'reactstrap';
 import SmartSearch from './SmartSearch';
 import { SearchContextProvider } from './SearchContextMangement';
 
+
+
 const ReadHome = ({ location, match }) => {
 
-    const _id  = match.params._id;
-    
+    const _id = match.params._id;
+
     const { pdfText } = location.state
 
-    
+    const { fileName } = location.state
+
+
+
     // const splitText =  splitTextByNewline(pdfText)
 
 
+
     return (
-        <div className="App">
+        <Fragment>
 
-            <h1 className="Main-header">Read what you need</h1>
 
-            <SearchContextProvider sessionId={_id}>
+            < div class="sidebar" >
 
-                <SmartSearch />
+                <Link to="/" >   Home       </Link>
 
-                <TopWords pdfText={pdfText} />
 
-                <ImpLines pdfText={pdfText} />
 
-            </SearchContextProvider>
+            </div >
 
-        </div>
+            <div className="App-read-page">
+
+
+                {/* <h1 className="read-page-header">Read what you need</h1> */}
+                <h1 className="read-page-file-name">{fileName}</h1>
+
+
+                <SearchContextProvider sessionId={_id}>
+
+                 
+
+                        <SmartSearch />
+
+                        <div style={{ height: 10 }}></div>
+
+                        <TopWords pdfText={pdfText} />
+
+
+                        <div style={{ height: 10 }}></div>
+
+                        <ImpLines pdfText={pdfText} />
+
+    
+                </SearchContextProvider>
+
+            </div>
+        </Fragment>
     );
 }
 

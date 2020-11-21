@@ -92,6 +92,7 @@ const SmartSearch = () => {
                 value={localInputValue}
                 variant="outlined"
                 id="custom-css-outlined-input"
+           
                 onChange={handleSearchChange}
                 onKeyDown={handleKeyPress}
                 inputProps={{style: {fontSize: 24, marginLeft: 10}}}

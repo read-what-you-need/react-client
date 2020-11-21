@@ -22,6 +22,8 @@ const ImpLines = ({ pdfText }) => {
     const [textLoading, setTextLoading] = useState(null);
     const [resultsCount, setResultsCount] = useState(5);
 
+    const [demoSessionStatus, setDemoSessionStatus] = useState(null);
+
     // console.log(pdfText, "in imp lines hehehehe")
 
     let axiosConfig = {
@@ -41,23 +43,28 @@ const ImpLines = ({ pdfText }) => {
 
     }
 
-    console.log(smartSearchResults)
+
+
+    //console.log(smartSearchResults)
 
 
     useEffect(() => {
 
         setTextLoading(true);
+        if (demoSession.includes(state.sessionId)){
+            setDemoSessionStatus(true)
+        }        
 
         setResultsCount(5)
 
         axios.post(
-            "http://localhost:8890",
+            "http://localhost:8891",
             axiosPayload,
             axiosConfig
         )
             .then(res => {
 
-                console.log(res.statusText, res.data)
+                //console.log(res.statusText, res.data)
 
                 setSmartSearch(res.data);
                 setTextLoading(false);
@@ -77,13 +84,13 @@ const ImpLines = ({ pdfText }) => {
 
 
         axios.post(
-            "http://localhost:8890",
+            "http://localhost:8891",
             axiosPayload,
             axiosConfig
         )
             .then(res => {
 
-                console.log(res.statusText, res.data)
+                //.log(res.statusText, res.data)
 
                 setSmartSearch(res.data);
                 setTextLoading(false);
@@ -100,11 +107,33 @@ const ImpLines = ({ pdfText }) => {
 
     var ContentPlaceholder = [1, 2];
 
+    const demoSession = ['benj', 'naval', 'think']
+
     return (
 
         <Container className="top-key-words-container">
 
-            <p>Matching Lines for <i> {state.search == '' ? '...' : state.search}</i> </p>
+            <Row className="important-lines-header">
+                <span >
+                    Matching Lines for <i> {state.search == '' ? '...' : state.search}</i>
+                </span>
+
+
+                {demoSession.includes(state.sessionId) ?
+                    <span id="book-percent" style={{backgroundColor:'#90ee9073'}}>
+                        100 % loaded
+                    </span>
+
+                    :
+                    <span id="book-percent" style={{backgroundColor:'rgb(255 255 21 / 31%)'}}>
+                        10% loaded
+                </span>
+                }
+
+
+            </Row>
+
+
 
             <hr />
 
@@ -113,15 +142,16 @@ const ImpLines = ({ pdfText }) => {
                 <SnippetLoader key={Math.random()} />
             )) : Object.entries(smartSearchResults).map(
                 ([key, value], i) =>
-                    <ImpLineItems key={Math.random()} content={key} score={value} />
+                    <ImpLineItems key={Math.random()} content={key} score={value} itemNo={i}/>
 
             )}
 
             <div className="App">
-                {!textLoading &&(Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
-                {(Object.entries(smartSearchResults)).length > resultsCount-1 ? <Chip clickable onClick={() => { setResultsCount(resultsCount+5)}} 
-                
-                label={'load more'} /> : null}
+                {demoSessionStatus && (Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
+                {!demoSessionStatus && !textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
+                {(Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={() => { setResultsCount(resultsCount + 5) }}
+
+                    label={'load more'} /> : null}
             </div>
 
             <div style={{ PaddingBottom: 30 }}>

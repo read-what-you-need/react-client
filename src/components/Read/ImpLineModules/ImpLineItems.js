@@ -21,21 +21,21 @@ function getStatus(percentage) {
 
 
 
-const ImpLineItems = ({ content, score }) => {
-    
+const ImpLineItems = ({ content, score, itemNo }) => {
 
-    console.log(content)
+
+    // console.log(content)
 
     var score = parseFloat(score)
-    console.log(score)
+    // console.log(score)
     var IntScore = Math.floor(score * 100)
 
     return (
-        <Row style={{marginBottom:20}}>
+        <Row style={{ marginBottom: 20 }}>
 
             <Col xs={12}>
                 <p className="prediction-content">
-                    {content}
+                    <span style={{ color: 'darkgrey' }}>{itemNo + 1}. </span> {content}
                 </p>
             </Col>
 
@@ -45,7 +45,7 @@ const ImpLineItems = ({ content, score }) => {
                     theme={
                         {
                             error: {
-                                symbol: IntScore  + '😱',
+                                symbol: IntScore + '😱',
                                 trailColor: 'pink',
                                 color: 'red'
                             },
@@ -55,7 +55,7 @@ const ImpLineItems = ({ content, score }) => {
                                 color: 'blue'
                             },
                             active: {
-                                symbol: IntScore +  '😀',
+                                symbol: IntScore + '😀',
                                 trailColor: 'yellow',
                                 color: 'orange'
                             },
@@ -68,6 +68,8 @@ const ImpLineItems = ({ content, score }) => {
                     }
                     style={{ marginLeft: 10, marginRight: 20, width: '98%' }} percent={IntScore} status={getStatus(IntScore)} />
             </Col>
+
+            <hr />
 
         </Row>
 

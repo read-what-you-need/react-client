@@ -25,6 +25,13 @@ const SnippetLoader = props => {
       <rect x={percentMediaScreenSize(width,80)} y="33" rx="0" ry="0" width={percentMediaScreenSize(width,81)} height="13" />
       <rect x="11" y="33" rx="0" ry="0" width={percentMediaScreenSize(width,82)} height="13" />
 
+      <rect x="11" y="4" rx="0" ry="0" width={percentMediaScreenSize(width,30)} height="22" />
+      
+      <rect x="11" y="33" rx="0" ry="0" width={percentMediaScreenSize(width,82)} height="13" />
+      <rect x={percentMediaScreenSize(width,60)} y="33" rx="0" ry="0" width={percentMediaScreenSize(width,70)} height="13" />
+      <rect x={percentMediaScreenSize(width,80)} y="33" rx="0" ry="0" width={percentMediaScreenSize(width,81)} height="13" />
+      <rect x="11" y="33" rx="0" ry="0" width={percentMediaScreenSize(width,82)} height="13" />
+
       
 
 
