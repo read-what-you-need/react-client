@@ -14,7 +14,6 @@ import Faqs from "./components/Faqs";
 
 const Root = () => {
 
-
   return (
 
     <Router>
