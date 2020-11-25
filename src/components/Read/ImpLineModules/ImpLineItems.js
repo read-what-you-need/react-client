@@ -24,10 +24,10 @@ function getStatus(percentage) {
 const ImpLineItems = ({ content, score, itemNo }) => {
 
 
-    // console.log(content)
+    // //console.log(content)
 
     var score = parseFloat(score)
-    // console.log(score)
+    // //console.log(score)
     var IntScore = Math.floor(score * 100)
 
     return (
@@ -50,7 +50,7 @@ const ImpLineItems = ({ content, score, itemNo }) => {
                                 color: 'red'
                             },
                             default: {
-                                symbol: IntScore + '%',
+                                symbol: IntScore + '😊',
                                 trailColor: 'lightblue',
                                 color: 'blue'
                             },
@@ -60,7 +60,7 @@ const ImpLineItems = ({ content, score, itemNo }) => {
                                 color: 'orange'
                             },
                             success: {
-                                symbol: IntScore + '%',
+                                symbol: IntScore + '🌟',
                                 trailColor: 'lime',
                                 color: 'green'
                             }

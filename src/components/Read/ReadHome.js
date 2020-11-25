@@ -30,14 +30,6 @@ const ReadHome = ({ location, match }) => {
         <Fragment>
 
 
-            < div class="sidebar" >
-
-                <Link to="/" >   Home       </Link>
-
-
-
-            </div >
-
             <div className="App-read-page">
 
 

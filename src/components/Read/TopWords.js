@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 
 const TopWords = ({ pdfText }) => {
 
-    //console.log(pdfText)
+    ////console.log(pdfText)
 
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);
@@ -67,7 +67,7 @@ const TopWords = ({ pdfText }) => {
         "body": pdfText
     }
 
-    //console.log(Object.entries(topN).length, 'len of the objject')
+    ////console.log(Object.entries(topN).length, 'len of the objject')
 
 
     useEffect(() => {
@@ -84,7 +84,7 @@ const TopWords = ({ pdfText }) => {
 
         ).then(res => {
 
-            //console.log(res.statusText, res.data)
+            ////console.log(res.statusText, res.data)
 
             setTopN(res.data)
 
@@ -101,7 +101,7 @@ const TopWords = ({ pdfText }) => {
 
         }).catch(function (error) {
 
-            console.log(error);
+            //console.log(error);
 
         });
 
@@ -341,7 +341,7 @@ function getRandomTopWords(firstSegment, secondSegment, thirdSegment) {
     const secondTopWord = getRandom(secondSegment)
     const thirdTopWord = getRandom(thirdSegment)
 
-    console.log(firstTopWord, secondTopWord, thirdTopWord)
+    //console.log(firstTopWord, secondTopWord, thirdTopWord)
 
     return [firstTopWord, secondTopWord, thirdTopWord]
 }

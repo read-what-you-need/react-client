@@ -16,15 +16,15 @@ const ImpLines = ({ pdfText }) => {
 
     const state = useContext(SearchContext);
 
-    console.log(state.search, ": value from search box landing 😁 ")
-    console.log(state.sessionId, ": sessionID is 😛")
+    //console.log(state.search, ": value from search box landing 😁 ")
+    //console.log(state.sessionId, ": sessionID is 😛")
     const [smartSearchResults, setSmartSearch] = useState('')
     const [textLoading, setTextLoading] = useState(null);
     const [resultsCount, setResultsCount] = useState(5);
 
     const [demoSessionStatus, setDemoSessionStatus] = useState(null);
 
-    // console.log(pdfText, "in imp lines hehehehe")
+    // //console.log(pdfText, "in imp lines hehehehe")
 
     let axiosConfig = {
 
@@ -45,7 +45,7 @@ const ImpLines = ({ pdfText }) => {
 
 
 
-    //console.log(smartSearchResults)
+    ////console.log(smartSearchResults)
 
 
     useEffect(() => {
@@ -58,19 +58,19 @@ const ImpLines = ({ pdfText }) => {
         setResultsCount(5)
 
         axios.post(
-            "http://localhost:8891",
+            "http://localhost:8890",
             axiosPayload,
             axiosConfig
         )
             .then(res => {
 
-                //console.log(res.statusText, res.data)
+                ////console.log(res.statusText, res.data)
 
                 setSmartSearch(res.data);
                 setTextLoading(false);
 
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
 
 
@@ -84,7 +84,7 @@ const ImpLines = ({ pdfText }) => {
 
 
         axios.post(
-            "http://localhost:8891",
+            "http://localhost:8890",
             axiosPayload,
             axiosConfig
         )
@@ -96,7 +96,7 @@ const ImpLines = ({ pdfText }) => {
                 setTextLoading(false);
 
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
 
 
@@ -126,7 +126,7 @@ const ImpLines = ({ pdfText }) => {
 
                     :
                     <span id="book-percent" style={{backgroundColor:'rgb(255 255 21 / 31%)'}}>
-                        10% loaded
+                        20% loaded
                 </span>
                 }
 

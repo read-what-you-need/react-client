@@ -1,8 +1,6 @@
 
 .App {
-  text-align: center; 
-
-  
+  text-align: center;  
 }
 
 .App-read-page {
@@ -12,7 +10,7 @@
 
 
 .Main-header {
-margin-top: 1%;
+
 color: rgba(0, 0, 0, 0.5);
 font-family: Arial, Helvetica, sans-serif;
 font-size: 64px;
@@ -26,7 +24,11 @@ margin-bottom: 40px;
   
 }
 
-
+.upload-limit-notice{
+  font-size: 14px;
+  color: lightcoral;
+ 
+}
 
 .Main-header{
   font-weight: 500;
@@ -87,7 +89,9 @@ margin-bottom: 40px;
   font-weight: 300;
   padding-top: 60px;
   margin-bottom: 30px;
-
+  margin-left: 120px;
+  margin-right: 120px;
+  word-wrap: break-word;
 
  
 }
@@ -172,7 +176,25 @@ margin-bottom: 40px;
   transform: translateX(-50%);
 }
 
+.faq-list{
+  text-align: justify;
+  margin-left:10%;
+  margin-right:10%;
+  font-size: 20px;
+}
 
+.faq-list > li {
+  font-weight: 600;
+  text-decoration: solid;
+}
+
+.faq-list > p {
+  margin-bottom: 40px;
+  margin-left: 30px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 .text {
   font-weight: 400;
@@ -187,7 +209,7 @@ margin-bottom: 40px;
   color: rgba(20, 20, 43, 0.36);
   text-align: left;
   font-weight: 300;
-  margin-left: 40px;
+  margin-left: 120px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -231,16 +253,18 @@ margin-bottom: 40px;
 }
 
 
-
+.break-80{
+   width: 80%;
+}
 
 
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 80px;
+  width: 100px;
   background-color: #f1f1f1;
   position: fixed;
-  height: 9%;
+  height: 35%;
   overflow: auto;
   box-shadow: inset -7px 0 9px -7px rgba(0,0,0,0.1);
 
@@ -288,6 +312,7 @@ div.content {
     width: 100%;
     height: auto;
     position: relative;
+
   }
   .sidebar a {text-align: center;}
   div.content {margin-left: 0;}

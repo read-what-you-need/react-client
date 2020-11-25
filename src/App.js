@@ -36,19 +36,20 @@ const App = () => {
 
   const [textLoading, setTextLoading] = useState(null);
   const [fileName, setFileName] = useState(null);
+  const [fileSize, setFileSize] = useState(null)
 
 
 
 
   // const getFiles = (files) => {
 
-  //   console.log(uuidv4(), typeof (uuidv4()));
+  //   //console.log(uuidv4(), typeof (uuidv4()));
 
   //   var pdfByteString = files['base64'].slice(28)
 
   //   setSelectedFile(pdfByteString)
 
-  //   console.log(pdfByteString)
+  //   //console.log(pdfByteString)
   // }
 
 
@@ -62,9 +63,11 @@ const App = () => {
 
 
   const onChangeHandler = event => {
-    console.log(event.target.files[0])
+
+    //console.log(event.target.files[0])
 
     setSelectedFile(event.target.files[0])
+    setFileSize(Math.floor(event.target.files[0].size / 1000000))
     setFileName(event.target.files[0].name.replace('.pdf', ''))
 
   }
@@ -90,23 +93,23 @@ const App = () => {
     const data = new FormData()
     data.append('pdf-file', selectedFile)
 
-    console.log(data, 'clicked for upload')
+    //console.log(data, 'clicked for upload')
 
     axios.post(
-      "http://localhost:8890",
+      "http://localhost:8891",
       data,
       axiosConfig
 
     )
       .then(res => {
 
-        console.log(res.statusText, res.data, typeof (res.data))
+        //console.log(res.statusText, res.data, typeof (res.data))
 
         setPdfText(res.data)
         setTextLoading(false);
 
       }).catch(function (error) {
-        console.log(error);
+        //console.log(error);
       });
 
 
@@ -149,15 +152,18 @@ const App = () => {
           />
 
         </Button>
-
+        <br />
+        {!selectedFile && <span className="upload-limit-notice">*max upload file size 12 MB</span>}
         <br />
 
 
       </div>
 
+      {fileSize > 12 && <span className="upload-limit-notice">please upload a file with a size smaller than 12 MB</span>}
+
       <div>
         {
-          selectedFile &&
+          selectedFile && fileSize <= 12 &&
 
           <Button style={{ marginTop: 20 }} variant="contained" component="label"
             onClick={onSubmitClickHandler}
@@ -169,17 +175,17 @@ const App = () => {
         }
 
         <Backdrop className={classes.backdrop} open={textLoading} >
-        <CircularProgress color="inherit" />
-      </Backdrop> 
+          <CircularProgress color="inherit" />
+        </Backdrop>
 
- 
+
 
 
       </div>
 
       <p className="main-page-try-before">Try the AI in action</p>
 
-      <hr style={{ width: '95%' }} />
+      <hr className="break-80" />
 
       <Container className="main-page-examples" fluid style={{ marginBottom: 50 }}>
 
@@ -309,7 +315,6 @@ const App = () => {
 
 
       </Container>
-
 
 
     </div>
