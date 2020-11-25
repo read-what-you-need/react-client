@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/read-what-you-need/static/css/main.308752d0.chunk.css",
+    "main.js": "/read-what-you-need/static/js/main.28fd97e3.chunk.js",
+    "main.js.map": "/read-what-you-need/static/js/main.28fd97e3.chunk.js.map",
+    "runtime-main.js": "/read-what-you-need/static/js/runtime-main.eb4a0f6a.js",
+    "runtime-main.js.map": "/read-what-you-need/static/js/runtime-main.eb4a0f6a.js.map",
+    "static/css/2.d66254ab.chunk.css": "/read-what-you-need/static/css/2.d66254ab.chunk.css",
+    "static/js/2.4e2bcb7b.chunk.js": "/read-what-you-need/static/js/2.4e2bcb7b.chunk.js",
+    "static/js/2.4e2bcb7b.chunk.js.map": "/read-what-you-need/static/js/2.4e2bcb7b.chunk.js.map",
+    "index.html": "/read-what-you-need/index.html",
+    "static/css/2.d66254ab.chunk.css.map": "/read-what-you-need/static/css/2.d66254ab.chunk.css.map",
+    "static/css/main.308752d0.chunk.css.map": "/read-what-you-need/static/css/main.308752d0.chunk.css.map",
+    "static/js/2.4e2bcb7b.chunk.js.LICENSE.txt": "/read-what-you-need/static/js/2.4e2bcb7b.chunk.js.LICENSE.txt",
+    "static/media/benjamin.1588efc2.txt": "/read-what-you-need/static/media/benjamin.1588efc2.txt",
+    "static/media/naval.c8bc51b5.txt": "/read-what-you-need/static/media/naval.c8bc51b5.txt",
+    "static/media/shuffle.88b91146.svg": "/read-what-you-need/static/media/shuffle.88b91146.svg",
+    "static/media/think.5553e774.txt": "/read-what-you-need/static/media/think.5553e774.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eb4a0f6a.js",
+    "static/css/2.d66254ab.chunk.css",
+    "static/js/2.4e2bcb7b.chunk.js",
+    "static/css/main.308752d0.chunk.css",
+    "static/js/main.28fd97e3.chunk.js"
+  ]
+}
