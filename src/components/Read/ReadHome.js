@@ -9,6 +9,7 @@ import Discover from './Discover'
 import { Container, Row, Col } from 'reactstrap';
 import SmartSearch from './SmartSearch';
 import { SearchContextProvider } from './SearchContextMangement';
+import { useState } from 'react';
 
 
 
@@ -19,7 +20,6 @@ const ReadHome = ({ location, match }) => {
     const { pdfText } = location.state
 
     const { fileName } = location.state
-
 
 
     // const splitText =  splitTextByNewline(pdfText)

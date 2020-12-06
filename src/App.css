@@ -8,14 +8,41 @@
   margin-left: 30px;
 }
 
+#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
 
 .Main-header {
 
 color: rgba(0, 0, 0, 0.5);
 font-family: Arial, Helvetica, sans-serif;
 font-size: 64px;
-margin-bottom: 40px;
+margin-bottom: 20px;
 }
+
+
+.journey-interest {
+  margin-top: 30px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  margin-bottom: 10px;
+  }
+  
+  .sub-header-timer {
+
+    color: rgba(0, 0, 0, 0.5);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+    }
+
+
+.sub-header {
+
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 44px;
+  margin-bottom: 40px;
+  }
 
 .UploadPDF-btn {
 
@@ -32,6 +59,7 @@ margin-bottom: 40px;
 
 .Main-header{
   font-weight: 500;
+  text-align: center;
 }
 
 .top-key-words-container {
@@ -57,6 +85,7 @@ margin-bottom: 40px;
 .btn-grad-container .MuiButton-root {background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)}
 
 .btn-grad-container .MuiButton-root{
+  text-align: center;
   border-radius: 50px;
   font-size: 30px;
   font-weight: 500;
@@ -78,6 +107,38 @@ margin-bottom: 40px;
 }
 
 .btn-grad-container .MuiButton-root:hover{
+  background-position: right center; 
+  color: #fff;
+  text-decoration: none;
+}
+
+
+.btn-grad-container-journey .MuiButton-root {
+  background-image: linear-gradient(to right, #348F50 0%, #56B4D3  51%, #348F50  100%)
+}
+
+.btn-grad-container-journey .MuiButton-root{
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 10px;
+    
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  
+  color: white;            
+  box-shadow: 0 0 20px #eee;  
+
+  padding: 5px 45px;
+
+  background-size: 200% auto;
+
+  
+  
+}
+
+.btn-grad-container-journey .MuiButton-root:hover{
   background-position: right center; 
   color: #fff;
   text-decoration: none;
@@ -109,8 +170,7 @@ margin-bottom: 40px;
 
 .main-page-examples{
   display: flex;
-  position: absolute;
-  
+    
   margin-top: 20px;
   justify-content: space-evenly;
   font-size: 38px;
@@ -209,8 +269,8 @@ margin-bottom: 40px;
   color: rgba(20, 20, 43, 0.36);
   text-align: left;
   font-weight: 300;
-  margin-left: 120px;
-  margin-top: 20px;
+  margin-left: 5%;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -254,7 +314,7 @@ margin-bottom: 40px;
 
 
 .break-80{
-   width: 80%;
+   width: 95%;
 }
 
 
@@ -318,9 +378,23 @@ div.content {
   div.content {margin-left: 0;}
 }
 
+/* Small screen sizes */
+
 @media screen and (max-width: 400px) {
   .sidebar a {
     text-align: center;
     float: none;
+  }
+
+  .sidebar {
+    height: 200px;
+  }
+
+  .btn-grad-container .MuiButton-root {
+    font-size: 18px;
+  }
+
+  .Main-header {
+    font-size: 36px;
   }
 }

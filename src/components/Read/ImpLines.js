@@ -45,7 +45,10 @@ const ImpLines = ({ pdfText }) => {
 
 
 
-    ////console.log(smartSearchResults)
+    let smartSearchEndPoint = "https://347l7v8bif.execute-api.ap-south-1.amazonaws.com/ironbox"
+
+
+    
 
 
     useEffect(() => {
@@ -58,7 +61,7 @@ const ImpLines = ({ pdfText }) => {
         setResultsCount(5)
 
         axios.post(
-            "http://localhost:8890",
+            smartSearchEndPoint,
             axiosPayload,
             axiosConfig
         )
@@ -84,7 +87,7 @@ const ImpLines = ({ pdfText }) => {
 
 
         axios.post(
-            "http://localhost:8890",
+            smartSearchEndPoint,
             axiosPayload,
             axiosConfig
         )

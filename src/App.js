@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 
 import axios from 'axios';
@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
 import { Container, Row, Col } from 'reactstrap';
-
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
 
 import './App.css';
 import { useEffect } from 'react';
@@ -22,6 +22,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+// https://github.com/ndresx/react-countdown
+import Countdown from 'react-countdown';
 
 import Naval_File from './components/Read/txt/naval.txt'
 import Benjamin_File from './components/Read/txt/benjamin.txt'
@@ -38,6 +40,11 @@ const App = () => {
   const [fileName, setFileName] = useState(null);
   const [fileSize, setFileSize] = useState(null)
 
+  const timeRemaining = Date.parse("Thu Dec 26 2020 05:09:04 GMT+0530 (India Standard Time)") - Date.now();
+  console.log(typeof (timeRemaining))
+  const [maintainenceStatus, setMaintainenceStatus] = useState(false)
+
+  let pdfToTextEndPoint = "https://347l7v8bif.execute-api.ap-south-1.amazonaws.com/pdftotext"
 
 
 
@@ -86,6 +93,8 @@ const App = () => {
 
   }
 
+
+
   const onSubmitClickHandler = () => {
 
     setTextLoading(true);
@@ -96,7 +105,7 @@ const App = () => {
     //console.log(data, 'clicked for upload')
 
     axios.post(
-      "http://localhost:8891",
+      pdfToTextEndPoint,
       data,
       axiosConfig
 
@@ -128,197 +137,343 @@ const App = () => {
   const classes = useStyles();
   const [openLoaderModal, setOpenLoaderModal] = React.useState(false);
 
+  const timerRenderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      setMaintainenceStatus(true)
+      return <div></div>;
+    } else {
+      // Render a countdown
+      return <div>
+        <span>Live for the next </span>
+        {hours === 0 ? null : <span>{hours} hours </span>}
+        {minutes === 0 ? null : <span>{minutes} minutes </span>}
+        {seconds === 0 ? null : <span>{seconds} seconds </span>}
+      </div>;
+    }
 
+
+  };
 
   return (
 
 
-    <div className="App">
-
-      <h1 className="Main-header">Read what you need</h1>
 
 
-      <div className="btn-grad-container" >
+
+    <Container fluid style={{ paddingRight: 0, paddingLeft: 0 }}>
+
+      <Row>
+
+        <Col md="2">
+
+          < div class="sidebar" >
+
+            <Link to="/" >   Home       </Link>
+
+            <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
+
+            <Link to="/faq" >   FAQ's       </Link>
+
+          </div >
+
+        </Col>
 
 
-        <Button variant="contained" component="label" endIcon={<UploadIcon />}>
-          Upload PDF File
-                <input
-            accept=".pdf"
-            type="file"
-            onChange={onChangeHandler}
+        <Col md="8">
 
-            style={{ display: "none" }}
-          />
+          {!maintainenceStatus && <Container className="App">
 
+            <h1 className="Main-header">Read what you need </h1>
+
+            {/* To get the next nth hour time */}
+            {/* https://stackoverflow.com/a/1051641 */}
+            {/* <div className="sub-header-timer">
+              <Countdown
+                date={1607017898000}
+                renderer={timerRenderer}
+              />
+            </div> */}
+
+
+
+
+
+
+            <div className="btn-grad-container" >
+
+
+              <Button variant="contained" component="label" endIcon={<UploadIcon />}>
+                Upload PDF File
+          <input
+                  accept=".pdf"
+                  type="file"
+                  onChange={onChangeHandler}
+
+                  style={{ display: "none" }}
+                />
+
+              </Button>
+              <br />
+              {!selectedFile && <span className="upload-limit-notice">*max upload file size 12 MB</span>}
+              <br />
+
+
+            </div>
+
+            {fileSize > 12 && <span className="upload-limit-notice">please upload a file with a size smaller than 12 MB</span>}
+
+            <div>
+              {
+                selectedFile && fileSize <= 12 &&
+
+                <Button style={{ marginTop: 20 }} variant="contained" component="label"
+                  onClick={onSubmitClickHandler}
+
+                >
+                  Submit
         </Button>
-        <br />
-        {!selectedFile && <span className="upload-limit-notice">*max upload file size 12 MB</span>}
-        <br />
-
-
-      </div>
-
-      {fileSize > 12 && <span className="upload-limit-notice">please upload a file with a size smaller than 12 MB</span>}
-
-      <div>
-        {
-          selectedFile && fileSize <= 12 &&
-
-          <Button style={{ marginTop: 20 }} variant="contained" component="label"
-            onClick={onSubmitClickHandler}
-
-          >
-            Submit
-          </Button>
-
-        }
-
-        <Backdrop className={classes.backdrop} open={textLoading} >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
-
-
-
-      </div>
-
-      <p className="main-page-try-before">Try the AI in action</p>
-
-      <hr className="break-80" />
-
-      <Container className="main-page-examples" fluid style={{ marginBottom: 50 }}>
-
-        <Row>
-          <Col xs={12} md={4}>
-            <Paper elevation={5} onClick={() => {
-
-              fetch(Allen_File)
-                .then(r => r.text())
-                .then(text => {
-
-                  const pdfText = text;
-                  const fileName = "As A Man Thinketh";
-                  history.push(`/read/think`, { pdfText, fileName })
-                });
-
-            }}>
-
-              <div style={{
-
-                height: 400,
-
-                width: 250,
-
-                backgroundImage: `url(${"static/img/think.jpg"})`,
-
-                backgroundSize: 'cover',
-
-                backgroundRepeat: 'no-repeat',
-
-                borderRadius: 10
-
 
               }
 
-              }>
+              <Backdrop className={classes.backdrop} open={textLoading} >
+                <CircularProgress color="inherit" />
+              </Backdrop>
+
+
+
+
+            </div>
+
+
+
+
+            <p className="main-page-try-before">Try the AI in action</p>
+
+
+
+            <hr className="break-80" />
+
+            <Row className="main-page-examples" style={{ marginBottom: 50 }}>
+
+                <Col xs={12} md={4}>
+                  <Paper elevation={5} onClick={() => {
+
+                    fetch(Allen_File)
+                      .then(r => r.text())
+                      .then(text => {
+
+                        const pdfText = text;
+                        const fileName = "As A Man Thinketh";
+                        history.push(`/read/think`, { pdfText, fileName })
+                      });
+
+                  }}>
+
+                    <div style={{
+
+                      height: 300,
+
+              
+
+                      backgroundImage: `url(${"static/img/think.jpg"})`,
+
+                      backgroundSize: 'cover',
+
+                      backgroundRepeat: 'no-repeat',
+
+                      borderRadius: 10
+
+
+                    }
+
+                    }>
+
+                    </div>
+                  </Paper>
+                </Col>
+
+
+                <Col xs={12} md={4}>
+                  <Paper elevation={5} onClick={() => {
+
+                    fetch(Naval_File)
+                      .then(r => r.text())
+                      .then(text => {
+
+                        const pdfText = text;
+                        const fileName = "Almanack of Naval Ravikant";
+                        history.push(`/read/naval`, { pdfText, fileName })
+                      });
+
+                  }}>
+
+                    <div style={{
+
+                      height: 300,
+
+
+                      backgroundImage: `url(${"static/img/nava.jpg"})`,
+
+                      backgroundSize: 'cover',
+
+                      backgroundRepeat: 'no-repeat',
+
+                      borderRadius: 32
+
+
+                    }
+
+                    }>
+
+                    </div>
+                  </Paper>
+
+                </Col>
+
+
+                <Col xs={12} md={4}>
+
+                  <Paper elevation={5} onClick={() => {
+
+                    fetch(Benjamin_File)
+                      .then(r => r.text())
+                      .then(text => {
+
+                        const pdfText = text;
+                        const fileName = "The Autobiography of Benjamin Franklin";
+                        history.push(`/read/benj`, { pdfText, fileName })
+                      });
+
+                  }}>
+
+                    <div style={{
+
+                      height: 300,
+
+                     
+
+                      backgroundImage: `url(${"static/img/benj.jpg"})`,
+
+                      backgroundSize: 'cover',
+
+                      backgroundRepeat: 'no-repeat',
+
+                      backgroundPosition: 'center',
+
+                      borderRadius: 10
+
+
+                    }
+
+                    }>
+
+                    </div>
+                  </Paper>
+
+
+
+                </Col>
+
+
+
+            </Row>
+
+
+         
+              <Row>
+
+                <Col>
+
+                  <p className="main-page-try-before">Review</p>
+
+                  <hr className="break-80" />
+
+                  <a target="blank" href="https://twitter.com/jackbutcher/status/1331654590052397079">
+                    <div style={{
+
+                      height: '60%',
+
+                      
+
+                      marginLeft: '5%',
+
+                      marginBottom: 50,
+
+                      backgroundImage: `url(${"static/img/jack.png"})`,
+
+               
+
+                      backgroundRepeat: 'no-repeat',
+
+                      backgroundSize: 'contain',
+         
+
+                      borderRadius: 10
+
+
+                    }
+
+                    }>
+                      
+                      </div>
+                      </a>
+
+
+
+                    
+                 
+
+                </Col>
+
+
+              </Row>
+           
+
+
+
+          </Container>
+
+          }
+
+          {maintainenceStatus && <div className="App">
+
+            <h1 className="Main-header">Read what you need</h1>
+
+            <h1 className="sub-header">Thank you for your interest. <i class="twa twa-slightly-smiling-face"></i></h1>
+
+            <h1 className="sub-header" >The site is currently down for maintainence <i class="twa twa-hammer-and-wrench"></i></h1>
+
+            <Col >
+
+              <h1 className="sub-header">If you want to know when the site will be live next time.</h1>
+
+              <div className="btn-grad-container-journey" >
+
+
+
+                <a style={{ textDecoration: 'none' }} target="blank" href="http://forms.gle/3kC9Rz6piAHptxS6A">
+                  <Button variant="contained" component="label" >
+                    Update me!
+      </Button>
+                </a>
 
               </div>
-            </Paper>
-          </Col>
 
 
-          <Col xs={12} md={4}>
-            <Paper elevation={5} onClick={() => {
+            </Col>
 
-              fetch(Naval_File)
-                .then(r => r.text())
-                .then(text => {
+          </div>
+          }
 
-                  const pdfText = text;
-                  const fileName = "Almanack of Naval Ravikant";
-                  history.push(`/read/naval`, { pdfText, fileName })
-                });
+        </Col>
 
-            }}>
+        <Col md="2">
 
-              <div style={{
-
-                height: 400,
-
-                width: 250,
-
-                backgroundImage: `url(${"static/img/nava.jpg"})`,
-
-                backgroundSize: 'cover',
-
-                backgroundRepeat: 'no-repeat',
-
-                borderRadius: 32
+        </Col>
+      </Row>
 
 
-              }
-
-              }>
-
-              </div>
-            </Paper>
-
-          </Col>
-
-
-          <Col xs={12} md={4}>
-
-
-            <Paper elevation={5} onClick={() => {
-
-              fetch(Benjamin_File)
-                .then(r => r.text())
-                .then(text => {
-
-                  const pdfText = text;
-                  const fileName = "The Autobiography of Benjamin Franklin";
-                  history.push(`/read/benj`, { pdfText, fileName })
-                });
-
-            }}>
-
-              <div style={{
-
-                height: 400,
-
-                width: 250,
-
-                backgroundImage: `url(${"static/img/benj.jpg"})`,
-
-                backgroundSize: 'cover',
-
-                backgroundRepeat: 'no-repeat',
-
-                backgroundPosition: 'center',
-
-                borderRadius: 10
-
-
-              }
-
-              }>
-
-              </div>
-            </Paper>
-
-          </Col>
-
-
-
-        </Row>
-
-
-      </Container>
-
-
-    </div>
-
+    </Container>
 
 
   );

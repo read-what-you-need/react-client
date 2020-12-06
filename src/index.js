@@ -18,17 +18,9 @@ const Root = () => {
 
     <Router>
 
-      < div class="sidebar" >
-
-        <Link to="/" >   Home       </Link>
-
-        <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
-
-        <Link to="/faq" >   FAQ's       </Link>
-
-      </div >
-
       <Fragment>
+
+
 
         <Switch>
 
@@ -39,13 +31,13 @@ const Root = () => {
           <Route path="/faq" component={Faqs} />
 
         </Switch>
-      
+
 
 
       </Fragment>
- 
 
-    
+
+
     </Router>
 
   )
