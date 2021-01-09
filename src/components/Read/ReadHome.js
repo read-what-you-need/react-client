@@ -27,36 +27,57 @@ const ReadHome = ({ location, match }) => {
 
 
     return (
-        <Fragment>
+        <Container fluid style={{ paddingRight: 0, paddingLeft: 0 }}>
+
+            <Row>
+
+                <Col md="1">
+
+                    < div class="sidebar" >
+
+                        <Link to="/" >   Home       </Link>
+
+                        <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
+
+                        <Link to="/faq" >   FAQ's       </Link>
+
+                    </div >
+
+                </Col>
+
+                <Col md="11">
+                    <div className="App-read-page">
 
 
-            <div className="App-read-page">
+                        {/* <h1 className="read-page-header">Read what you need</h1> */}
+                        <h1 className="read-page-file-name">{fileName}</h1>
 
 
-                {/* <h1 className="read-page-header">Read what you need</h1> */}
-                <h1 className="read-page-file-name">{fileName}</h1>
+                        <SearchContextProvider sessionId={_id}>
 
 
-                <SearchContextProvider sessionId={_id}>
 
-                 
+                            <SmartSearch />
 
-                        <SmartSearch />
+                            <div style={{ height: 10 }}></div>
 
-                        <div style={{ height: 10 }}></div>
-
-                        <TopWords pdfText={pdfText} />
+                            <TopWords pdfText={pdfText} />
 
 
-                        <div style={{ height: 10 }}></div>
+                            <div style={{ height: 10 }}></div>
 
-                        <ImpLines pdfText={pdfText} />
+                            <ImpLines pdfText={pdfText} />
 
-    
-                </SearchContextProvider>
 
-            </div>
-        </Fragment>
+                        </SearchContextProvider>
+
+                    </div>
+                </Col>
+            </Row>
+
+
+
+        </Container>
     );
 }
 

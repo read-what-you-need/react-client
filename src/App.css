@@ -5,7 +5,7 @@
 
 .App-read-page {
   text-align: center; 
-  margin-left: 30px;
+  margin-left: -50px;
 }
 
 #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
@@ -378,9 +378,22 @@ div.content {
   div.content {margin-left: 0;}
 }
 
+/* for the enter button on read page */
+.top-key-words-container > .MuiIconButton-root{
+  margin-top: 20px;
+  background: rgba(239, 240, 246, 1);
+}
+
+
+
 /* Small screen sizes */
 
 @media screen and (max-width: 400px) {
+
+  .App-read-page{
+    margin-left: 0px;
+  }
+
   .sidebar a {
     text-align: center;
     float: none;
@@ -397,4 +410,48 @@ div.content {
   .Main-header {
     font-size: 36px;
   }
+
+  #main-page-demo > div {
+    height: 100;
+  }
+
+  .read-page-file-name{
+  
+    font-size: 32px;
+    margin-left: 0px;
+    margin-right: 0px;
+    word-wrap: break-word;
+   
+  }
+
+  .top-words-header{
+    margin-left: 5px;
+  }
+
+  .important-lines-header{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+
+  .top-words-header > .MuiIconButton-root{
+    padding: 5px;
+  }
+  
+  .top-key-words-container > .MuiIconButton-root {
+    padding: 5px;
+    margin-top: 25px;
+  }
+
+  /* for the enter button on read page */
+  .top-key-words-container > .MuiIconButton-root{
+    margin-top: 25px;
+    
+  }
+
+  .read-page-header {
+    font-size: 42px;
+  }
+  
+  
 }

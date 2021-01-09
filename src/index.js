@@ -21,7 +21,6 @@ const Root = () => {
       <Fragment>
 
 
-
         <Switch>
 
           <Route path="/" exact component={App} />

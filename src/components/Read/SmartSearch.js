@@ -21,7 +21,7 @@ import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
     customHoverFocus: {
-        "&.MuiIconButton-root ": {marginTop: 20, background: 'rgba(239, 240, 246, 1)'},
+        "&.MuiIconButton-root ": { marginTop: 20, background: 'rgba(239, 240, 246, 1)'},
       "&:hover, &.Mui-focusVisible": { backgroundColor: "lightgreen" }
     }
   }));
@@ -97,7 +97,7 @@ const SmartSearch = () => {
                 onKeyDown={handleKeyPress}
                 inputProps={{style: {fontSize: 24, marginLeft: 10}}}
             />
-            <IconButton className={classes.customHoverFocus} onClick={handleSubmit}>
+            <IconButton  onClick={handleSubmit}>
                 <KeyboardReturnIcon />
             </IconButton>
 

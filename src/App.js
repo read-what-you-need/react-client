@@ -44,7 +44,7 @@ const App = () => {
   console.log(typeof (timeRemaining))
   const [maintainenceStatus, setMaintainenceStatus] = useState(false)
 
-  let pdfToTextEndPoint = "https://347l7v8bif.execute-api.ap-south-1.amazonaws.com/pdftotext"
+  let pdfToTextEndPoint = "http://localhost:8890"
 
 
 

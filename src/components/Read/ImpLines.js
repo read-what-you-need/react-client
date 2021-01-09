@@ -45,7 +45,7 @@ const ImpLines = ({ pdfText }) => {
 
 
 
-    let smartSearchEndPoint = "https://347l7v8bif.execute-api.ap-south-1.amazonaws.com/ironbox"
+    let smartSearchEndPoint = "http://localhost:8891"
 
 
     
@@ -118,7 +118,7 @@ const ImpLines = ({ pdfText }) => {
 
             <Row className="important-lines-header">
                 <span >
-                    Matching Lines for <i> {state.search == '' ? '...' : state.search}</i>
+                    Matching lines for <i> {state.search == '' ? '...' : state.search}</i>
                 </span>
 
 
