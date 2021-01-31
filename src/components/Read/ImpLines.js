@@ -14,6 +14,8 @@ import { Container, Row, Col } from 'reactstrap';
 
 const ImpLines = ({ pdfText }) => {
 
+    // pdfText recieved from the db in the parent component
+
     const state = useContext(SearchContext);
 
     //console.log(state.search, ": value from search box landing 😁 ")

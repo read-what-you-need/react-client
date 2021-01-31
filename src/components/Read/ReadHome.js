@@ -16,10 +16,13 @@ import { useState } from 'react';
 const ReadHome = ({ location, match }) => {
 
     const _id = match.params._id;
+    // get from view or params from the url
 
     const { pdfText } = location.state
+    // get from db
 
     const { fileName } = location.state
+    // get from db
 
 
     // const splitText =  splitTextByNewline(pdfText)
@@ -36,6 +39,8 @@ const ReadHome = ({ location, match }) => {
                     < div class="sidebar" >
 
                         <Link to="/" >   Home       </Link>
+
+                        <Link to="/login" >   Login       </Link>
 
                         <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
 
@@ -73,7 +78,11 @@ const ReadHome = ({ location, match }) => {
 
                     </div>
                 </Col>
+
+      
             </Row>
+
+            
 
 
 

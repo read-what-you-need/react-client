@@ -324,7 +324,7 @@ margin-bottom: 20px;
   width: 100px;
   background-color: #f1f1f1;
   position: fixed;
-  height: 35%;
+  height: 45%;
   overflow: auto;
   box-shadow: inset -7px 0 9px -7px rgba(0,0,0,0.1);
 
@@ -335,10 +335,11 @@ margin-bottom: 20px;
 
 .sidebar a {
   display: block;
-  color: rgba(20, 20, 43, 0.36);
+  color: rgba(9, 9, 194, 0.36);
   padding: 16px;
   text-decoration: none;
   font-weight: 300;
+  
 }
 
 

@@ -17,6 +17,8 @@ import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-ro
 import './App.css';
 import { useEffect } from 'react';
 
+import TopDocumentsTable  from './components/TopDocumentsTable';
+
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -169,6 +171,8 @@ const App = () => {
           < div class="sidebar" >
 
             <Link to="/" >   Home       </Link>
+            
+            <Link to="/login" >   Login       </Link>
 
             <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
 
@@ -255,179 +259,195 @@ const App = () => {
 
             <Row className="main-page-examples" style={{ marginBottom: 50 }}>
 
-                <Col xs={12} md={4}>
-                  <Paper elevation={5} onClick={() => {
+              <Col xs={12} md={4}>
+                <Paper elevation={5} onClick={() => {
 
-                    fetch(Allen_File)
-                      .then(r => r.text())
-                      .then(text => {
+                  fetch(Allen_File)
+                    .then(r => r.text())
+                    .then(text => {
 
-                        const pdfText = text;
-                        const fileName = "As A Man Thinketh";
-                        history.push(`/read/think`, { pdfText, fileName })
-                      });
+                      const pdfText = text;
+                      const fileName = "As A Man Thinketh";
+                      history.push(`/read/think`, { pdfText, fileName })
+                    });
 
-                  }}>
+                }}>
 
-                    <div style={{
+                  <div style={{
 
-                      height: 300,
-
-              
-
-                      backgroundImage: `url(${"static/img/think.jpg"})`,
-
-                      backgroundSize: 'cover',
-
-                      backgroundRepeat: 'no-repeat',
-
-                      borderRadius: 10
-
-
-                    }
-
-                    }>
-
-                    </div>
-                  </Paper>
-                </Col>
-
-
-                <Col xs={12} md={4}>
-                  <Paper elevation={5} onClick={() => {
-
-                    fetch(Naval_File)
-                      .then(r => r.text())
-                      .then(text => {
-
-                        const pdfText = text;
-                        const fileName = "Almanack of Naval Ravikant";
-                        history.push(`/read/naval`, { pdfText, fileName })
-                      });
-
-                  }}>
-
-                    <div style={{
-
-                      height: 300,
-
-
-                      backgroundImage: `url(${"static/img/nava.jpg"})`,
-
-                      backgroundSize: 'cover',
-
-                      backgroundRepeat: 'no-repeat',
-
-                      borderRadius: 32
-
-
-                    }
-
-                    }>
-
-                    </div>
-                  </Paper>
-
-                </Col>
-
-
-                <Col xs={12} md={4}>
-
-                  <Paper elevation={5} onClick={() => {
-
-                    fetch(Benjamin_File)
-                      .then(r => r.text())
-                      .then(text => {
-
-                        const pdfText = text;
-                        const fileName = "The Autobiography of Benjamin Franklin";
-                        history.push(`/read/benj`, { pdfText, fileName })
-                      });
-
-                  }}>
-
-                    <div style={{
-
-                      height: 300,
-
-                     
-
-                      backgroundImage: `url(${"static/img/benj.jpg"})`,
-
-                      backgroundSize: 'cover',
-
-                      backgroundRepeat: 'no-repeat',
-
-                      backgroundPosition: 'center',
-
-                      borderRadius: 10
-
-
-                    }
-
-                    }>
-
-                    </div>
-                  </Paper>
+                    height: 300,
 
 
 
-                </Col>
+                    backgroundImage: `url(${"static/img/think.jpg"})`,
+
+                    backgroundSize: 'cover',
+
+                    backgroundRepeat: 'no-repeat',
+
+                    borderRadius: 10
+
+
+                  }
+
+                  }>
+
+                  </div>
+                </Paper>
+              </Col>
+
+
+              <Col xs={12} md={4}>
+                <Paper elevation={5} onClick={() => {
+
+                  fetch(Naval_File)
+                    .then(r => r.text())
+                    .then(text => {
+
+                      const pdfText = text;
+                      const fileName = "Almanack of Naval Ravikant";
+                      history.push(`/read/naval`, { pdfText, fileName })
+                    });
+
+                }}>
+
+                  <div style={{
+
+                    height: 300,
+
+
+                    backgroundImage: `url(${"static/img/nava.jpg"})`,
+
+                    backgroundSize: 'cover',
+
+                    backgroundRepeat: 'no-repeat',
+
+                    borderRadius: 32
+
+
+                  }
+
+                  }>
+
+                  </div>
+                </Paper>
+
+              </Col>
+
+
+              <Col xs={12} md={4}>
+
+                <Paper elevation={5} onClick={() => {
+
+                  fetch(Benjamin_File)
+                    .then(r => r.text())
+                    .then(text => {
+
+                      const pdfText = text;
+                      const fileName = "The Autobiography of Benjamin Franklin";
+                      history.push(`/read/benj`, { pdfText, fileName })
+                    });
+
+                }}>
+
+                  <div style={{
+
+                    height: 300,
+
+
+
+                    backgroundImage: `url(${"static/img/benj.jpg"})`,
+
+                    backgroundSize: 'cover',
+
+                    backgroundRepeat: 'no-repeat',
+
+                    backgroundPosition: 'center',
+
+                    borderRadius: 10
+
+
+                  }
+
+                  }>
+
+                  </div>
+                </Paper>
+
+
+
+              </Col>
 
 
 
             </Row>
 
 
-         
-              <Row>
 
-                <Col>
+            <Row style={{ marginBottom: 50 }}>
 
-                  <p className="main-page-try-before">Review</p>
+              <Col>
 
-                  <hr className="break-80" />
+                <p className="main-page-try-before">Popular documents</p>
 
-                  <a target="blank" href="https://twitter.com/jackbutcher/status/1331654590052397079">
-                    <div style={{
+                <hr className="break-80" />
+                
+                    <TopDocumentsTable />
 
-                      height: '60%',
-
-                      
-
-                      marginLeft: '5%',
-
-                      marginBottom: 50,
-
-                      backgroundImage: `url(${"static/img/jack.png"})`,
-
-               
-
-                      backgroundRepeat: 'no-repeat',
-
-                      backgroundSize: 'contain',
-         
-
-                      borderRadius: 10
+              </Col>
 
 
-                    }
+            </Row>
 
-                    }>
-                      
-                      </div>
-                      </a>
+
+            {/* <Row>
+
+              <Col>
+
+                <p className="main-page-try-before" >Review</p>
+
+                <hr className="break-80" />
+
+                <a target="blank" href="https://twitter.com/jackbutcher/status/1331654590052397079">
+                  <div style={{
+
+                    height: '60%',
 
 
 
-                    
-                 
+                    marginLeft: '5%',
 
-                </Col>
+                    marginBottom: 50,
+
+                    backgroundImage: `url(${"static/img/jack.png"})`,
 
 
-              </Row>
-           
+
+                    backgroundRepeat: 'no-repeat',
+
+                    backgroundSize: 'contain',
+
+
+                    borderRadius: 10
+
+
+                  }
+
+                  }>
+
+                  </div>
+                </a>
+
+
+
+
+
+
+              </Col>
+
+
+            </Row> */}
+
 
 
 
