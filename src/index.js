@@ -1,6 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom';
+
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 
 
 import './index.css';
@@ -10,9 +15,43 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import ReadHome from './components/Read/ReadHome.js';
+import Navbar from './components/Navbar';
 import Faqs from "./components/Faqs";
 
-const Root = () => {
+import withSession from './components/withSession';
+import Signin from './components/Auth/Signin';
+import Signup from './components/Auth/Signup';
+import Profile from './components/Profile/Profile'
+
+
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4444/graphql',
+  credentials: 'same-origin'
+});
+
+
+
+const authLink = setContext((_, { headers }) => {
+
+  const token = localStorage.getItem('token');
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+
+
+
+const Root = ({ refetch, session }) => {
 
   return (
 
@@ -21,16 +60,24 @@ const Root = () => {
       <Fragment>
 
 
+
+        <Navbar session={session} />
+
         <Switch>
 
-          <Route path="/" exact component={App} />
+          <Route path="/" exact component={() => (<App session={session} />)} />
 
-          <Route path="/read/:_id" component={ReadHome} />
+          <Route path="/read/:_id" render={(props) => <ReadHome session={session} props={props}/>}/>
+
+          <Route path="/login" render={() => <Signin refetch={refetch} />} />
+
+          <Route path="/signup" render={() => <Signup refetch={refetch} />} />
+
+          <Route path="/profile" render={() => <Profile session={session} />} />
 
           <Route path="/faq" component={Faqs} />
 
         </Switch>
-
 
 
       </Fragment>
@@ -43,10 +90,16 @@ const Root = () => {
 
 };
 
+const RootWithSession = withSession(Root);
+
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <ApolloHooksProvider client={client}>
+      <RootWithSession />
+    </ApolloHooksProvider>
+  </ ApolloProvider>,
   document.getElementById('root')
 );
 

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 
+import Navbar from './Navbar';
+
 
 const Faqs = () => {
     return (
@@ -13,15 +15,7 @@ const Faqs = () => {
 
                 <Col md="2">
 
-                    < div class="sidebar" >
-
-                        <Link to="/" >   Home       </Link>
-
-                        <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
-
-                        <Link to="/faq" >   FAQ's       </Link>
-
-                    </div >
+                 
 
                 </Col>
 
@@ -98,7 +92,7 @@ const Faqs = () => {
 
                     </div>
                 </Col>
-                </Row>
+            </Row>
 
         </Container>
 

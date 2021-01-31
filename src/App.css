@@ -19,6 +19,13 @@ margin-bottom: 20px;
 }
 
 
+.instruction-below-header-main-page {
+  font-size: 18px;
+  font-style: italic;
+  color:  rgba(20, 20, 43, 0.36);
+  margin-bottom: 30px;
+}
+
 .journey-interest {
   margin-top: 30px;
   color: rgba(0, 0, 0, 0.5);
@@ -35,6 +42,11 @@ margin-bottom: 20px;
     margin-bottom: 10px;
     }
 
+.prediction-content:hover{
+  color:darkgreen;
+
+  text-decoration: underline;
+}
 
 .sub-header {
 
@@ -56,6 +68,31 @@ margin-bottom: 20px;
   color: lightcoral;
  
 }
+
+.signin-form {
+
+  text-align: center;
+
+
+}
+
+.signup-form {
+
+  text-align: center;
+ 
+  
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 10px;
+  
+}
+
+
 
 .Main-header{
   font-weight: 500;
@@ -319,6 +356,7 @@ margin-bottom: 20px;
 
 
 .sidebar {
+  z-index: 1;
   margin: 0;
   padding: 0;
   width: 100px;
@@ -335,7 +373,7 @@ margin-bottom: 20px;
 
 .sidebar a {
   display: block;
-  color: rgba(9, 9, 194, 0.36);
+  color: rgba(0, 0, 0, 0.36);
   padding: 16px;
   text-decoration: none;
   font-weight: 300;
@@ -389,7 +427,7 @@ div.content {
 
 /* Small screen sizes */
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
 
   .App-read-page{
     margin-left: 0px;
@@ -402,6 +440,7 @@ div.content {
 
   .sidebar {
     height: 200px;
+    height: 40%;
   }
 
   .btn-grad-container .MuiButton-root {

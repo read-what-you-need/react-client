@@ -19,11 +19,11 @@ const useStyles = makeStyles({
   }
   
   const rows = [
-    createData(1,'Frozen yoghurt', 159, 6.0, '22nd Jan, 2021', 4.0),
-    createData(2,'Ice cream sandwich', 237, 9.0, '24th Jan, 2021', 4.3),
-    createData(3,'Eclair', 262, 16.0, '24th Jan, 2021', 6.0),
-    createData(4,'Cupcake', 305, 3.7, '25th Jan, 2021', 4.3),
-    createData(5,'Gingerbread', 356, 16.0, '27th Jan, 2021', 3.9),
+    createData(1,'Frozen yoghurt', 159, 'Jack', '22nd Jan, 2021', 4.0),
+    createData(2,'Ice cream sandwich', 237,  'Jack','24th Jan, 2021', 4.3),
+    createData(3,'Eclair', 262, 'Jack', '24th Jan, 2021', 6.0),
+    createData(4,'Cupcake', 305, 'Jack', '25th Jan, 2021', 4.3),
+    createData(5,'Gingerbread', 356, 'Jack', '27th Jan, 2021', 3.9),
   ];
 
 
@@ -40,6 +40,7 @@ const TopDocumentsTable = () => {
     <TableCell >No.</TableCell>
       <TableCell >Title</TableCell>
       <TableCell align="right">Visits</TableCell>
+      <TableCell align="right">User</TableCell>
       <TableCell align="right">Date&nbsp;Uploaded</TableCell>
       
     </TableRow>
@@ -52,6 +53,7 @@ const TopDocumentsTable = () => {
         </TableCell>
         <TableCell >{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>
+        <TableCell align="right">{row.carbs}</TableCell>
         <TableCell align="right">{row.protein}</TableCell>
       </TableRow>
     ))}

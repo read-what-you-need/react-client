@@ -68,10 +68,9 @@ const ImpLineItems = ({ content, score, itemNo }) => {
                                         setQuestionLoading('false')
                                         console.log(res.data)
 
-                                        var question = res.data['result'].slice(16,).slice(0, -4)
                                         // trimming the element padding in the beginning and the ending
-                                        
-                                        
+                                        var question = res.data['result'].slice(16,).slice(0, -4)
+                                                                              
                                         state.setSearch(question);
                         
                                     }).catch(function (error) {

@@ -1,12 +1,13 @@
 import React, { useState, Fragment } from 'react';
 
 
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-
-import FileBase64 from './Base64'
-
 import { useHistory } from 'react-router-dom'
+
+import TopDocumentsTable from './components/TopDocumentsTable';
+import UploadButton from './components/Read/UploadButton';
+
+
+
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -17,12 +18,11 @@ import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-ro
 import './App.css';
 import { useEffect } from 'react';
 
-import TopDocumentsTable  from './components/TopDocumentsTable';
 
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import { makeStyles } from '@material-ui/core/styles';
+
 
 // https://github.com/ndresx/react-countdown
 import Countdown from 'react-countdown';
@@ -31,135 +31,27 @@ import Naval_File from './components/Read/txt/naval.txt'
 import Benjamin_File from './components/Read/txt/benjamin.txt'
 import Allen_File from './components/Read/txt/think.txt'
 
-const App = () => {
+const App = ({ session }) => {
 
   const history = useHistory();
 
+
+
+
+  console.log('from app page', session)
+
   const [selectedFile, setSelectedFile] = useState(null);
-  const [pdfText, setPdfText] = useState('');
-
-  const [textLoading, setTextLoading] = useState(null);
-  const [fileName, setFileName] = useState(null);
-  const [fileSize, setFileSize] = useState(null)
-
-  const timeRemaining = Date.parse("Thu Dec 26 2020 05:09:04 GMT+0530 (India Standard Time)") - Date.now();
-  console.log(typeof (timeRemaining))
-  const [maintainenceStatus, setMaintainenceStatus] = useState(false)
-
-  let pdfToTextEndPoint = "http://localhost:8890"
-
-
-
-  // const getFiles = (files) => {
-
-  //   //console.log(uuidv4(), typeof (uuidv4()));
-
-  //   var pdfByteString = files['base64'].slice(28)
-
-  //   setSelectedFile(pdfByteString)
-
-  //   //console.log(pdfByteString)
-  // }
-
-
-  useEffect(() => {
-
-    if (textLoading === false) {
-      history.push(`/read/` + uuidv4(), { pdfText, fileName })
-    }
-
-  }, [textLoading]);
-
-
-  const onChangeHandler = event => {
-
-    //console.log(event.target.files[0])
-
-    setSelectedFile(event.target.files[0])
-    setFileSize(Math.floor(event.target.files[0].size / 1000000))
-    setFileName(event.target.files[0].name.replace('.pdf', ''))
-
-  }
-
-
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  }
-
-
-  let axiosPayload = {
-
-    "pdf": selectedFile
-
-  }
-
-
-
-  const onSubmitClickHandler = () => {
-
-    setTextLoading(true);
-
-    const data = new FormData()
-    data.append('pdf-file', selectedFile)
-
-    //console.log(data, 'clicked for upload')
-
-    axios.post(
-      pdfToTextEndPoint,
-      data,
-      axiosConfig
-
-    )
-      .then(res => {
-
-        //console.log(res.statusText, res.data, typeof (res.data))
-
-        setPdfText(res.data)
-        setTextLoading(false);
-
-      }).catch(function (error) {
-        //console.log(error);
-      });
-
-
-
-  }
-
-  const UploadIcon = () => (
-
-    <div style={{ marginLeft: 10 }}>
-      <img style={{ width: 32 }} src="static/img/upload.png" alt="upload" />
-    </div>
-
-  )
 
 
   const classes = useStyles();
   const [openLoaderModal, setOpenLoaderModal] = React.useState(false);
 
-  const timerRenderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      setMaintainenceStatus(true)
-      return <div></div>;
-    } else {
-      // Render a countdown
-      return <div>
-        <span>Live for the next </span>
-        {hours === 0 ? null : <span>{hours} hours </span>}
-        {minutes === 0 ? null : <span>{minutes} minutes </span>}
-        {seconds === 0 ? null : <span>{seconds} seconds </span>}
-      </div>;
-    }
 
 
-  };
+
+
 
   return (
-
-
-
 
 
     <Container fluid style={{ paddingRight: 0, paddingLeft: 0 }}>
@@ -168,87 +60,21 @@ const App = () => {
 
         <Col md="2">
 
-          < div class="sidebar" >
 
-            <Link to="/" >   Home       </Link>
-            
-            <Link to="/login" >   Login       </Link>
-
-            <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
-
-            <Link to="/faq" >   FAQ's       </Link>
-
-          </div >
 
         </Col>
 
 
         <Col md="8">
 
-          {!maintainenceStatus && <Container className="App">
+          <Container className="App">
 
             <h1 className="Main-header">Read what you need </h1>
 
-            {/* To get the next nth hour time */}
-            {/* https://stackoverflow.com/a/1051641 */}
-            {/* <div className="sub-header-timer">
-              <Countdown
-                date={1607017898000}
-                renderer={timerRenderer}
-              />
-            </div> */}
 
-
-
-
-
-
-            <div className="btn-grad-container" >
-
-
-              <Button variant="contained" component="label" endIcon={<UploadIcon />}>
-                Upload PDF File
-          <input
-                  accept=".pdf"
-                  type="file"
-                  onChange={onChangeHandler}
-
-                  style={{ display: "none" }}
-                />
-
-              </Button>
-              <br />
-              {!selectedFile && <span className="upload-limit-notice">*max upload file size 12 MB</span>}
-              <br />
-
-
-            </div>
-
-            {fileSize > 12 && <span className="upload-limit-notice">please upload a file with a size smaller than 12 MB</span>}
-
-            <div>
-              {
-                selectedFile && fileSize <= 12 &&
-
-                <Button style={{ marginTop: 20 }} variant="contained" component="label"
-                  onClick={onSubmitClickHandler}
-
-                >
-                  Submit
-        </Button>
-
-              }
-
-              <Backdrop className={classes.backdrop} open={textLoading} >
-                <CircularProgress color="inherit" />
-              </Backdrop>
-
-
-
-
-            </div>
-
-
+            {session && session.getCurrentUser ? null : 
+            
+            <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>}
 
 
             <p className="main-page-try-before">Try the AI in action</p>
@@ -388,11 +214,11 @@ const App = () => {
 
               <Col>
 
-                <p className="main-page-try-before">Popular documents</p>
+                <p className="main-page-try-before">Popular uploads</p>
 
                 <hr className="break-80" />
-                
-                    <TopDocumentsTable />
+
+                <TopDocumentsTable />
 
               </Col>
 
@@ -404,7 +230,7 @@ const App = () => {
 
               <Col>
 
-                <p className="main-page-try-before" >Review</p>
+                <p className="main-page-try-before" >What friends are saying</p>
 
                 <hr className="break-80" />
 
@@ -453,43 +279,47 @@ const App = () => {
 
           </Container>
 
-          }
 
-          {maintainenceStatus && <div className="App">
+          {/* The below snippet can be used if the site is down, for any reason */}
 
-            <h1 className="Main-header">Read what you need</h1>
+          {/* 
+        
+        <div className="App">
 
-            <h1 className="sub-header">Thank you for your interest. <i class="twa twa-slightly-smiling-face"></i></h1>
+          <h1 className="Main-header">Read what you need</h1>
 
-            <h1 className="sub-header" >The site is currently down for maintainence <i class="twa twa-hammer-and-wrench"></i></h1>
+          <h1 className="sub-header">Thank you for your interest. <i class="twa twa-slightly-smiling-face"></i></h1>
 
-            <Col >
+          <h1 className="sub-header" >The site is currently down for maintainence <i class="twa twa-hammer-and-wrench"></i></h1>
 
-              <h1 className="sub-header">If you want to know when the site will be live next time.</h1>
+          <Col >
 
-              <div className="btn-grad-container-journey" >
+            <h1 className="sub-header">If you want to know when the site will be live next time.</h1>
 
-
-
-                <a style={{ textDecoration: 'none' }} target="blank" href="http://forms.gle/3kC9Rz6piAHptxS6A">
-                  <Button variant="contained" component="label" >
-                    Update me!
-      </Button>
-                </a>
-
-              </div>
+            <div className="btn-grad-container-journey" >
 
 
-            </Col>
 
-          </div>
-          }
+              <a style={{ textDecoration: 'none' }} target="blank" href="http://forms.gle/3kC9Rz6piAHptxS6A">
+                <Button variant="contained" component="label" >
+                  Update me!
+                </Button>
+              </a>
+
+            </div>
+
+
+          </Col>
+
+        </div> */}
+
 
         </Col>
 
         <Col md="2">
 
         </Col>
+
       </Row>
 
 
@@ -498,6 +328,7 @@ const App = () => {
 
   );
 }
+
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {

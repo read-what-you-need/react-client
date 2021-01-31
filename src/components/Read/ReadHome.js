@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import TopWords from './TopWords'
 import ImpLines from './ImpLines'
 
+import Navbar from './../Navbar';
+
+
 import Discover from './Discover'
 
 
@@ -13,15 +16,16 @@ import { useState } from 'react';
 
 
 
-const ReadHome = ({ location, match }) => {
+const ReadHome = ({  session, props }) => {
 
-    const _id = match.params._id;
+
+    const _id = props.match.params._id;
     // get from view or params from the url
 
-    const { pdfText } = location.state
+    const { pdfText } = props.location.state
     // get from db
 
-    const { fileName } = location.state
+    const { fileName } = props.location.state
     // get from db
 
 
@@ -36,17 +40,7 @@ const ReadHome = ({ location, match }) => {
 
                 <Col md="1">
 
-                    < div class="sidebar" >
-
-                        <Link to="/" >   Home       </Link>
-
-                        <Link to="/login" >   Login       </Link>
-
-                        <a target="blank" href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
-
-                        <Link to="/faq" >   FAQ's       </Link>
-
-                    </div >
+                <Navbar session={session} />
 
                 </Col>
 
