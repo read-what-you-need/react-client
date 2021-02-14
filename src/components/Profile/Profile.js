@@ -1,6 +1,6 @@
 import React from 'react';
 import UserInfo from './UserInfo';
-
+import TopDocumentsTableDynamic from './../TopDocumentsTableDynamic';
 
 import { Container, Row, Col } from 'reactstrap';
 
@@ -21,18 +21,18 @@ const Profile = ({ session }) => {
 
             <Row>
 
-                <Col md="1">
+                <Col md="2">
 
 
 
                 </Col>
 
-                <Col md="10">
+                <Col md="9">
 
                     <UserInfo session={session} />
              
 
-                    <UploadButton/>
+                    <UploadButton session={session}/>
 
                
                     <hr />
@@ -42,7 +42,11 @@ const Profile = ({ session }) => {
 
                     
 
-                    <h5>Your activuty</h5>
+                    <h4>Your Files</h4>
+
+                    <br/>
+
+                    <TopDocumentsTableDynamic session={session}/>
 
                 </Col>
 

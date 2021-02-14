@@ -4,33 +4,42 @@ import axios from 'axios';
 
 import { SearchContext } from './../SearchContextMangement';
 
-import { Progress } from 'react-sweet-progress';
-import "react-sweet-progress/lib/style.css";
+
 import { Container, Row, Col } from 'reactstrap';
 
+import { makeStyles } from '@material-ui/core/styles';
 
-function getStatus(percentage) {
-    if (percentage > 74) {
-        return "success"
-    } else if (percentage > 56 && percentage < 75) {
-        return "default"
-    } else if (percentage < 57 && percentage > 51) {
-        return "active"
-    } else {
-        return "error"
-    }
-}
+import IconButton from '@material-ui/core/IconButton';
+import { Icon } from '@material-ui/core';
+
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
 
 
 
-const ImpLineItems = ({ content, score, itemNo }) => {
 
+
+
+
+const ImpLineItems = ({ session, uuid, content, score, itemNo }) => {
+
+    let questionGeneratorEndPoint = "http://localhost:8893"
+
+    let bookMarkManagerEndPoint = 'http://localhost:4444/api/v2/setBookmark'
 
     // //console.log(content)
     const state = useContext(SearchContext);
 
     const [questionLoading, setQuestionLoading] = useState(null);
-    
+    const [bookMarkStatus, setBookMark] = useState(false);
+
+    const [userLoginStatus, setUserLoginStatus] = useState(session.getCurrentUser ? true : false)
 
     var score = parseFloat(score)
     // //console.log(score)
@@ -47,46 +56,81 @@ const ImpLineItems = ({ content, score, itemNo }) => {
 
     let axiosPayload = {
 
-        "context": content,
-        "answer": ""
+        "text": content
+
 
     }
-    
-    let questionGeneratorEndPoint = "http://localhost:8892"
+
+    console.log('search query present:', state.search)
 
     const handleGetQuestionRequest = () => {
         console.log(content)
 
-                                setQuestionLoading('true')
+        setQuestionLoading(true)
 
-                                axios.post(
-                                    questionGeneratorEndPoint,
-                                    axiosPayload,
-                                    axiosConfig
-                                )
-                                    .then(res => {
-                                        setQuestionLoading('false')
-                                        console.log(res.data)
+        axios.post(
+            questionGeneratorEndPoint,
+            axiosPayload,
+            axiosConfig
+        )
+            .then(res => {
+                setQuestionLoading(false)
+                console.log(res.data)
 
-                                        // trimming the element padding in the beginning and the ending
-                                        var question = res.data['result'].slice(16,).slice(0, -4)
-                                                                              
-                                        state.setSearch(question);
-                        
-                                    }).catch(function (error) {
-                                        //console.log(error);
-                                    });
+                var question = res.data
+
+                state.setSearch(question);
+
+            }).catch(function (error) {
+                //console.log(error);
+            });
     }
 
-    return (
-        <Row style={{ marginBottom: 20 }}>
+    const handleBookmarkClick = () => {
+        console.log('bokmark')
+        setBookMark(!bookMarkStatus)
+        fetch(bookMarkManagerEndPoint, {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                'uuid': uuid,
+                 'line': content,
+                 'query': state.search 
 
-            <Col xs={12}>
-                <p className="prediction-content"   
-                onClick={handleGetQuestionRequest}>
+            })
+         }).then(data => {
+            console.log(data)
+
+        })
+        .catch(error => {
+            console.error(error + ' in setting bookmark for file');
+        });;
+
+
+    }
+
+
+
+    const classes = useStyles();
+
+
+    return (
+        <Row className="match-line-box">
+
+            <Col xs={11}>
+                <p className="prediction-content"
+                    onClick={handleGetQuestionRequest}>
                     <span style={{ color: 'darkgrey' }}>{itemNo + 1}. </span> {content}
                 </p>
             </Col>
+
+            {userLoginStatus && <Col xs={1} style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 5 }}>
+                <IconButton onClick={handleBookmarkClick}>
+                    {bookMarkStatus ?
+                        <BookmarkIcon style={{ opacity: 0.5, color: 'green' }} /> :
+                        <BookmarkBorderIcon style={{ opacity: 0.5 }} />}
+                </IconButton>
+            </Col>}
 
             <Col xs={12}>
 
@@ -94,7 +138,7 @@ const ImpLineItems = ({ content, score, itemNo }) => {
                     theme={
                         {
                             error: {
-                                symbol: IntScore + '😱',
+                                symbol: IntScore + '🤕',
                                 trailColor: 'pink',
                                 color: 'red'
                             },
@@ -115,14 +159,50 @@ const ImpLineItems = ({ content, score, itemNo }) => {
                             }
                         }
                     }
-                    style={{ marginLeft: 10, marginRight: 20, width: '98%' }} percent={IntScore} status={getStatus(IntScore)} />
+                    style={{ marginLeft: 10, marginRight: 20, width: '97.6%' }} percent={IntScore} status={getStatus(IntScore)} />
             </Col>
 
             <hr />
 
+            <Backdrop className={classes.backdrop} open={questionLoading} >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+
+
         </Row>
+
 
     );
 }
+
+
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+    noPadding: {
+        margin: '0',
+    },
+    padded: {
+        margin: '12px 0',
+    },
+}));
+
+
+function getStatus(percentage) {
+    if (percentage > 74) {
+        return "success"
+    } else if (percentage > 56 && percentage < 75) {
+        return "default"
+    } else if (percentage < 57 && percentage > 43) {
+        return "active"
+    } else {
+        return "error"
+    }
+}
+
+
 
 export default ImpLineItems;

@@ -1,9 +1,8 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TopWords from './TopWords'
 import ImpLines from './ImpLines'
 
-import Navbar from './../Navbar';
 
 
 import Discover from './Discover'
@@ -12,21 +11,38 @@ import Discover from './Discover'
 import { Container, Row, Col } from 'reactstrap';
 import SmartSearch from './SmartSearch';
 import { SearchContextProvider } from './SearchContextMangement';
-import { useState } from 'react';
+import UnderProcess from './UnderProcess';
+
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+    GET_FILE_DETAILS
+} from './../../queries';
 
 
 
-const ReadHome = ({  session, props }) => {
 
+const ReadHome = ({ session, props }) => {
 
-    const _id = props.match.params._id;
     // get from view or params from the url
+    const _id = props.match.params._id;
+    
 
-    const { pdfText } = props.location.state
-    // get from db
+    const [fileProcessStatus, setfileProcessStatus] = useState(true);
+    const [fileName, setFileName] = useState('');
 
-    const { fileName } = props.location.state
-    // get from db
+
+    // redis cache implement here
+    const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
+        GET_FILE_DETAILS, {
+        variables: { uuid: _id }, onCompleted(data) {
+            var res = Object(queryData.getFileDetails)
+            setfileProcessStatus(res['processStatus'])
+            setFileName(res['name'])
+        }
+    }
+
+    );
+
 
 
     // const splitText =  splitTextByNewline(pdfText)
@@ -38,21 +54,20 @@ const ReadHome = ({  session, props }) => {
 
             <Row>
 
-                <Col md="1">
+                <Col md="2">
 
-                <Navbar session={session} />
 
                 </Col>
 
-                <Col md="11">
+                <Col md="10">
                     <div className="App-read-page">
 
 
                         {/* <h1 className="read-page-header">Read what you need</h1> */}
                         <h1 className="read-page-file-name">{fileName}</h1>
+                        
 
-
-                        <SearchContextProvider sessionId={_id}>
+                        {fileProcessStatus ? <SearchContextProvider sessionId={_id}>
 
 
 
@@ -60,23 +75,25 @@ const ReadHome = ({  session, props }) => {
 
                             <div style={{ height: 10 }}></div>
 
-                            <TopWords pdfText={pdfText} />
+                            <TopWords uuid={_id} />
 
 
                             <div style={{ height: 10 }}></div>
 
-                            <ImpLines pdfText={pdfText} />
+                            <ImpLines uuid={_id} session={session} />
 
 
-                        </SearchContextProvider>
+                        </SearchContextProvider> : <UnderProcess/>}
+
+
 
                     </div>
                 </Col>
 
-      
+
             </Row>
 
-            
+
 
 
 

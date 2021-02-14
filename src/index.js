@@ -15,13 +15,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import ReadHome from './components/Read/ReadHome.js';
-import Navbar from './components/Navbar';
+import Navbar from './components/Nav/Navbar';
+import TestNav from './TestNav';
 import Faqs from "./components/Faqs";
 
 import withSession from './components/withSession';
 import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import Profile from './components/Profile/Profile'
+
 
 
 
@@ -51,44 +53,48 @@ const client = new ApolloClient({
 
 
 
+
 const Root = ({ refetch, session }) => {
 
   return (
 
     <Router>
 
-      <Fragment>
+
+      <Navbar session={session} />
+
+      <Switch>
 
 
 
-        <Navbar session={session} />
+        <Route path="/test" exact component={() => (<TestNav />)} />
 
-        <Switch>
+        <Route path="/" exact component={() => (<App session={session} />)} />
 
-          <Route path="/" exact component={() => (<App session={session} />)} />
+        <Route path="/read/:_id" render={(props) => <ReadHome session={session} props={props} />} />
 
-          <Route path="/read/:_id" render={(props) => <ReadHome session={session} props={props}/>}/>
+        <Route path="/login" render={() => <Signin refetch={refetch} />} />
 
-          <Route path="/login" render={() => <Signin refetch={refetch} />} />
+        <Route path="/signup" render={() => <Signup refetch={refetch} />} />
 
-          <Route path="/signup" render={() => <Signup refetch={refetch} />} />
+        <Route path="/profile" render={() => <Profile session={session} />} />
 
-          <Route path="/profile" render={() => <Profile session={session} />} />
+        <Route path="/faq" component={Faqs} />
 
-          <Route path="/faq" component={Faqs} />
-
-        </Switch>
+      </Switch>
 
 
-      </Fragment>
 
 
 
     </Router>
 
+
+
   )
 
 };
+
 
 const RootWithSession = withSession(Root);
 

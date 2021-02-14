@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 
-import Navbar from './Navbar';
+import Navbar from './Nav/Navbar';
 
 
 const Faqs = () => {
@@ -19,7 +19,7 @@ const Faqs = () => {
 
                 </Col>
 
-                <Col md="8">
+                <Col md="9">
                     <div className="App">
 
                         <span className="read-page-header">Frequently Asked Questions <i class="twa twa-slightly-smiling-face"></i></span>

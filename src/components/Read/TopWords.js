@@ -22,26 +22,14 @@ import Button from '@material-ui/core/Button';
 import YourLogo from './../../shuffle.svg'
 
 import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles({
-    root: {
-        marginRight: 20,
-        marginBottom: 30,
-        marginTop: 15,
-
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: 400,
-        fontStyle: 'italic'
-    },
-});
 
 
 
-const TopWords = ({ pdfText }) => {
 
-    ////console.log(pdfText)
+const TopWords = ({ uuid }) => {
 
+    let topWordsDataEndPoint = 'http://localhost:4444/api/v2/topWords/'+ uuid
+    
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);
 
@@ -56,55 +44,36 @@ const TopWords = ({ pdfText }) => {
 
 
 
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'text/json'
-        }
-    }
-
-    let axiosPayload = {
-
-        "body": pdfText
-    }
-
-    ////console.log(Object.entries(topN).length, 'len of the objject')
-
 
     useEffect(() => {
 
         setTextLoading(true);
 
-        axios.post(
+        // redis cache implement here
+        fetch(topWordsDataEndPoint)
+            .then(res => {
+                console.log(res, res.data)
+                return res.json()
+            })
+            .then(data => {
+                //console.log(data)
 
-            "https://eebepu2tvj.execute-api.ap-south-1.amazonaws.com/topN",
+                setTopN(data)
+                setTextLoading(false)
 
-            axiosPayload,
+                var firstTopWord = Object.entries(data)[0][0];
 
-            axiosConfig
-
-        ).then(res => {
-
-            ////console.log(res.statusText, res.data)
-
-            setTopN(res.data)
-
-            setTextLoading(false);
-
-            var firstTopWord = Object.entries(res.data)[0][0];
-
-            state.setSearch(firstTopWord);
+                state.setSearch(firstTopWord);
 
 
-            setRandomWordsSegment(WordsSegment(res.data));
+                setRandomWordsSegment(WordsSegment(data));
 
-            //discoverState.setTopWordsSegment(slicedTopN);
+            
 
-        }).catch(function (error) {
-
-            //console.log(error);
-
-        });
-
+            })
+            .catch(error => {
+                console.error(error + ' in fetching data topNwords.json file');
+            });
 
 
     }, []);
@@ -291,6 +260,19 @@ const TopWords = ({ pdfText }) => {
     );
 }
 
+const useStyles = makeStyles({
+    root: {
+        marginRight: 20,
+        marginBottom: 30,
+        marginTop: 15,
+
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: 400,
+        fontStyle: 'italic'
+    },
+});
 
 function SliceObject(obj, start, end) {
     let slicedObj = []

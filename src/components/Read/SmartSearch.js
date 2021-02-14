@@ -19,40 +19,6 @@ import { useEffect } from 'react';
 
 
 
-const useStyles = makeStyles(theme => ({
-    customHoverFocus: {
-        "&.MuiIconButton-root ": { marginTop: 20, background: 'rgba(239, 240, 246, 1)'},
-      "&:hover, &.Mui-focusVisible": { backgroundColor: "lightgreen" }
-    }
-  }));
-
-
-const CssTextField = withStyles({
-    root: {
-        background: 'rgba(239, 240, 246, 1)',
-        margin: 15,
-        width: '70%',
-        borderRadius: 16,
-        '& label.Mui-focused': {
-            color: 'green',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'green',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: '#f0e8e878',
-                borderRadius: 16
-            },
-            '&:hover fieldset': {
-                borderColor: '#ffffff'
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: 'black',
-            },
-        },
-    }
-})(TextField);
 
 
 const SmartSearch = () => {
@@ -107,5 +73,41 @@ const SmartSearch = () => {
         </Container >
     );
 }
+
+const useStyles = makeStyles(theme => ({
+    customHoverFocus: {
+        "&.MuiIconButton-root ": { marginTop: 20, background: 'rgba(239, 240, 246, 1)'},
+      "&:hover, &.Mui-focusVisible": { backgroundColor: "lightgreen" }
+    }
+  }));
+
+
+const CssTextField = withStyles({
+    root: {
+        background: 'rgba(239, 240, 246, 1)',
+        margin: 15,
+        width: '70%',
+        borderRadius: 16,
+        '& label.Mui-focused': {
+            color: 'green',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'green',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#f0e8e878',
+                borderRadius: 16
+            },
+            '&:hover fieldset': {
+                borderColor: '#ffffff'
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'black',
+            },
+        },
+    }
+})(TextField);
+
 
 export default SmartSearch;

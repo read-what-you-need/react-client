@@ -8,6 +8,14 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 
+import { useMutation, useQuery } from "@apollo/react-hooks";
+
+import {
+    ADD_FILE,
+} from '../../queries';
+
+
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,57 +26,115 @@ import { Container } from '@material-ui/core';
 
 
 /** 
-  - generate uuid on upload button click
-  - create a mongo document
-    - id is uuid
-    - file name
+  - generate uuid on upload button click ✅
+  - create a mongo document ✅
+    - id is uuid 
+    - file metdata
     - user
     - upload time
     - processed: false
-  - call ironbox1
+  - call pdftotext ✅
+    - get text file
+  - show user files table ✅
+  - call ironbox1 ✅
     - send text file, uuid
 **/
 
 
 
-const UploadButton = () => {
+const UploadButton = ({ session }) => {
 
     let pdfToTextEndPoint = "http://localhost:8890"
+
+    let generateEmbeddingsEndPoint = ""
 
 
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [pdfText, setPdfText] = useState('');
 
-    const [textLoading, setTextLoading] = useState(null);
-    const [fileName, setFileName] = useState(null);
-    const [fileSize, setFileSize] = useState(null)
+    const [errResponse, setErrResponse] = useState(false);
 
+    const [uuidState, setUuidState] = useState();
+
+    const [textLoading, setTextLoading] = useState(null);
+    const [fileDetails, setFileDetails] = useState(null);
+
+    const [fileSize, setFileSize] = useState(null);
+    const [fileName, setFileName] = useState(null);
+
+
+    const [addFile,
+        { data: FileMutatedata,
+            loading: FileMutateLoading,
+            error: FileMutateError }] = useMutation(ADD_FILE);
+
+
+
+
+
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+    }
+
+
+    let axiosPayload = {
+
+        "pdf": selectedFile
+
+    }
 
     const onSubmitClickHandler = () => {
 
         setTextLoading(true);
 
+
+
+        console.log(selectedFile, 'after upload button')
+
+
+
+
         const data = new FormData()
         data.append('pdf-file', selectedFile)
-
+        data.append('uuid', uuidState)
         //console.log(data, 'clicked for upload')
 
         axios.post(
             pdfToTextEndPoint,
             data,
             axiosConfig
-
         )
-            .then(res => {
+            .then(response => {
 
-                //console.log(res.statusText, res.data, typeof (res.data))
-
-                setPdfText(res.data)
+                console.log(response.statusText, response.data)
                 setTextLoading(false);
 
+            }).then(() => {
+                // if received job id then add into mongo document
+                // send to Mongo db, file uploaded related details
+                console.log(fileName, fileSize)
+                addFile({
+                    variables: {
+                        uuid: uuidState.toString(),
+                        name: fileName,
+                        size: fileSize,
+                        metaData: JSON.stringify(fileDetails),
+                        uploadedBy: session.getCurrentUser.username
+                    }
+                }).catch(function (error) {
+                    console.log('failed to store file details in mongodb')
+                    setTextLoading(false);
+                    setErrResponse('Error in uploading file details.')
+                });
+
+
             }).catch(function (error) {
-                //console.log(error);
+                console.log('did not recieve job id from pdftotext api')
+                setTextLoading(false);
+                setErrResponse('Pdf file not uploaded. Error in processing file')
             });
 
 
@@ -84,11 +150,25 @@ const UploadButton = () => {
     )
 
 
-    const onChangeHandler = event => {
+    const onSelectFileHandler = event => {
 
         //console.log(event.target.files[0])
 
+        setUuidState(uuidv4());
+
+
         setSelectedFile(event.target.files[0])
+        console.log(selectedFile, typeof (selectedFile))
+
+        let fileMeta = {
+            name: event.target.files[0].name,
+            size: event.target.files[0].size,
+            type: event.target.files[0].type,
+            modifiedDate: event.target.files[0].lastModified
+        }
+
+        setFileDetails(fileMeta)
+
         setFileSize(Math.floor(event.target.files[0].size / 1000000))
         setFileName(event.target.files[0].name.replace('.pdf', ''))
 
@@ -96,28 +176,17 @@ const UploadButton = () => {
 
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (textLoading === false) {
-            history.push(`/read/` + uuidv4(), { pdfText, fileName })
-        }
+    //     if (textLoading === false) {
+    //         history.push(`/read/` + uuidv4(), { pdfText, fileName })
+    //     }
 
-    }, [textLoading]);
-
-
-
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    }
+    // }, [textLoading]);
 
 
-    let axiosPayload = {
 
-        "pdf": selectedFile
 
-    }
 
     const classes = useStyles();
 
@@ -135,7 +204,7 @@ const UploadButton = () => {
                     <input
                         accept=".pdf"
                         type="file"
-                        onChange={onChangeHandler}
+                        onChange={onSelectFileHandler}
 
                         style={{ display: "none" }}
                     />
@@ -154,14 +223,19 @@ const UploadButton = () => {
                 {
                     selectedFile && fileSize <= 50 &&
 
-                    <Button style={{ marginTop: 20 }} variant="contained" component="label"
+                    <Button style={{ marginTop: 5, marginBottom:20 }} variant="contained" component="label"
                         onClick={onSubmitClickHandler}
 
                     >
                         Submit
                     </Button>
-
                 }
+                {/* {FileMutateLoading && <p>Loading...</p>} */}
+                
+
+
+                {errResponse != false ? <h6 style={{fontWeight : 300, color: 'red'}}>{errResponse}</h6> : null}
+
 
                 <Backdrop className={classes.backdrop} open={textLoading} >
                     <CircularProgress color="inherit" />

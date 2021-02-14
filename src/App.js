@@ -54,7 +54,7 @@ const App = ({ session }) => {
   return (
 
 
-    <Container fluid style={{ paddingRight: 0, paddingLeft: 0 }}>
+    <Container  style={{ paddingRight: 0, paddingLeft: 0 }}>
 
       <Row>
 
@@ -65,7 +65,7 @@ const App = ({ session }) => {
         </Col>
 
 
-        <Col md="8">
+        <Col md="9">
 
           <Container className="App">
 
@@ -316,9 +316,7 @@ const App = ({ session }) => {
 
         </Col>
 
-        <Col md="2">
-
-        </Col>
+     
 
       </Row>
 

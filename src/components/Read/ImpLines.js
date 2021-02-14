@@ -12,8 +12,12 @@ import Chip from '@material-ui/core/Chip';
 import { Container, Row, Col } from 'reactstrap';
 
 
-const ImpLines = ({ pdfText }) => {
+const ImpLines = ({ uuid, session }) => {
 
+
+    let smartSearchEndPoint = "http://localhost:8891"
+
+    
     // pdfText recieved from the db in the parent component
 
     const state = useContext(SearchContext);
@@ -39,45 +43,40 @@ const ImpLines = ({ pdfText }) => {
 
     let axiosPayload = {
 
-        "corpus": pdfText, "text": state.search, "top": resultsCount,
+        "uuid": uuid, "text": state.search,
 
-        "sessionId": state.sessionId, "accuracyGreaterThan": 0.2
+        "top": resultsCount, "accuracyGreaterThan": 0.2
 
     }
 
-
-
-    let smartSearchEndPoint = "http://localhost:8891"
-
-
-    
-
-
+ 
     useEffect(() => {
 
         setTextLoading(true);
-        if (demoSession.includes(state.sessionId)){
+        if (demoSession.includes(state.sessionId)) {
             setDemoSessionStatus(true)
-        }        
+        }
 
         setResultsCount(5)
 
-        axios.post(
-            smartSearchEndPoint,
-            axiosPayload,
-            axiosConfig
-        )
-            .then(res => {
-
-                ////console.log(res.statusText, res.data)
-
-                setSmartSearch(res.data);
-                setTextLoading(false);
-
-            }).catch(function (error) {
-                //console.log(error);
-            });
-
+        if (state.search !== '') {
+       
+            axios.post(
+                smartSearchEndPoint,
+                axiosPayload,
+                axiosConfig
+            )
+                .then(res => {
+    
+                    console.log(res.statusText, res.data)
+    
+                    setSmartSearch(res.data);
+                    setTextLoading(false);
+    
+                }).catch(function (error) {
+                    //console.log(error);
+                });
+        }
 
 
     }, [state.search]);
@@ -87,22 +86,24 @@ const ImpLines = ({ pdfText }) => {
 
         setTextLoading(true);
 
-
-        axios.post(
-            smartSearchEndPoint,
-            axiosPayload,
-            axiosConfig
-        )
-            .then(res => {
-
-                //.log(res.statusText, res.data)
-
-                setSmartSearch(res.data);
-                setTextLoading(false);
-
-            }).catch(function (error) {
-                //console.log(error);
-            });
+        if (state.search !== '') {
+            axios.post(
+                smartSearchEndPoint,
+                axiosPayload,
+                axiosConfig
+            )
+                .then(res => {
+    
+                    //.log(res.statusText, res.data)
+    
+                    setSmartSearch(res.data);
+                    setTextLoading(false);
+    
+                }).catch(function (error) {
+                    //console.log(error);
+                });
+        }
+        
 
 
 
@@ -123,17 +124,9 @@ const ImpLines = ({ pdfText }) => {
                     Matching lines for <i> {state.search == '' ? '...' : state.search}</i>
                 </span>
 
-
-                {demoSession.includes(state.sessionId) ?
-                    <span id="book-percent" style={{backgroundColor:'#90ee9073'}}>
+                <span id="book-percent" style={{ backgroundColor: '#90ee9073' }}>
                         100 % loaded
                     </span>
-
-                    :
-                    <span id="book-percent" style={{backgroundColor:'rgb(255 255 21 / 31%)'}}>
-                        20% loaded
-                </span>
-                }
 
 
             </Row>
@@ -147,14 +140,15 @@ const ImpLines = ({ pdfText }) => {
                 <SnippetLoader key={Math.random()} />
             )) : Object.entries(smartSearchResults).map(
                 ([key, value], i) =>
-                    <ImpLineItems key={Math.random()} content={key} score={value} itemNo={i}/>
+                    <ImpLineItems key={Math.random()} uuid={uuid} session={session} content={key} score={value} itemNo={i} />
 
             )}
 
             <div className="App">
-                {demoSessionStatus && (Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
-                {!demoSessionStatus && !textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
-                {(Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={() => { setResultsCount(resultsCount + 5) }}
+                { (Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
+                { !textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
+                { !textLoading && (Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={e => { e.preventDefault()
+                 setResultsCount(resultsCount + 5) }}
 
                     label={'load more'} /> : null}
             </div>

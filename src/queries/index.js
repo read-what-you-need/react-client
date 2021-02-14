@@ -27,43 +27,54 @@ query {
 
 `;
 
-export const GET_USER_THOUGHTS = gql`
+export const GET_USER_FILES = gql`
 
-query($username: String!){
-  getUserThoughts(username: $username){
-    _id
-    thoughts{
-      _id
-      thought{
-        think
-        time
-      }
+query($username: String!) {
+  getUserFiles(username: $username) {
+
+      uuid
+      name
+      size
+      metaData
+      processStatus
       createdDate
-      updatedDate
-      version
-      tag
-    }
+ 
   }
 }
+
+
 `;
+
+
+/* File Queries */
+
+export const GET_FILE_DETAILS = gql`
+
+query($uuid: String!) {
+  getFileDetails(uuid: $uuid){
+    uuid
+    name
+    size
+    metaData
+    processStatus
+  }
+}
+
+`;
+
 
 
 /* Thought Mutation */
 
 
 
-export const ADD_THOUGHT = gql`
+export const ADD_FILE = gql`
 
-mutation( $tag: String!,
-  $thought: String!)
+mutation( $uuid: String!, $name: String!, $size: Int!,  $metaData: String!,  $uploadedBy: String!  )
   {
-    addThought( tag:$tag, thought: $thought)
+    addFile( uuid:$uuid, name: $name, size: $size, metaData: $metaData, uploadedBy: $uploadedBy)
     {
-      thought{
-        think
-        time
-      }
-      tag
+      uuid, name, size, uploadedBy, createdDate
     }
   }
 `;
