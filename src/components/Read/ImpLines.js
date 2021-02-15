@@ -11,13 +11,19 @@ import Chip from '@material-ui/core/Chip';
 
 import { Container, Row, Col } from 'reactstrap';
 
+import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
+import {
+    GET_USER_QUERY_BOOKMARK_STATUS
+} from './../../queries';
+
+
 
 const ImpLines = ({ uuid, session }) => {
 
 
     let smartSearchEndPoint = "http://localhost:8891"
 
-    
+
     // pdfText recieved from the db in the parent component
 
     const state = useContext(SearchContext);
@@ -26,9 +32,10 @@ const ImpLines = ({ uuid, session }) => {
     //console.log(state.sessionId, ": sessionID is 😛")
     const [smartSearchResults, setSmartSearch] = useState('')
     const [textLoading, setTextLoading] = useState(null);
+ 
     const [resultsCount, setResultsCount] = useState(5);
 
-    const [demoSessionStatus, setDemoSessionStatus] = useState(null);
+    const [bookmarkStatus, setBookMarkStatus] = useState([0]);
 
     // //console.log(pdfText, "in imp lines hehehehe")
 
@@ -49,33 +56,36 @@ const ImpLines = ({ uuid, session }) => {
 
     }
 
- 
+
     useEffect(() => {
 
         setTextLoading(true);
-        if (demoSession.includes(state.sessionId)) {
-            setDemoSessionStatus(true)
-        }
+       
 
         setResultsCount(5)
 
         if (state.search !== '') {
-       
+
             axios.post(
                 smartSearchEndPoint,
                 axiosPayload,
                 axiosConfig
             )
                 .then(res => {
-    
+
                     console.log(res.statusText, res.data)
-    
+
                     setSmartSearch(res.data);
                     setTextLoading(false);
-    
+
                 }).catch(function (error) {
                     //console.log(error);
                 });
+                
+                getUserBookmarkStatus({ variables: { uuid, query: state.search }})
+
+                
+    
         }
 
 
@@ -93,27 +103,43 @@ const ImpLines = ({ uuid, session }) => {
                 axiosConfig
             )
                 .then(res => {
-    
+
                     //.log(res.statusText, res.data)
-    
+
                     setSmartSearch(res.data);
                     setTextLoading(false);
-    
+
                 }).catch(function (error) {
                     //console.log(error);
                 });
         }
-        
+
 
 
 
     }, [resultsCount]);
 
 
+    useEffect(() => {
+
+
+    }, [bookmarkStatus]);
+
+
+
+    const [getUserBookmarkStatus, { loading: bookmarkDataLoading, error: bookmarkStatusError,
+        data: bookmarkStatusData }] =
+        useLazyQuery(GET_USER_QUERY_BOOKMARK_STATUS, {onCompleted (data) {
+            setBookMarkStatus(data.getUserBookmarkStatus)
+   
+        }});
+
+
+    console.log('bookmarks', bookmarkStatusData, bookmarkStatus )
+
 
     var ContentPlaceholder = [1, 2];
 
-    const demoSession = ['benj', 'naval', 'think']
 
     return (
 
@@ -125,7 +151,7 @@ const ImpLines = ({ uuid, session }) => {
                 </span>
 
                 <span id="book-percent" style={{ backgroundColor: '#90ee9073' }}>
-                        100 % loaded
+                    100 % loaded
                     </span>
 
 
@@ -134,21 +160,30 @@ const ImpLines = ({ uuid, session }) => {
 
 
             <hr />
-
-
+       
             {textLoading ? ContentPlaceholder.map(idx => (
                 <SnippetLoader key={Math.random()} />
-            )) : Object.entries(smartSearchResults).map(
-                ([key, value], i) =>
-                    <ImpLineItems key={Math.random()} uuid={uuid} session={session} content={key} score={value} itemNo={i} />
+            ))
 
-            )}
+                :
+
+                Object.entries(smartSearchResults).map(
+                    ([key, value], i) => {
+                        
+                        return < ImpLineItems key={Math.random()}
+                        bookmarkFlag={bookmarkStatus[i+1]} uuid={uuid} session={session}
+                        content={key} score={value} itemNo={i} />
+                    })
+
+            }
 
             <div className="App">
-                { (Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
-                { !textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
-                { !textLoading && (Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={e => { e.preventDefault()
-                 setResultsCount(resultsCount + 5) }}
+                {(Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
+                {!textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
+                {!textLoading && (Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={e => {
+                    e.preventDefault()
+                    setResultsCount(resultsCount + 5)
+                }}
 
                     label={'load more'} /> : null}
             </div>

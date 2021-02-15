@@ -21,17 +21,18 @@ import {
 
 
 
+
 const ReadHome = ({ session, props }) => {
 
     // get from view or params from the url
     const _id = props.match.params._id;
-    
+
 
     const [fileProcessStatus, setfileProcessStatus] = useState(true);
+   
     const [fileName, setFileName] = useState('');
 
 
-    // redis cache implement here
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
         GET_FILE_DETAILS, {
         variables: { uuid: _id }, onCompleted(data) {
@@ -39,14 +40,7 @@ const ReadHome = ({ session, props }) => {
             setfileProcessStatus(res['processStatus'])
             setFileName(res['name'])
         }
-    }
-
-    );
-
-
-
-    // const splitText =  splitTextByNewline(pdfText)
-
+    })
 
 
     return (
@@ -65,7 +59,7 @@ const ReadHome = ({ session, props }) => {
 
                         {/* <h1 className="read-page-header">Read what you need</h1> */}
                         <h1 className="read-page-file-name">{fileName}</h1>
-                        
+
 
                         {fileProcessStatus ? <SearchContextProvider sessionId={_id}>
 
@@ -83,7 +77,7 @@ const ReadHome = ({ session, props }) => {
                             <ImpLines uuid={_id} session={session} />
 
 
-                        </SearchContextProvider> : <UnderProcess/>}
+                        </SearchContextProvider> : <UnderProcess />}
 
 
 

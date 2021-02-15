@@ -63,8 +63,30 @@ query($uuid: String!) {
 `;
 
 
+export const GET_USER_QUERY_BOOKMARK_STATUS = gql`
 
-/* Thought Mutation */
+query($uuid: String!, $query: String!) {
+  getUserBookmarkStatus(uuid: $uuid, query:$query)
+}
+
+`;
+
+
+
+/* Bookmark Mutation */
+
+export const SET_BOOKMARK = gql`
+
+mutation( $uuid: String!,  $query: String!, $line: String!)
+  {
+    setBookmark( uuid:$uuid, query:$query, line:$line)
+  }
+
+
+`;
+
+
+/* file Mutation */
 
 
 

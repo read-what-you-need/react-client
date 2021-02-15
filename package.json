@@ -18,20 +18,18 @@
     "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-content-loader": "^5.1.4",
-    "react-countdown": "^2.3.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-spinners": "^0.9.0",
     "react-sweet-progress": "^1.1.2",
     "reactstrap": "^8.6.0",
-    "rsuite": "^4.8.9",
     "uuid": "^8.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-logic": "react-scripts build && firebase deploy",
+    "build-logic": "react-scripts build",
     "build": "run-s build-logic",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

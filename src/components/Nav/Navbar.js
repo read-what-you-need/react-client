@@ -157,7 +157,7 @@ const NavbarAuth = ({ session }) => {
                             </ListItem>
                         </Link>
 
-                        <Link to='/' style={{ textDecoration: 'none', color: 'grey' }} >
+                        <Link to='/bookmarks' style={{ textDecoration: 'none', color: 'grey' }} >
                             <ListItem button className={classes.nested}>
                                 <ListItemIcon>
                                     <BookmarksOutlinedIcon />

@@ -23,23 +23,31 @@ import "react-sweet-progress/lib/style.css";
 
 
 
+import { useMutation, useQuery } from "@apollo/react-hooks";
+
+import {
+    SET_BOOKMARK
+} from '../../../queries';
 
 
 
 
-const ImpLineItems = ({ session, uuid, content, score, itemNo }) => {
+
+
+
+const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) => {
 
     let questionGeneratorEndPoint = "http://localhost:8893"
 
-    let bookMarkManagerEndPoint = 'http://localhost:4444/api/v2/setBookmark'
 
     // //console.log(content)
     const state = useContext(SearchContext);
 
     const [questionLoading, setQuestionLoading] = useState(null);
-    const [bookMarkStatus, setBookMark] = useState(false);
+    const [bookMarkStatus, setBookMarkReact] = useState(bookmarkFlag==1 ? true : false);
 
     const [userLoginStatus, setUserLoginStatus] = useState(session.getCurrentUser ? true : false)
+
 
     var score = parseFloat(score)
     // //console.log(score)
@@ -86,25 +94,38 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo }) => {
             });
     }
 
+
+    const [setBookMark,
+        { data: bOOMARKMutatedata,
+            loading: bOOMARKMutateLoading,
+            error: bOOMARKMutateError }] = useMutation(SET_BOOKMARK);
+
+
     const handleBookmarkClick = () => {
         console.log('bokmark')
-        setBookMark(!bookMarkStatus)
-        fetch(bookMarkManagerEndPoint, {
-            method: 'post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({
-                'uuid': uuid,
-                 'line': content,
-                 'query': state.search 
 
-            })
-         }).then(data => {
-            console.log(data)
+        setBookMarkReact(!bookMarkStatus)
 
-        })
-        .catch(error => {
-            console.error(error + ' in setting bookmark for file');
-        });;
+        if (bookMarkStatus === true) {
+            console.log('bookmark unset')
+            // call delete bookmark
+        } else {
+            console.log('bookmark ser')
+            // call set bookmark
+
+            setBookMark({
+                variables: {
+                    uuid: uuid,
+                    line: content,
+                    query: state.search
+                }
+            }).catch(function (error) {
+                console.log(error)
+                throw new Error(error);
+            });
+
+
+        }
 
 
     }
