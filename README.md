@@ -1,3 +1,3 @@
-## react-client for read what you need
+## react-client
 
 - the react frontend that is served from node
