@@ -26,7 +26,7 @@ import "react-sweet-progress/lib/style.css";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import {
-    SET_BOOKMARK
+    SET_BOOKMARK, REMOVE_BOOKMARK
 } from '../../../queries';
 
 
@@ -44,7 +44,7 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
     const state = useContext(SearchContext);
 
     const [questionLoading, setQuestionLoading] = useState(null);
-    const [bookMarkStatus, setBookMarkReact] = useState(bookmarkFlag==1 ? true : false);
+    const [bookMarkStatus, setBookMarkReact] = useState(bookmarkFlag == 1 ? true : false);
 
     const [userLoginStatus, setUserLoginStatus] = useState(session.getCurrentUser ? true : false)
 
@@ -96,9 +96,14 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
 
 
     const [setBookMark,
-        { data: bOOMARKMutatedata,
-            loading: bOOMARKMutateLoading,
-            error: bOOMARKMutateError }] = useMutation(SET_BOOKMARK);
+        { data: bookmarkMutatedata,
+            loading: bookmarkMutateLoading,
+            error: bookmarkMutateError }] = useMutation(SET_BOOKMARK);
+
+    const [removeBookMark,
+        { data: bookmarkRemoveMutatedata,
+            loading: bookmarkRemoveMutateLoading,
+            error: bookmarkRemoveMutateError }] = useMutation(REMOVE_BOOKMARK);
 
 
     const handleBookmarkClick = () => {
@@ -109,6 +114,18 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
         if (bookMarkStatus === true) {
             console.log('bookmark unset')
             // call delete bookmark
+
+            removeBookMark({
+                variables: {
+                    uuid: uuid,
+                    line: content,
+                    query: state.search
+                }
+            }).catch(function (error) {
+                console.log(error)
+                throw new Error(error, ': in removing bookmark');
+            });
+
         } else {
             console.log('bookmark ser')
             // call set bookmark
@@ -121,7 +138,7 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
                 }
             }).catch(function (error) {
                 console.log(error)
-                throw new Error(error);
+                throw new Error(error, ': in setting bookmark');
             });
 
 

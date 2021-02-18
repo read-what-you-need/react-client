@@ -86,6 +86,18 @@ mutation( $uuid: String!,  $query: String!, $line: String!)
 `;
 
 
+export const REMOVE_BOOKMARK = gql`
+
+mutation( $uuid: String!,  $query: String!, $line: String!)
+  {
+    removeBookmark( uuid:$uuid, query:$query, line:$line)
+  }
+
+
+`;
+
+
+
 /* file Mutation */
 
 

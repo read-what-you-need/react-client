@@ -21,7 +21,7 @@ import {
 const ImpLines = ({ uuid, session }) => {
 
 
-    let smartSearchEndPoint = "http://localhost:8891"
+    let smartSearchEndPoint = "http://localhost:4444/api/v2/getLines"
 
 
     // pdfText recieved from the db in the parent component
@@ -32,9 +32,9 @@ const ImpLines = ({ uuid, session }) => {
     //console.log(state.sessionId, ": sessionID is 😛")
     const [smartSearchResults, setSmartSearch] = useState('')
     const [textLoading, setTextLoading] = useState(null);
- 
-    const [resultsCount, setResultsCount] = useState(5);
 
+    const [resultsCount, setResultsCount] = useState(5);
+    const [prevResponseLen, setPrevResponseLen] = useState(0);
     const [bookmarkStatus, setBookMarkStatus] = useState([0]);
 
     // //console.log(pdfText, "in imp lines hehehehe")
@@ -50,9 +50,9 @@ const ImpLines = ({ uuid, session }) => {
 
     let axiosPayload = {
 
-        "uuid": uuid, "text": state.search,
+        "uuid": uuid, "query": state.search, "user": session.getCurrentUser.username,
 
-        "top": resultsCount, "accuracyGreaterThan": 0.2
+        "maxResults": resultsCount, "accuracyGreaterThan": 0.2
 
     }
 
@@ -60,7 +60,7 @@ const ImpLines = ({ uuid, session }) => {
     useEffect(() => {
 
         setTextLoading(true);
-       
+
 
         setResultsCount(5)
 
@@ -81,11 +81,11 @@ const ImpLines = ({ uuid, session }) => {
                 }).catch(function (error) {
                     //console.log(error);
                 });
-                
-                getUserBookmarkStatus({ variables: { uuid, query: state.search }})
 
-                
-    
+            getUserBookmarkStatus({ variables: { uuid, query: state.search } })
+
+
+
         }
 
 
@@ -129,13 +129,15 @@ const ImpLines = ({ uuid, session }) => {
 
     const [getUserBookmarkStatus, { loading: bookmarkDataLoading, error: bookmarkStatusError,
         data: bookmarkStatusData }] =
-        useLazyQuery(GET_USER_QUERY_BOOKMARK_STATUS, {onCompleted (data) {
-            setBookMarkStatus(data.getUserBookmarkStatus)
-   
-        }});
+        useLazyQuery(GET_USER_QUERY_BOOKMARK_STATUS, {
+            onCompleted(data) {
+                setBookMarkStatus(data.getUserBookmarkStatus)
+
+            }
+        });
 
 
-    console.log('bookmarks', bookmarkStatusData, bookmarkStatus )
+    console.log('bookmarks', bookmarkStatusData, bookmarkStatus)
 
 
     var ContentPlaceholder = [1, 2];
@@ -160,7 +162,7 @@ const ImpLines = ({ uuid, session }) => {
 
 
             <hr />
-       
+
             {textLoading ? ContentPlaceholder.map(idx => (
                 <SnippetLoader key={Math.random()} />
             ))
@@ -168,11 +170,11 @@ const ImpLines = ({ uuid, session }) => {
                 :
 
                 Object.entries(smartSearchResults).map(
-                    ([key, value], i) => {
-                        
+                    (item, i) => {
+
                         return < ImpLineItems key={Math.random()}
-                        bookmarkFlag={bookmarkStatus[i+1]} uuid={uuid} session={session}
-                        content={key} score={value} itemNo={i} />
+                            bookmarkFlag={item[1]['bookmarkStatus']} uuid={uuid} session={session}
+                            content={item[1]['line']} score={item[1]['score']} itemNo={i} />
                     })
 
             }
@@ -180,9 +182,14 @@ const ImpLines = ({ uuid, session }) => {
             <div className="App">
                 {(Object.entries(smartSearchResults)).length < 1 ? <SnippetLoader key={Math.random()} /> : null}
                 {!textLoading && (Object.entries(smartSearchResults)).length < 1 ? <Chip label={'No results found 😕'} /> : null}
-                {!textLoading && (Object.entries(smartSearchResults)).length > resultsCount - 1 ? <Chip clickable onClick={e => {
+                {!textLoading && (Object.entries(smartSearchResults)).length !== prevResponseLen ? <Chip clickable onClick={e => {
                     e.preventDefault()
-                    setResultsCount(resultsCount + 5)
+
+                    setResultsCount(resultsCount + 4)
+
+
+                    setPrevResponseLen(Object.entries(smartSearchResults).length)
+
                 }}
 
                     label={'load more'} /> : null}
