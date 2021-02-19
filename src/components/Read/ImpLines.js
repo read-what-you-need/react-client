@@ -33,24 +33,28 @@ const ImpLines = ({ uuid, session }) => {
     const [smartSearchResults, setSmartSearch] = useState('')
     const [textLoading, setTextLoading] = useState(null);
 
+    const [username, setUsername ] = useState( session === null ? '' : session.getCurrentUser)
+
     const [resultsCount, setResultsCount] = useState(5);
     const [prevResponseLen, setPrevResponseLen] = useState(0);
-    const [bookmarkStatus, setBookMarkStatus] = useState([0]);
+    // const [bookmarkStatus, setBookMarkStatus] = useState([0]);
 
     // //console.log(pdfText, "in imp lines hehehehe")
+
+    const token = localStorage.getItem('token');
 
     let axiosConfig = {
 
         headers: {
 
-            'Content-Type': 'application/json'
-
+            'Content-Type': 'application/json',
+            'authorization': token
         }
     }
 
     let axiosPayload = {
 
-        "uuid": uuid, "query": state.search, "user": session.getCurrentUser.username,
+        "uuid": uuid, "query": state.search, 
 
         "maxResults": resultsCount, "accuracyGreaterThan": 0.2
 
@@ -62,7 +66,7 @@ const ImpLines = ({ uuid, session }) => {
         setTextLoading(true);
 
 
-        setResultsCount(5)
+        setResultsCount(4)
 
         if (state.search !== '') {
 
@@ -82,7 +86,7 @@ const ImpLines = ({ uuid, session }) => {
                     //console.log(error);
                 });
 
-            getUserBookmarkStatus({ variables: { uuid, query: state.search } })
+            // getUserBookmarkStatus({ variables: { uuid, query: state.search } })
 
 
 
@@ -120,24 +124,18 @@ const ImpLines = ({ uuid, session }) => {
     }, [resultsCount]);
 
 
-    useEffect(() => {
+
+    // const [getUserBookmarkStatus, { loading: bookmarkDataLoading, error: bookmarkStatusError,
+    //     data: bookmarkStatusData }] =
+    //     useLazyQuery(GET_USER_QUERY_BOOKMARK_STATUS, {
+    //         onCompleted(data) {
+    //             setBookMarkStatus(data.getUserBookmarkStatus)
+
+    //         }
+    //     });
 
 
-    }, [bookmarkStatus]);
-
-
-
-    const [getUserBookmarkStatus, { loading: bookmarkDataLoading, error: bookmarkStatusError,
-        data: bookmarkStatusData }] =
-        useLazyQuery(GET_USER_QUERY_BOOKMARK_STATUS, {
-            onCompleted(data) {
-                setBookMarkStatus(data.getUserBookmarkStatus)
-
-            }
-        });
-
-
-    console.log('bookmarks', bookmarkStatusData, bookmarkStatus)
+    // console.log('bookmarks', bookmarkStatusData, bookmarkStatus)
 
 
     var ContentPlaceholder = [1, 2];
