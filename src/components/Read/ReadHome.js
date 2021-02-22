@@ -97,36 +97,3 @@ const ReadHome = ({ session, props }) => {
 
 export default ReadHome;
 
-
-function splitTextByNewline(text) {
-
-    //text = text.replaceAll("\n", " ");
-    text = text.replace(/\n/g, " ");
-    var splits = text.split('. ')
-
-
-    var paraArray = [];
-    let prev = 0;
-
-    var arrayLength = splits.length;
-    for (var i = 0; i < arrayLength; i++) {
-
-        if (i % 2 === 0) {
-            paraArray.push("".concat(splits.slice(prev, i)))
-            prev = i;
-        }
-    }
-
-
-
-    var removeSmallStringsArray = [];
-    var splicedArrayLength = paraArray.length;
-    for (var i = 0; i < splicedArrayLength; i++) {
-        if (paraArray[i].length >= 24) {
-            removeSmallStringsArray.push(paraArray[i]);
-        }
-    }
-
-    return removeSmallStringsArray
-
-}

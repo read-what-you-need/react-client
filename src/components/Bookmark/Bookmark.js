@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
 
@@ -9,13 +9,23 @@ import withAuth from './../withAuth';
 
 const Bookmark = ({ session }) => {
 
-    const [uuidList, setUuidsList] = useState([])
-    const [queryList, setQueryList] = useState([])
-    const [linesList, setLinesList] = useState([])
-
-    const [dict, setDict] = useState(false)
-
     let bookmarkedFilesPoint = 'http://127.0.0.1:4444/api/v2/bookmarks'
+    let bookmarkedMoreQueries = 'http://127.0.0.1:4444/api/v2/bookmarks'
+
+    const [uuidList, setUuidsList] = useState([])
+    const [uuidLast, setUuidLast] = useState(false)
+
+    const [queryList, setQueryList] = useState([])
+    const [queryLast, setQueryLast] = useState([])
+
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(1)
+
+
+
+    const [resultsLoadStatus, setResultsLoadStatus] = useState(false)
+
+
 
     const token = localStorage.getItem('token');
 
@@ -31,11 +41,12 @@ const Bookmark = ({ session }) => {
             'authorization': token
         }
     }
-    let axiosPayload = {
 
-        "start": 0,
+    var axiosPayload = {
 
-        "end": 3
+        "start": start,
+
+        "end": end
 
     }
 
@@ -43,23 +54,88 @@ const Bookmark = ({ session }) => {
     useEffect(() => {
         axios.post(
             bookmarkedFilesPoint,
+            axiosPayload,
             axiosConfig
         )
             .then(res => {
 
 
-                setUuidsList(res.data['uuids'])
-                setQueryList(res.data['queries'])
-                setLinesList(res.data['lines'])
+                // initial load
+                setUuidsList(uuidList.concat(res.data['uuids']))
+                setQueryList(queryList.concat(res.data['queries']))
+
+                // generating an array of lenght uuids list
+                // so that the status of last query for a given uuid is stored
+                var prevQueryLast = queryLast
+                prevQueryLast = prevQueryLast.concat(res.data['uuids'].map((item) => false))
+                setQueryLast(prevQueryLast)
+
+                // if empty response is returned, then no more uuids present
+
+                // update the status of the last uuid as true
+                // so the "show more uuid" button is hidden
+                if (res.data['uuids'].length === 0) {
+                    console.log('empty uuid list')
+                    setUuidLast(true)
+                }
+
 
                 return res
-            }).then(res => setDict(true))
+            }).then(res => setResultsLoadStatus(true))
 
-    }, [])
+    }, [start])
 
-    console.log(uuidList)
-    console.log(queryList)
-    console.log(linesList)
+    console.log(queryLast)
+
+
+    const handleMoreUuids = () => {
+
+        setStart(queryList.length)
+
+        setEnd(start + 3)
+
+
+
+    }
+
+
+
+    const handleMoreQueries = (uuid, queriesIndex, queryIndex) => {
+        setResultsLoadStatus(false)
+
+        var queries = axios.get(
+            bookmarkedFilesPoint + '/' + uuid + '/' + queryIndex,
+            axiosConfig
+
+        ).then(res => {
+
+            var queries = queryList
+            queries[queriesIndex] = queries[queriesIndex].concat(res.data)
+
+            if (res.data.length === 0) {
+                // if empty response is returned, then no more elements present
+
+                // update the status of the last query for a given uuid as true
+                // so the "show more queries" button is hidden
+                var updateQueryLast = [...queryLast]
+                updateQueryLast[queriesIndex] = true
+
+                setQueryLast(updateQueryLast)
+
+
+            }
+
+            setQueryList(queries)
+            setResultsLoadStatus(true)
+
+
+        })
+
+
+
+
+
+    }
 
 
 
@@ -82,47 +158,46 @@ const Bookmark = ({ session }) => {
 
                     <hr />
 
-                    {dict === false ?
+                    {resultsLoadStatus === false ?
 
                         <p>not loaded</p> :
 
                         queryList.map((queries, queriesIndex) => {
                             return queries.map((query, queryIndex) => {
 
-                                return linesList[queriesIndex][queryIndex].map((line, lineIndex) => {
 
-                                    if (queryIndex === 0 && lineIndex === 0) {
-                                        // query index and line index zero means under a new uuid
-                                        if (queriesIndex === queryList.length - 1 &&
-                                            queryIndex === queries.length - 1 &&
-                                            lineIndex === linesList[queriesIndex][queryIndex].length - 1
-                                        ) {
-                                            return <div> <h4>{uuidList[queriesIndex]}</h4><hr /> <p>{query}</p><p>{line}</p><h1>More</h1></div>
-                                        } else
-                                            return <div> <h4>{uuidList[queriesIndex]}</h4><hr /> <p>{query}</p><p>{line}</p></div>
-                                    } else if (lineIndex === 0) {
-                                        // line index zero means under a new query
-                                        if (queriesIndex === queryList.length - 1 &&
-                                            queryIndex === queries.length - 1 &&
-                                            lineIndex === linesList[queriesIndex][queryIndex].length - 1
-                                        ) {
-                                            return <div> <p>{query}</p><p>{line}</p><h1>More</h1></div>
-                                        } else
-                                            return <div><p>{query}</p><p>{line}</p></div>
-                                    } else if (queriesIndex === queryList.length - 1 &&
-                                        queryIndex === queries.length - 1 &&
-                                        lineIndex === linesList[queriesIndex][queryIndex].length - 1
-                                    ) {
-                                        return <div><p>{line}</p><h1>More</h1></div>
-                                    } else {
-                                        // arbitary line, so just display it
 
-                                        return <div><p>{line}</p></div>
-                                    }
+                                if (queryIndex === 0) {
+                                    // if only query, then print along with uuid, query and show more
+                                    return <div> <h4>{uuidList[queriesIndex]['name']}</h4><hr /> <Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
+                                } else if (queryIndex === 0) {
+                                    // if only query, then print along with uuid, query and show more
+                                    return <div> <h4>{uuidList[queriesIndex]['name']}</h4><hr /> <Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
+                                } else if (queryIndex === queries.length - 1 && queriesIndex === queryList.length - 1) {
+                                    // if last query and last uuidd
+                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}
+                                    </Link>
 
-                                })
+                                        {queryLast[queriesIndex] ? null : <p onClick={() => { handleMoreQueries(uuidList[queriesIndex]['uuid'], queriesIndex, queryIndex) }} >More queries</p>}
+
+                                        {uuidLast ? null : <p onClick={handleMoreUuids} >More UUIDS</p>}</div>
+
+
+                                } else if (queryIndex === queries.length - 1) {
+                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link>
+
+                                        {queryLast[queriesIndex] ? null : <p onClick={() => { handleMoreQueries(uuidList[queriesIndex]['uuid'], queriesIndex, queryIndex) }} >More queries</p>}</div>
+
+
+                                } else {
+                                    // arbitary query, so just display it
+
+                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
+                                }
 
                             })
+
+
                         })
                     }
 

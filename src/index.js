@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import ReadHome from './components/Read/ReadHome.js';
 import Bookmark from './components/Bookmark/Bookmark.js';
+import BookmarkLines from './components/Bookmark/BookmarkLines.js';
 import Navbar from './components/Nav/Navbar';
 import TestNav from './TestNav';
 import Faqs from "./components/Faqs";
@@ -74,7 +75,11 @@ const Root = ({ refetch, session }) => {
 
         <Route path="/read/:_id" render={(props) => <ReadHome session={session} props={props} />} />
 
-        <Route path="/bookmarks" render={() => <Bookmark session={session} />} />
+        
+
+        <Route path="/bookmark" render={(props) => <Bookmark session={session} />}/>
+
+        <Route path="/bookmarks/:user/:uuid/:queryId" render={(props) => <BookmarkLines session={session} props={props} />}/>
 
         <Route path="/login" render={() => <Signin refetch={refetch} />} />
 
