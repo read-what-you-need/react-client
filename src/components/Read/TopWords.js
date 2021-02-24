@@ -26,7 +26,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
-const TopWords = ({ uuid }) => {
+const TopWords = ({ uuid, query }) => {
 
     let topWordsDataEndPoint = 'http://localhost:4444/api/v2/topWords/'+ uuid
     
@@ -56,14 +56,21 @@ const TopWords = ({ uuid }) => {
                 return res.json()
             })
             .then(data => {
-                //console.log(data)
+           
 
                 setTopN(data)
                 setTextLoading(false)
 
                 var firstTopWord = Object.entries(data)[0][0];
 
-                state.setSearch(firstTopWord);
+                if (state.search === ''){
+                    // search state is empty set it to top word one
+                    // it means set search has been mutated by query string passed from url
+                    // and that query is being used for showing important lines
+                    state.setSearch(firstTopWord);
+                }
+
+                
 
 
                 setRandomWordsSegment(WordsSegment(data));

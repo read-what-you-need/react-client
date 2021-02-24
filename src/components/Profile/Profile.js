@@ -17,7 +17,7 @@ const Profile = ({ session }) => {
 
     return (
 
-        <Container className="App">
+        <Container className="App" style={{ marginBottom: 50 }}>
 
             <Row>
 

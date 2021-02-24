@@ -10,6 +10,7 @@ import Drawer from '@material-ui/core/Drawer';
 
 
 
+
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 
@@ -44,10 +45,12 @@ const drawerWidth = 220;
 
 
 
-const Navbar = ({ session }) => {
+const RailBar = ({ session }) => {
 
 
     const classes = useStyles();
+    
+
     const theme = useTheme();
 
     const [open, setOpen] = React.useState(false);
@@ -103,8 +106,9 @@ const Navbar = ({ session }) => {
 
                 <Divider />
 
+                {/* check for auth -> true then -> big or small auth nav bar else big or small non auth nav bar */}
 
-                <nav>{session && session.getCurrentUser ? <NavbarAuth session={session} /> : <NavbarUnAuth />}</nav>
+                <nav>{session && session.getCurrentUser ? <RailBarAuth session={session} /> : <RailBarUnAuth />}</nav>
 
             </Drawer>
 
@@ -113,7 +117,7 @@ const Navbar = ({ session }) => {
     );
 }
 
-const NavbarAuth = ({ session }) => {
+const RailBarAuth = ({ session }) => {
 
 
     const username = session.getCurrentUser.username;
@@ -187,7 +191,7 @@ const NavbarAuth = ({ session }) => {
 }
 
 
-const NavbarUnAuth = () => {
+const RailBarUnAuth = () => {
 
 
 
@@ -281,5 +285,5 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default Navbar;
+export default RailBar;
 

@@ -33,7 +33,7 @@ const TopDocumentsTable = ({ session }) => {
   const classes = useStyles();
 
   const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
-    GET_USER_FILES, { variables: { username: session.getCurrentUser.username }, pollInterval:1000 }
+    GET_USER_FILES, { variables: { username: session.getCurrentUser.username  }, pollInterval:1000 }
 
   );
 

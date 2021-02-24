@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
-
+import { Badge } from 'reactstrap';
 
 import withAuth from './../withAuth';
 
@@ -137,11 +137,61 @@ const Bookmark = ({ session }) => {
 
     }
 
+    const uuidElement = (uuidList, queriesIndex) => {
+        const colors = ['#DFF2CC', 'rgba(241, 204, 242, 0.63)', 'rgba(245, 233, 123, 0.64)']
+
+        return <Link to={'/read/' + uuidList[queriesIndex]['uuid']} style={{ textDecoration: 'none' }}>
+            <h4 style={{backgroundColor: colors[queriesIndex%3]}} id={"uuid-file-name-header"}>{uuidList[queriesIndex]['name']}</h4>
+        </Link>
+    }
+
+
+    const queryElement = (username, uuidList, queriesIndex, query) => {
+        return <Link to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} style={{ textDecoration: 'none' }} >
+            <Col className={"bookmark-query-element"} xs={{ size: 11, offset: 1 }}>
+                {query['query']}
+            </Col>
+        </Link>
+    }
+
+
+    const moreQueriesElement = (uuidList, queriesIndex, queryIndex) => {
+        return <Col xs={{ size: 2, offset: 5 }}>
+            <Badge color="primary"
+                style={{
+                    color: '#525252',
+                    backgroundColor: '#d3d3d3ba',
+                    fontWeight: 300
+                }}
+                onClick={(event) => {
+                    event.preventDefault()
+                    handleMoreQueries(uuidList[queriesIndex]['uuid'], queriesIndex, queryIndex)
+                }} >more queries
+            </Badge>
+        </Col >
+    }
+
+    const moreUuidsElement = () => {
+        return <Col xs={{ size: 2, offset: 5 }} style={{ marginTop: 20 }}>
+            <Badge color="primary"
+                style={{
+                    color: '#525252',
+                    backgroundColor: '#d3d3d3ba',
+                    fontWeight: 300,
+                    padding: 10
+                }}
+                onClick={(event) => {
+                    event.preventDefault()
+                    handleMoreUuids()
+                }} >More books
+            </Badge>
+        </Col >
+    }
 
 
     return (
 
-        <Container>
+        <Container style={{ marginBottom: 50 }}>
 
             <Row>
 
@@ -153,55 +203,70 @@ const Bookmark = ({ session }) => {
 
                 <Col md="9" style={{ marginTop: 20 }}>
 
-                    <h4>welcome to your bookmarks!</h4>
-                    <h4>{username}</h4>
+                    <h1 style={{fontWeight: 200}}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
+
 
                     <hr />
+                    <Row>
+                        {resultsLoadStatus === false ?
 
-                    {resultsLoadStatus === false ?
+                            <p>not loaded</p> :
 
-                        <p>not loaded</p> :
-
-                        queryList.map((queries, queriesIndex) => {
-                            return queries.map((query, queryIndex) => {
-
-
-
-                                if (queryIndex === 0) {
-                                    // if only query, then print along with uuid, query and show more
-                                    return <div> <h4>{uuidList[queriesIndex]['name']}</h4><hr /> <Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
-                                } else if (queryIndex === 0) {
-                                    // if only query, then print along with uuid, query and show more
-                                    return <div> <h4>{uuidList[queriesIndex]['name']}</h4><hr /> <Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
-                                } else if (queryIndex === queries.length - 1 && queriesIndex === queryList.length - 1) {
-                                    // if last query and last uuidd
-                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}
-                                    </Link>
-
-                                        {queryLast[queriesIndex] ? null : <p onClick={() => { handleMoreQueries(uuidList[queriesIndex]['uuid'], queriesIndex, queryIndex) }} >More queries</p>}
-
-                                        {uuidLast ? null : <p onClick={handleMoreUuids} >More UUIDS</p>}</div>
+                            queryList.map((queries, queriesIndex) => {
+                                return queries.map((query, queryIndex) => {
 
 
-                                } else if (queryIndex === queries.length - 1) {
-                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link>
+                                    if (queryIndex === 0) {
+                                        // if only query, then print along with uuid, query and show more
+                                        return <Col xs={12} style={{ marginTop: 20 }}>
 
-                                        {queryLast[queriesIndex] ? null : <p onClick={() => { handleMoreQueries(uuidList[queriesIndex]['uuid'], queriesIndex, queryIndex) }} >More queries</p>}</div>
+                                            {uuidElement(uuidList, queriesIndex)}
+
+                                            {queryElement(username, uuidList, queriesIndex, query)}
+
+                                        </Col>
+
+                                    } else if (queryIndex === queries.length - 1 && queriesIndex === queryList.length - 1) {
+                                        // if last query and last uuidd
+                                        return <Col xs={12}>
+
+                                            {queryElement(username, uuidList, queriesIndex, query)}
+
+                                            {queryLast[queriesIndex] ? null : <Col xs={12}>{moreQueriesElement(uuidList, queriesIndex, queryIndex)}</Col>}
+                                            
+                                            <hr />
+
+                                            {uuidLast ? null : moreUuidsElement()}
+
+                                        </Col>
 
 
-                                } else {
-                                    // arbitary query, so just display it
+                                    } else if (queryIndex === queries.length - 1) {
+                                        // last query 
+                                        return <Col xs={12}>
 
-                                    return <div><Link target={'blank'} to={'/bookmarks/' + username + '/' + uuidList[queriesIndex]['uuid'] + '/' + query['id']} >  {query['query']}    </Link></div>
-                                }
+                                            {queryElement(username, uuidList, queriesIndex, query)}
+
+                                    
+
+                                            {queryLast[queriesIndex] ? null : <Col xs={12}>{moreQueriesElement(uuidList, queriesIndex, queryIndex)}</Col>}
+
+                                        </Col>
+
+
+                                    } else {
+                                        // arbitary query, so just display it
+
+                                        return <Col xs={12}>{queryElement(username, uuidList, queriesIndex, query)} </Col>
+                                    }
+
+                                })
+
 
                             })
+                        }
 
-
-                        })
-                    }
-
-
+                    </Row>
 
                     <br />
 

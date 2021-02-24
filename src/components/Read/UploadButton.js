@@ -124,6 +124,9 @@ const UploadButton = ({ session }) => {
                         metaData: JSON.stringify(fileDetails),
                         uploadedBy: session.getCurrentUser.username
                     }
+                // also add uuid to file name map to redis
+                
+                
                 }).catch(function (error) {
                     console.log('failed to store file details in mongodb')
                     setTextLoading(false);
@@ -211,7 +214,7 @@ const UploadButton = ({ session }) => {
 
                 </Button>
                 <br />
-                {!selectedFile && <span className="upload-limit-notice">*max upload file size 12 MB</span>}
+                {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br/>**upload digital pdf files only</span>}
                 <br />
 
 

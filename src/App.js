@@ -4,9 +4,10 @@ import React, { useState, Fragment } from 'react';
 import { useHistory } from 'react-router-dom'
 
 import TopDocumentsTable from './components/TopDocumentsTable';
+import TopDocumentsTableDynamic from './components/TopDocumentsTableDynamic';
 import UploadButton from './components/Read/UploadButton';
 
-
+import TestNav from './TestNav'
 
 
 import Button from '@material-ui/core/Button';
@@ -54,7 +55,7 @@ const App = ({ session }) => {
   return (
 
 
-    <Container  style={{ paddingRight: 0, paddingLeft: 0 }}>
+    <Container style={{ paddingRight: 0, paddingLeft: 0 }}>
 
       <Row>
 
@@ -70,11 +71,11 @@ const App = ({ session }) => {
           <Container className="App">
 
             <h1 className="Main-header">Read what you need </h1>
+            <h2 className="sub-header-main-page">Helps you <span className="mark">find interesting content easily</span> from your books</h2>
 
+            {session && session.getCurrentUser ? null :
 
-            {session && session.getCurrentUser ? null : 
-            
-            <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>}
+              <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>}
 
 
             <p className="main-page-try-before">Try the AI in action</p>
@@ -214,11 +215,11 @@ const App = ({ session }) => {
 
               <Col>
 
-                <p className="main-page-try-before">Popular uploads</p>
+                <p className="main-page-try-before">Popular books</p>
 
                 <hr className="break-80" />
 
-                <TopDocumentsTable />
+                <Col xs={{ size: 6, offset: 3 }}> <TestNav /> </Col>
 
               </Col>
 
@@ -226,9 +227,9 @@ const App = ({ session }) => {
             </Row>
 
 
-            {/* <Row>
+            <Row>
 
-              <Col>
+              <Col >
 
                 <p className="main-page-try-before" >What friends are saying</p>
 
@@ -237,16 +238,15 @@ const App = ({ session }) => {
                 <a target="blank" href="https://twitter.com/jackbutcher/status/1331654590052397079">
                   <div style={{
 
-                    height: '60%',
+                    height: '100%',
 
-
+                    width: '100%',
 
                     marginLeft: '5%',
 
                     marginBottom: 50,
 
                     backgroundImage: `url(${"static/img/jack.png"})`,
-
 
 
                     backgroundRepeat: 'no-repeat',
@@ -272,7 +272,7 @@ const App = ({ session }) => {
               </Col>
 
 
-            </Row> */}
+            </Row>
 
 
 
@@ -316,7 +316,7 @@ const App = ({ session }) => {
 
         </Col>
 
-     
+
 
       </Row>
 

@@ -15,7 +15,8 @@ export const SearchContextProvider = (props) => {
   }
 
   const initState = {
-    search: "",
+    // if query is provided as query string from url use it
+    search: props.query ? props.query : '',
     sessionId: props.sessionId,
     setSearch: setSearch
   } 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 
-import Navbar from './Nav/Navbar';
+import Navbar from './Nav/Railbar';
 
 
 const Faqs = () => {

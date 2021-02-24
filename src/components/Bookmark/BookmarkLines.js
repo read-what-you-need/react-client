@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
@@ -16,7 +17,7 @@ const BookmarkLines = ({ props }) => {
         headers: {
 
             'Content-Type': 'application/json',
-     
+
         }
     }
 
@@ -25,9 +26,9 @@ const BookmarkLines = ({ props }) => {
     const uuid = props.match.params.uuid;
     const queryId = props.match.params.queryId;
 
-    let bookmarkedLinesPoint = 'http://127.0.0.1:4444/api/v2/getBookmarkLines/'+user+'/'+uuid+'/'+queryId
+    let bookmarkedLinesPoint = 'http://127.0.0.1:4444/api/v2/getBookmarkLines/' + user + '/' + uuid + '/' + queryId
 
-
+    // get ???????????????? file name from uuid
 
     useEffect(() => {
         axios.get(
@@ -50,6 +51,40 @@ const BookmarkLines = ({ props }) => {
     console.log(lines, query)
 
 
+    const queryElement = (uuid, queryId, query) => {
+        const colors = ['#DFF2CC', 'rgba(241, 204, 242, 0.63)', 'rgba(245, 233, 123, 0.64)']
+
+        return <Link to={'/read/' + uuid + '?query=' + query} style={{ textDecoration: 'none' }} >
+
+            <Col style={{ backgroundColor: colors[queryId % 3] }} id={"query-file-name-header"} xs={12}>
+                {query}
+
+                <Col xs={12} id={'query-file-name-sub-header'}>
+                    <span style={{ opacity: 0.45, fontSize: 16, color: 'black' }}>
+                        from <i>“de Finibus Bonorum et Malorum", written by Cicero in 45 BC” </i>
+                    </span>
+
+                    <span style={{ opacity: 0.75, fontSize: 14, color: 'black' }}>
+                        collected by <i style={{ fontSize: 16, color: 'black' }}>{user}</i>
+                    </span>
+
+                </Col>
+            </Col>
+
+
+
+        </Link>
+    }
+
+    const LineElement = (line, lineIndex) => {
+        return <Col key={line['id']} className={"bookmark-line-element"} xs={12}>
+            <span style={{ opacity: 0.5, fontStyle: "italic", marginRight: 5, fontSize: 12 }}>{lineIndex + 1}.</span> {line['line']}
+        </Col>
+
+    }
+
+
+
     return (
 
         <Container>
@@ -64,22 +99,22 @@ const BookmarkLines = ({ props }) => {
 
                 <Col md="9" style={{ marginTop: 20 }}>
 
-                    <h1>{user}</h1>
-                    {resultsLoadStatus ? <h3 key={queryId} >{query}</h3>: <p>Loading</p>}
-                    
-                    {resultsLoadStatus ?   
-                    
-                    lines.map((line, lineIndex) => <div><Divider/> <span key={line['id']}>{lineIndex+1}. {line['line']}</span> </div>)
-                    
-                    
-                    : <p>Loading</p>}
+                    {/* <h1>{user}'s bookmark from </h1> */}
+                    {resultsLoadStatus ? queryElement(uuid, queryId, query) : <p>Loading</p>}
 
-                    
-                    
+                    {resultsLoadStatus ?
 
-                    <hr />
+                        lines.map((line, lineIndex) => LineElement(line, lineIndex))
 
-                   
+
+                        : <p>Loading</p>}
+
+
+
+
+
+
+
 
 
                 </Col>

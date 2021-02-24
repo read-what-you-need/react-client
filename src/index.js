@@ -17,7 +17,8 @@ import App from './App';
 import ReadHome from './components/Read/ReadHome.js';
 import Bookmark from './components/Bookmark/Bookmark.js';
 import BookmarkLines from './components/Bookmark/BookmarkLines.js';
-import Navbar from './components/Nav/Navbar';
+import Railbar from './components/Nav/Railbar';
+import NavResponsive from './components/Nav/NavResponsive';
 import TestNav from './TestNav';
 import Faqs from "./components/Faqs";
 
@@ -63,7 +64,7 @@ const Root = ({ refetch, session }) => {
     <Router>
 
 
-      <Navbar session={session} />
+      <NavResponsive session={session} />
 
       <Switch>
 
