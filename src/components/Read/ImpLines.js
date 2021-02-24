@@ -145,7 +145,7 @@ const ImpLines = ({ uuid, session }) => {
 
         <Container className="top-key-words-container">
 
-            <Row className="important-lines-header">
+            <Row className="important-lines-header" id={'#imp'}>
                 <span >
                     Matching lines for <i> {state.search == '' ? '...' : state.search}</i>
                 </span>

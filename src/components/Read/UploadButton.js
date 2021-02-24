@@ -124,6 +124,7 @@ const UploadButton = ({ session }) => {
                         metaData: JSON.stringify(fileDetails),
                         uploadedBy: session.getCurrentUser.username
                     }
+                    
                 // also add uuid to file name map to redis
                 
                 
@@ -214,7 +215,7 @@ const UploadButton = ({ session }) => {
 
                 </Button>
                 <br />
-                {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br/>**upload digital pdf files only</span>}
+                {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br/>**scanned pdfs not supported</span>}
                 <br />
 
 

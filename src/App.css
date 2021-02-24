@@ -464,6 +464,18 @@ margin-bottom: 40px;
 }
 
 
+.footer {
+  margin-top: 20px;
+  
+  border-radius: 10px;
+  
+  margin-bottom: 60px;
+}
+
+.question-asked-no-times:hover{ 
+
+  text-decoration: underline;
+}
 .sidebar {
   z-index: 1;
   margin: 0;

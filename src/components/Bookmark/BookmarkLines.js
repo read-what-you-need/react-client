@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
 
+import { Share } from "react-twitter-widgets";
+
 const BookmarkLines = ({ props }) => {
 
 
@@ -68,7 +70,16 @@ const BookmarkLines = ({ props }) => {
                         collected by <i style={{ fontSize: 16, color: 'black' }}>{user}</i>
                     </span>
 
+                    <Share
+                        title="hello"
+                        url={window.location.href}
+                        options={{ text: "Check " + query + " from filename. A thread.", hashtags: "readwhatyouneed" }}
+                    />
+
                 </Col>
+
+
+        
             </Col>
 
 
@@ -108,7 +119,6 @@ const BookmarkLines = ({ props }) => {
 
 
                         : <p>Loading</p>}
-
 
 
 

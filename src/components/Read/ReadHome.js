@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import TopWords from './TopWords'
 import ImpLines from './ImpLines'
-
+import TopQuestions from './TopQuestions'
 
 
 import Discover from './Discover'
@@ -95,6 +95,9 @@ const ReadHome = ({ session, props }) => {
 
                             <ImpLines uuid={_id} session={session} />
 
+                            <div style={{ height: 10 }}></div>
+
+                            <TopQuestions uuid={_id} />
 
                         </SearchContextProvider> : <UnderProcess />}
 

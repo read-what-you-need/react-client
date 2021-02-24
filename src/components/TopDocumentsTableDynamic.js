@@ -53,7 +53,7 @@ const TopDocumentsTable = ({ session }) => {
               <TableCell >Title</TableCell>
               <TableCell align="right">Date Uploaded</TableCell>
               <TableCell align="right">Size</TableCell>
-              <TableCell align="right">Process status</TableCell>
+              <TableCell align="left">Status</TableCell>
 
 
             </TableRow>

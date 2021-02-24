@@ -9,6 +9,7 @@ import UploadButton from './components/Read/UploadButton';
 
 import TestNav from './TestNav'
 
+import { Tweet } from "react-twitter-widgets";
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -26,11 +27,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 // https://github.com/ndresx/react-countdown
-import Countdown from 'react-countdown';
+// import Countdown from 'react-countdown';
 
-import Naval_File from './components/Read/txt/naval.txt'
-import Benjamin_File from './components/Read/txt/benjamin.txt'
-import Allen_File from './components/Read/txt/think.txt'
+
 
 const App = ({ session }) => {
 
@@ -89,14 +88,6 @@ const App = ({ session }) => {
               <Col xs={12} md={4}>
                 <Paper elevation={5} onClick={() => {
 
-                  fetch(Allen_File)
-                    .then(r => r.text())
-                    .then(text => {
-
-                      const pdfText = text;
-                      const fileName = "As A Man Thinketh";
-                      history.push(`/read/think`, { pdfText, fileName })
-                    });
 
                 }}>
 
@@ -127,14 +118,6 @@ const App = ({ session }) => {
               <Col xs={12} md={4}>
                 <Paper elevation={5} onClick={() => {
 
-                  fetch(Naval_File)
-                    .then(r => r.text())
-                    .then(text => {
-
-                      const pdfText = text;
-                      const fileName = "Almanack of Naval Ravikant";
-                      history.push(`/read/naval`, { pdfText, fileName })
-                    });
 
                 }}>
 
@@ -165,15 +148,6 @@ const App = ({ session }) => {
               <Col xs={12} md={4}>
 
                 <Paper elevation={5} onClick={() => {
-
-                  fetch(Benjamin_File)
-                    .then(r => r.text())
-                    .then(text => {
-
-                      const pdfText = text;
-                      const fileName = "The Autobiography of Benjamin Franklin";
-                      history.push(`/read/benj`, { pdfText, fileName })
-                    });
 
                 }}>
 
@@ -229,50 +203,23 @@ const App = ({ session }) => {
 
             <Row>
 
+
+
+              
+
               <Col >
 
                 <p className="main-page-try-before" >What friends are saying</p>
 
-                <hr className="break-80" />
-
-                <a target="blank" href="https://twitter.com/jackbutcher/status/1331654590052397079">
-                  <div style={{
-
-                    height: '100%',
-
-                    width: '100%',
-
-                    marginLeft: '5%',
-
-                    marginBottom: 50,
-
-                    backgroundImage: `url(${"static/img/jack.png"})`,
-
-
-                    backgroundRepeat: 'no-repeat',
-
-                    backgroundSize: 'contain',
-
-
-                    borderRadius: 10
-
-
-                  }
-
-                  }>
-
-                  </div>
-                </a>
-
-
-
-
+                <Tweet tweetId="1331654590052397079"  options={{ width: "1400", conversations: null}} />
 
 
               </Col>
 
 
+
             </Row>
+
 
 
 
@@ -313,12 +260,57 @@ const App = ({ session }) => {
 
         </div> */}
 
+          <Container fluid className="footer">
+
+            <p className="main-page-try-before" >More</p>
+            <hr />
+
+            <Col md={{ size: 6, offset: 1 }} xs={{ size: 6, offset: 1 }}>
+
+              <Link to={'/about/'} style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }} >
+
+                About
+
+                </Link>
+
+
+
+
+
+              <br />
+
+
+              <a target="blank"
+
+                style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }}
+
+                href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
+
+              <br />
+
+
+              <Link to={'/faq/'} style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }} >
+
+                FAQs
+
+              </Link>
+
+
+
+            </Col>
+
+
+
+
+          </Container>
+
 
         </Col>
 
 
 
       </Row>
+
 
 
     </Container>

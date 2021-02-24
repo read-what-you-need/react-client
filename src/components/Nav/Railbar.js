@@ -49,7 +49,7 @@ const RailBar = ({ session }) => {
 
 
     const classes = useStyles();
-    
+
 
     const theme = useTheme();
 
@@ -177,8 +177,6 @@ const RailBarAuth = ({ session }) => {
             <Divider />
 
 
-            <FeedBackFaqAboutItem />
-
             <Divider />
 
             <Signout />
@@ -215,9 +213,7 @@ const RailBarUnAuth = () => {
             </List>
             <Divider />
 
-            <FeedBackFaqAboutItem />
-
-
+         
 
 
 
