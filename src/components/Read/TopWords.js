@@ -28,7 +28,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const TopWords = ({ uuid, query }) => {
 
-    let topWordsDataEndPoint = 'http://localhost:4444/api/v2/topWords/'+ uuid
+    let topWordsDataEndPoint = 'http://localhost:4444/api/v2/top/words/'+ uuid
     
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);

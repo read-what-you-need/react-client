@@ -12,6 +12,7 @@ const BookmarkLines = ({ props }) => {
 
     const [query, setQuery] = useState('')
     const [lines, setLines] = useState([])
+    const [uuidName, setUuidName] = useState('')
     const [resultsLoadStatus, setResultsLoadStatus] = useState(false)
 
     let axiosConfig = {
@@ -42,6 +43,8 @@ const BookmarkLines = ({ props }) => {
 
                 setQuery(res.data['query'])
                 setLines(lines.concat(res.data['lines']))
+                setUuidName(res.data['uuidName'])
+
                 setResultsLoadStatus(true)
 
 
@@ -62,18 +65,18 @@ const BookmarkLines = ({ props }) => {
                 {query}
 
                 <Col xs={12} id={'query-file-name-sub-header'}>
-                    <span style={{ opacity: 0.45, fontSize: 16, color: 'black' }}>
-                        from <i>“de Finibus Bonorum et Malorum", written by Cicero in 45 BC” </i>
+                    <span style={{ opacity: 0.45, fontSize: 16, color: 'black', marginRight: 5 }}>
+                        from <i>“{uuidName}” </i>
                     </span>
 
-                    <span style={{ opacity: 0.75, fontSize: 14, color: 'black' }}>
+                    <span style={{ opacity: 0.75, fontSize: 14, color: 'black', marginRight: 10 }}>
                         collected by <i style={{ fontSize: 16, color: 'black' }}>{user}</i>
                     </span>
 
                     <Share
                         title="hello"
                         url={window.location.href}
-                        options={{ text: "Check " + query + " from filename. A thread.", hashtags: "readwhatyouneed" }}
+                        options={{ text: "Check " + query + " from filename. A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
                     />
 
                 </Col>

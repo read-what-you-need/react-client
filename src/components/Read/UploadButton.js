@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 
 import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid'
+
 
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -33,6 +35,7 @@ import { Container } from '@material-ui/core';
     - user
     - upload time
     - processed: false
+  - map uuid with name for redis
   - call pdftotext ✅
     - get text file
   - show user files table ✅
@@ -44,10 +47,12 @@ import { Container } from '@material-ui/core';
 
 const UploadButton = ({ session }) => {
 
-    let pdfToTextEndPoint = "http://localhost:8890"
+    let pdfToTextEndPoint = "http://localhost:8891"
+    let setUuidNameMappingPoint = 'http://localhost:4444/api/v2/set/uuidNameMap'
 
     let generateEmbeddingsEndPoint = ""
 
+    const token = localStorage.getItem('token');
 
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -79,10 +84,24 @@ const UploadButton = ({ session }) => {
         }
     }
 
+    let axiosConfigUuidMap = {
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': token
+        }
+    }
 
     let axiosPayload = {
 
         "pdf": selectedFile
+
+    }
+
+    let axiosPayloadUuidMap = {
+
+        "uuid": uuidState,
+
+        "name": fileName
 
     }
 
@@ -102,6 +121,8 @@ const UploadButton = ({ session }) => {
         data.append('uuid', uuidState)
         //console.log(data, 'clicked for upload')
 
+
+
         axios.post(
             pdfToTextEndPoint,
             data,
@@ -116,6 +137,7 @@ const UploadButton = ({ session }) => {
                 // if received job id then add into mongo document
                 // send to Mongo db, file uploaded related details
                 console.log(fileName, fileSize)
+
                 addFile({
                     variables: {
                         uuid: uuidState.toString(),
@@ -124,10 +146,29 @@ const UploadButton = ({ session }) => {
                         metaData: JSON.stringify(fileDetails),
                         uploadedBy: session.getCurrentUser.username
                     }
-                    
-                // also add uuid to file name map to redis
-                
-                
+
+
+
+                }).then(() => {
+
+                    // also map uuid to file name for redis
+                    axios.post(
+                        setUuidNameMappingPoint,
+                        {
+
+                            "uuid": uuidState,
+
+                            "name": fileName
+
+                        },
+                        axiosConfigUuidMap
+                    )
+                        .then(response => {
+
+                            console.log(response.status)
+
+                        })
+
                 }).catch(function (error) {
                     console.log('failed to store file details in mongodb')
                     setTextLoading(false);
@@ -156,9 +197,8 @@ const UploadButton = ({ session }) => {
 
     const onSelectFileHandler = event => {
 
-        //console.log(event.target.files[0])
-
-        setUuidState(uuidv4());
+        // using nanoid of 12 characters length
+        setUuidState(nanoid(12));
 
 
         setSelectedFile(event.target.files[0])
@@ -177,16 +217,6 @@ const UploadButton = ({ session }) => {
         setFileName(event.target.files[0].name.replace('.pdf', ''))
 
     }
-
-
-
-    // useEffect(() => {
-
-    //     if (textLoading === false) {
-    //         history.push(`/read/` + uuidv4(), { pdfText, fileName })
-    //     }
-
-    // }, [textLoading]);
 
 
 
@@ -215,7 +245,7 @@ const UploadButton = ({ session }) => {
 
                 </Button>
                 <br />
-                {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br/>**scanned pdfs not supported</span>}
+                {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br />**scanned pdfs not supported</span>}
                 <br />
 
 
@@ -227,7 +257,7 @@ const UploadButton = ({ session }) => {
                 {
                     selectedFile && fileSize <= 50 &&
 
-                    <Button style={{ marginTop: 5, marginBottom:20 }} variant="contained" component="label"
+                    <Button style={{ marginTop: 5, marginBottom: 20 }} variant="contained" component="label"
                         onClick={onSubmitClickHandler}
 
                     >
@@ -235,10 +265,10 @@ const UploadButton = ({ session }) => {
                     </Button>
                 }
                 {/* {FileMutateLoading && <p>Loading...</p>} */}
-                
 
 
-                {errResponse != false ? <h6 style={{fontWeight : 300, color: 'red'}}>{errResponse}</h6> : null}
+
+                {errResponse != false ? <h6 style={{ fontWeight: 300, color: 'red' }}>{errResponse}</h6> : null}
 
 
                 <Backdrop className={classes.backdrop} open={textLoading} >

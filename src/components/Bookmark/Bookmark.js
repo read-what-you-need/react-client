@@ -10,7 +10,7 @@ import withAuth from './../withAuth';
 const Bookmark = ({ session }) => {
 
     let bookmarkedFilesPoint = 'http://127.0.0.1:4444/api/v2/bookmarks'
-    let bookmarkedMoreQueries = 'http://127.0.0.1:4444/api/v2/bookmarks'
+
 
     const [uuidList, setUuidsList] = useState([])
     const [uuidLast, setUuidLast] = useState(false)
@@ -141,7 +141,11 @@ const Bookmark = ({ session }) => {
         const colors = ['#DFF2CC', 'rgba(241, 204, 242, 0.63)', 'rgba(245, 233, 123, 0.64)']
 
         return <Link to={'/read/' + uuidList[queriesIndex]['uuid']} style={{ textDecoration: 'none' }}>
-            <h4 style={{backgroundColor: colors[queriesIndex%3]}} id={"uuid-file-name-header"}>{uuidList[queriesIndex]['name']}</h4>
+            <h4 style={{ backgroundColor: colors[queriesIndex % 3] }} id={"uuid-file-name-header"}>
+                <span style={{ opacity: 0.5, fontStyle: "italic", marginRight: 5, fontSize: 14 }}>
+                    {queriesIndex + 1}.
+                    </span>
+                {uuidList[queriesIndex]['name']}</h4>
         </Link>
     }
 
@@ -203,7 +207,7 @@ const Bookmark = ({ session }) => {
 
                 <Col md="9" style={{ marginTop: 20 }}>
 
-                    <h1 style={{fontWeight: 200}}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
+                    <h1 style={{ fontWeight: 200 }}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
 
 
                     <hr />
@@ -233,7 +237,7 @@ const Bookmark = ({ session }) => {
                                             {queryElement(username, uuidList, queriesIndex, query)}
 
                                             {queryLast[queriesIndex] ? null : <Col xs={12}>{moreQueriesElement(uuidList, queriesIndex, queryIndex)}</Col>}
-                                            
+
                                             <hr />
 
                                             {uuidLast ? null : moreUuidsElement()}
@@ -247,7 +251,7 @@ const Bookmark = ({ session }) => {
 
                                             {queryElement(username, uuidList, queriesIndex, query)}
 
-                                    
+
 
                                             {queryLast[queriesIndex] ? null : <Col xs={12}>{moreQueriesElement(uuidList, queriesIndex, queryIndex)}</Col>}
 
