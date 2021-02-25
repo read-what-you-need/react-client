@@ -95,7 +95,7 @@ const TopQuestions = ({ uuid }) => {
 
                 topQuestions.map((item) => <p className={"question-asked-no-times"} onClick={() => {
                     state.setSearch(item['query'])
-                    window.location.reload()
+               
                 }} > {item['query']} <span style={{opacity:0.7, fontSize:14}} >asked</span> <i>{item['score']} times</i></p>
 
 

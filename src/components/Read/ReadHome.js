@@ -40,7 +40,7 @@ const ReadHome = ({ session, props }) => {
     const state = useContext(SearchContext);
 
 
-    const [fileProcessStatus, setfileProcessStatus] = useState(true);
+    const [fileProcessStatus, setfileProcessStatus] = useState(false);
    
     const [fileName, setFileName] = useState('');
 
@@ -48,17 +48,13 @@ const ReadHome = ({ session, props }) => {
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
         GET_FILE_DETAILS, {
         variables: { uuid: _id }, onCompleted(data) {
+            console.log('process status', data)
             var res = Object(queryData.getFileDetails)
             setfileProcessStatus(res['processStatus'])
             setFileName(res['name'])
         }
     })
 
-    // useEffect(() => {
-    //     //setting search query for important lines as the query 
-    //     // recieved from the url as query string
-    //     state.setSearch(query.query)
-    // }, [])
 
 
 
@@ -80,7 +76,7 @@ const ReadHome = ({ session, props }) => {
                         <h1 className="read-page-file-name">{fileName}</h1>
 
 
-                        {fileProcessStatus ? <SearchContextProvider sessionId={_id} query={query.query}>
+                        {fileProcessStatus === "true" ? <SearchContextProvider sessionId={_id} query={query.query}>
 
 
                             

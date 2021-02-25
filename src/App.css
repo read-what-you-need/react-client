@@ -471,9 +471,17 @@ margin-bottom: 40px;
   
   margin-bottom: 60px;
 }
-
+.question-asked-no-times{
+  color:rgba(0, 0, 255, 0.989);
+}
+.question-asked-no-times > i{ 
+  color: black;
+}
+.question-asked-no-times > span{ 
+  color: rgb(77, 77, 77)
+}
 .question-asked-no-times:hover{ 
-
+  
   text-decoration: underline;
 }
 .sidebar {

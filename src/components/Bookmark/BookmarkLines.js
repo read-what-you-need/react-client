@@ -76,7 +76,7 @@ const BookmarkLines = ({ props }) => {
                     <Share
                         title="hello"
                         url={window.location.href}
-                        options={{ text: "Check " + query + " from filename. A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
+                        options={{ text: query + " from "+ uuidName +". A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
                     />
 
                 </Col>

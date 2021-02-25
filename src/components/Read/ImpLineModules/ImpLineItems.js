@@ -37,7 +37,7 @@ import {
 
 const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) => {
 
-    let questionGeneratorEndPoint = "http://localhost:8893"
+    let getQuestionEndPoint = "http://localhost:4444/api/v2/set/textToQuestion"
 
 
     // //console.log(content)
@@ -77,21 +77,23 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
         setQuestionLoading(true)
 
         axios.post(
-            questionGeneratorEndPoint,
+            getQuestionEndPoint,
             axiosPayload,
             axiosConfig
         )
             .then(res => {
                 setQuestionLoading(false)
                 console.log(res.data)
-
+    
                 var question = res.data
-
+    
                 state.setSearch(question);
-
+    
             }).catch(function (error) {
-                //console.log(error);
+                console.log(error);
             });
+    
+        
     }
 
 
