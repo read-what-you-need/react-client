@@ -17,7 +17,7 @@ import App from './App';
 import ReadHome from './components/Read/ReadHome.js';
 import Bookmark from './components/Bookmark/Bookmark.js';
 import BookmarkLines from './components/Bookmark/BookmarkLines.js';
-import Railbar from './components/Nav/Railbar';
+
 import NavResponsive from './components/Nav/NavResponsive';
 import TestNav from './TestNav';
 import Faqs from "./components/Faqs";
@@ -31,8 +31,7 @@ import Profile from './components/Profile/Profile'
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4444/graphql',
-  credentials: 'same-origin'
+  uri: 'https://readneedapi.deeps.site/graphql'
 });
 
 

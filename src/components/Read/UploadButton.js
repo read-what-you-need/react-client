@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom'
 
 import axios from 'axios';
 
-import { v4 as uuidv4 } from 'uuid';
-import { nanoid } from 'nanoid'
+
+import nanoid from 'nanoid';
+
 
 
 
@@ -47,8 +48,8 @@ import { Container } from '@material-ui/core';
 
 const UploadButton = ({ session }) => {
 
-    let pdfToTextEndPoint = "http://localhost:8891"
-    let setUuidNameMappingPoint = 'http://localhost:4444/api/v2/set/uuidNameMap'
+    let pdfToTextEndPoint = "http://predictorapi.deeps.site:8891"
+    let setUuidNameMappingPoint = 'https://readneedapi.deeps.site/api/v2/set/uuidNameMap'
 
     let generateEmbeddingsEndPoint = ""
 
@@ -198,6 +199,7 @@ const UploadButton = ({ session }) => {
     const onSelectFileHandler = event => {
 
         // using nanoid of 12 characters length
+
         setUuidState(nanoid(12));
 
 

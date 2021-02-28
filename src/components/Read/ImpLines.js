@@ -21,7 +21,7 @@ import {
 const ImpLines = ({ uuid, session }) => {
 
 
-    let smartSearchEndPoint = "http://localhost:4444/api/v2/getLines"
+    let smartSearchEndPoint = "https://readneedapi.deeps.site/api/v2/getLines"
 
 
     // pdfText recieved from the db in the parent component

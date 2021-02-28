@@ -29,9 +29,7 @@ const BookmarkLines = ({ props }) => {
     const uuid = props.match.params.uuid;
     const queryId = props.match.params.queryId;
 
-    let bookmarkedLinesPoint = 'http://127.0.0.1:4444/api/v2/getBookmarkLines/' + user + '/' + uuid + '/' + queryId
-
-    // get ???????????????? file name from uuid
+    let bookmarkedLinesPoint = 'https://readneedapi.deeps.site/api/v2/getBookmarkLines/' + user + '/' + uuid + '/' + queryId
 
     useEffect(() => {
         axios.get(
@@ -76,13 +74,13 @@ const BookmarkLines = ({ props }) => {
                     <Share
                         title="hello"
                         url={window.location.href}
-                        options={{ text: query + " from "+ uuidName +". A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
+                        options={{ text: query + " from " + uuidName + ". A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
                     />
 
                 </Col>
 
 
-        
+
             </Col>
 
 
@@ -126,7 +124,7 @@ const BookmarkLines = ({ props }) => {
 
 
 
-
+                    <div style={{ height: 50 }}></div>
 
 
 

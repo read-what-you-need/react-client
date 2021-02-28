@@ -37,7 +37,7 @@ import {
 
 const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) => {
 
-    let getQuestionEndPoint = "http://localhost:4444/api/v2/set/textToQuestion"
+    let getQuestionEndPoint = "https://readneedapi.deeps.site/api/v2/set/textToQuestion"
 
 
     // //console.log(content)

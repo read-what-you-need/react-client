@@ -18,7 +18,7 @@ import { Container, Row, Col } from 'reactstrap';
 const TopQuestions = ({ uuid }) => {
 
 
-    let topQuestionsEndPoint = "http://localhost:4444/api/v2/top/questions/"
+    let topQuestionsEndPoint = "https://readneedapi.deeps.site/api/v2/top/questions/"
 
 
 

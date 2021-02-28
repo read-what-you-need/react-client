@@ -67,7 +67,7 @@ const TopDocumentsTable = ({ session }) => {
                 <TableRow key={file.name}>
                   <TableCell component="th" scope="row">    {index + 1}    </TableCell>
                   <TableCell > <Link to={'/read/' + file.uuid} >  {file.name}    </Link>    </TableCell>
-                  <TableCell align="right">{file.createdDate}</TableCell>
+                  <TableCell align="right">{Date(file.createdDate).toLocaleString('en-US', {timeZone: 'UTC'})}</TableCell>
                   <TableCell align="right">{file.size}MB</TableCell>
                   <TableCell align="right"> {
 

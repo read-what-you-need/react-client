@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 
-
 import { useHistory } from 'react-router-dom'
+
 
 import TopDocumentsTable from './components/TopDocumentsTable';
 import TopDocumentsTableDynamic from './components/TopDocumentsTableDynamic';
@@ -69,15 +69,25 @@ const App = ({ session }) => {
 
           <Container className="App">
 
-            <h1 className="Main-header">Read what you need </h1>
-            <h2 className="sub-header-main-page">Helps you <span className="mark">find interesting content easily</span> from your books</h2>
+            <Row className="main-header-with-logo">
+              <Col xs={12} lg={1}>
+                <img src={"/static/img/logo.png"} className="logo-resize" alt="My logo" />
+
+              </Col>
+              <Col xs={12} lg={11}>
+                <h1 className="Main-header">Read what you need </h1>
+
+              </Col>
+
+            </Row>
+            <h2 className="sub-header-main-page"><span className="mark">Find interesting content </span> from your books easily</h2>
 
             {session && session.getCurrentUser ? null :
 
               <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>}
 
 
-            <p className="main-page-try-before">Try the AI in action</p>
+            <p className="main-page-try-before" >Try the AI in action</p>
 
 
 
@@ -205,13 +215,13 @@ const App = ({ session }) => {
 
 
 
-              
+
 
               <Col >
 
                 <p className="main-page-try-before" >What friends are saying</p>
 
-                <Tweet tweetId="1331654590052397079"  options={{ width: "1400", conversations: null}} />
+                <Tweet tweetId="1331654590052397079" options={{ width: "1400", conversations: null }} />
 
 
               </Col>
@@ -295,6 +305,13 @@ const App = ({ session }) => {
 
               </Link>
 
+              <br />
+
+              <Link to={'/contact/'} style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }} >
+
+                Contact
+
+              </Link>
 
 
             </Col>
