@@ -9,7 +9,7 @@ import TestNav from './TestNav'
 import ExampleBooks from './components/Read/ExampleBooks';
 import BooksList from './components/BooksList';
 
-import { Player } from 'video-react';
+import { Player, BigPlayButton } from 'video-react';
 import { Tweet } from "react-twitter-widgets";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -87,7 +87,7 @@ const App = ({ session }) => {
               playsInline
               poster="/static/img/benj.jpg"
               src="https://readneedobjects.s3.ap-south-1.amazonaws.com/rwunv02_2.mp4"
-            />
+            ><BigPlayButton position="center" /></Player>
 
             <p className="main-page-try-before" >Try the AI in action</p>
 
