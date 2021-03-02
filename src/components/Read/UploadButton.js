@@ -11,6 +11,8 @@ import nanoid from 'nanoid';
 
 
 
+
+
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 import {
@@ -112,7 +114,7 @@ const UploadButton = ({ session }) => {
 
 
 
-        console.log(selectedFile, 'after upload button')
+        //console.log(selectedFile, 'after upload button')
 
 
 
@@ -120,7 +122,7 @@ const UploadButton = ({ session }) => {
         const data = new FormData()
         data.append('pdf-file', selectedFile)
         data.append('uuid', uuidState)
-        //console.log(data, 'clicked for upload')
+        ////console.log(data, 'clicked for upload')
 
 
 
@@ -131,13 +133,13 @@ const UploadButton = ({ session }) => {
         )
             .then(response => {
 
-                console.log(response.statusText, response.data)
+                //console.log(response.statusText, response.data)
                 setTextLoading(false);
 
             }).then(() => {
                 // if received job id then add into mongo document
                 // send to Mongo db, file uploaded related details
-                console.log(fileName, fileSize)
+                //console.log(fileName, fileSize)
 
                 addFile({
                     variables: {
@@ -166,19 +168,19 @@ const UploadButton = ({ session }) => {
                     )
                         .then(response => {
 
-                            console.log(response.status)
+                            //console.log(response.status)
 
                         })
 
                 }).catch(function (error) {
-                    console.log('failed to store file details in mongodb')
+                    //console.log('failed to store file details in mongodb')
                     setTextLoading(false);
                     setErrResponse('Error in uploading file details.')
                 });
 
 
             }).catch(function (error) {
-                console.log('did not recieve job id from pdftotext api')
+                //console.log('did not recieve job id from pdftotext api')
                 setTextLoading(false);
                 setErrResponse('Pdf file not uploaded. Error in processing file')
             });
@@ -204,7 +206,7 @@ const UploadButton = ({ session }) => {
 
 
         setSelectedFile(event.target.files[0])
-        console.log(selectedFile, typeof (selectedFile))
+        //console.log(selectedFile, typeof (selectedFile))
 
         let fileMeta = {
             name: event.target.files[0].name,

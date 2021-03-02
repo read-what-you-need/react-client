@@ -28,8 +28,8 @@ const ImpLines = ({ uuid, session }) => {
 
     const state = useContext(SearchContext);
 
-    //console.log(state.search, ": value from search box landing 😁 ")
-    //console.log(state.sessionId, ": sessionID is 😛")
+    ////console.log(state.search, ": value from search box landing 😁 ")
+    ////console.log(state.sessionId, ": sessionID is 😛")
     const [smartSearchResults, setSmartSearch] = useState('')
     const [textLoading, setTextLoading] = useState(null);
 
@@ -39,7 +39,7 @@ const ImpLines = ({ uuid, session }) => {
     const [prevResponseLen, setPrevResponseLen] = useState(0);
     // const [bookmarkStatus, setBookMarkStatus] = useState([0]);
 
-    // //console.log(pdfText, "in imp lines hehehehe")
+    // ////console.log(pdfText, "in imp lines hehehehe")
 
     const token = localStorage.getItem('token');
 
@@ -77,13 +77,13 @@ const ImpLines = ({ uuid, session }) => {
             )
                 .then(res => {
 
-                    console.log(res.statusText, res.data)
+                    //console.log(res.statusText, res.data)
 
                     setSmartSearch(res.data);
                     setTextLoading(false);
 
                 }).catch(function (error) {
-                    //console.log(error);
+                    ////console.log(error);
                 });
 
             // getUserBookmarkStatus({ variables: { uuid, query: state.search } })
@@ -114,7 +114,7 @@ const ImpLines = ({ uuid, session }) => {
                     setTextLoading(false);
 
                 }).catch(function (error) {
-                    //console.log(error);
+                    ////console.log(error);
                 });
         }
 
@@ -135,7 +135,7 @@ const ImpLines = ({ uuid, session }) => {
     //     });
 
 
-    // console.log('bookmarks', bookmarkStatusData, bookmarkStatus)
+    // //console.log('bookmarks', bookmarkStatusData, bookmarkStatus)
 
 
     var ContentPlaceholder = [1, 2];

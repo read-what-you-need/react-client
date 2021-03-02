@@ -260,7 +260,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        boxShadow: 'inset -7px 0 19px -7px rgba(0,0,0,0.1)',
+        boxShadow: 'inset -7px 0 19px -7px rgba(0,0,0,0.2)',
         backgroundColor: '#f1f1f1',
         opacity: 0.95
 
@@ -270,7 +270,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        boxShadow: 'inset -7px 0 18px -7px rgba(0,0,0,0.1)',
+        boxShadow: 'inset -7px 0 18px -7px rgba(0,0,0,0.2)',
         backgroundColor: '#f1f1f1',
         overflowX: 'hidden',
         width: theme.spacing(7) + 1,

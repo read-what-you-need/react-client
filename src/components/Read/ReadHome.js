@@ -30,7 +30,7 @@ const ReadHome = ({ session, props }) => {
 
     // get from view or params from the url
     const _id = props.match.params._id;
-    console.log(props.match.params)
+    //console.log(props.match.params)
     
     // if query is already passed as query string
     const query = queryString.parse(props.location.search)
@@ -40,7 +40,7 @@ const ReadHome = ({ session, props }) => {
     const state = useContext(SearchContext);
 
 
-    const [fileProcessStatus, setfileProcessStatus] = useState(false);
+    const [fileProcessStatus, setfileProcessStatus] = useState();
    
     const [fileName, setFileName] = useState('');
 
@@ -48,7 +48,7 @@ const ReadHome = ({ session, props }) => {
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
         GET_FILE_DETAILS, {
         variables: { uuid: _id }, onCompleted(data) {
-            console.log('process status', data)
+            //console.log('process status', data)
             var res = Object(queryData.getFileDetails)
             setfileProcessStatus(res['processStatus'])
             setFileName(res['name'])
@@ -59,7 +59,7 @@ const ReadHome = ({ session, props }) => {
 
 
     return (
-        <Container fluid style={{ paddingRight: 0, paddingLeft: 0, marginBottom: 50 }}>
+        <Container fluid style={{ paddingRight: 0, paddingLeft: 0, marginBottom: 80 }}>
 
             <Row>
 
@@ -95,7 +95,7 @@ const ReadHome = ({ session, props }) => {
 
                             <TopQuestions uuid={_id} />
 
-                        </SearchContextProvider> : <UnderProcess />}
+                        </SearchContextProvider> : fileProcessStatus === "false" ? <UnderProcess /> : null}
 
 
 

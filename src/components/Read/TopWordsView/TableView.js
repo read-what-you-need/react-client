@@ -31,7 +31,7 @@ const TableVIew = ({ topN }) => {
     const classes = useStyles();
     const state = useContext(SearchContext);
 
-    //console.log(topN)
+    ////console.log(topN)
 
     return (
         <Container>

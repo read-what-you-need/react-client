@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 const Discover = ({ pdfText }) => {
 
-    ////console.log(pdfText)
+    //////console.log(pdfText)
 
 
 
@@ -53,20 +53,20 @@ const Discover = ({ pdfText }) => {
     // const secondTopWord = getRandom(discoverState.topWordsSegment[1])
     // const thirdTopWord = getRandom(discoverState.topWordsSegment[2])
 
-    //console.log(discoverState.topWordsSegment[0])
+    ////console.log(discoverState.topWordsSegment[0])
 
     // function getRandomTopWords() {
-    //     //console.log(firstSegment)
+    //     ////console.log(firstSegment)
 
     
-    //     //console.log(firstTopWord[0], typeof (firstTopWord))
+    //     ////console.log(firstTopWord[0], typeof (firstTopWord))
 
 
     //     return [firstTopWord[0], secondTopWord[0], thirdTopWord[0]]
     // }
 
     //var a = getRandomTopWords()
-    ////console.log(a)
+    //////console.log(a)
 
 
 
@@ -110,7 +110,7 @@ const Discover = ({ pdfText }) => {
     //     )
     //         .then(res => {
 
-    //             //console.log(res.statusText, res.data)
+    //             ////console.log(res.statusText, res.data)
 
     //             let chosenLine = getRandom(Object.entries(res.data))[0]
     //             discoverState.setTopMatchingLines(chosenLine)
@@ -118,7 +118,7 @@ const Discover = ({ pdfText }) => {
     //             setTextLoading(false);
 
     //         }).catch(function (error) {
-    //             //console.log(error);
+    //             ////console.log(error);
     //         });
 
 

@@ -9,7 +9,7 @@ import withAuth from './../withAuth';
 
 const Bookmark = ({ session }) => {
 
-    let bookmarkedFilesPoint = 'http://127.0.0.1:4444/api/v2/bookmarks'
+    let bookmarkedFilesPoint = 'https://readneedapi.deeps.site/api/v2/bookmarks'
 
 
     const [uuidList, setUuidsList] = useState([])
@@ -75,7 +75,7 @@ const Bookmark = ({ session }) => {
                 // update the status of the last uuid as true
                 // so the "show more uuid" button is hidden
                 if (res.data['uuids'].length === 0) {
-                    console.log('empty uuid list')
+                    //console.log('empty uuid list')
                     setUuidLast(true)
                 }
 
@@ -85,7 +85,7 @@ const Bookmark = ({ session }) => {
 
     }, [start])
 
-    console.log(queryLast)
+    //console.log(queryLast)
 
 
     const handleMoreUuids = () => {

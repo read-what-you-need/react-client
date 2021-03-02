@@ -21,7 +21,7 @@ const withSession = Component => props => (
                 </div>
             );
 
-            console.log(data, 'with session page');
+            //console.log(data, 'with session page');
 
             return (
 

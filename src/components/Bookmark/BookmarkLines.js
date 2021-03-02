@@ -51,7 +51,7 @@ const BookmarkLines = ({ props }) => {
 
     }, [])
 
-    console.log(lines, query)
+    //console.log(lines, query)
 
 
     const queryElement = (uuid, queryId, query) => {
@@ -74,7 +74,9 @@ const BookmarkLines = ({ props }) => {
                     <Share
                         title="hello"
                         url={window.location.href}
-                        options={{ text: query + " from " + uuidName + ". A thread.", hashtags: "readwhatyouneed,AIreadsyourbook" }}
+                        options={{ text: query + " from " + uuidName + ". A thread.",
+                         hashtags: "readwhatyouneed,AIreadsyourbook", 
+                        dnt: true }}
                     />
 
                 </Col>

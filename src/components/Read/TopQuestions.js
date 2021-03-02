@@ -24,8 +24,8 @@ const TopQuestions = ({ uuid }) => {
 
     const state = useContext(SearchContext);
 
-    //console.log(state.search, ": value from search box landing 😁 ")
-    //console.log(state.sessionId, ": sessionID is 😛")
+    ////console.log(state.search, ": value from search box landing 😁 ")
+    ////console.log(state.sessionId, ": sessionID is 😛")
     const [topQuestions, setTopQuestions] = useState([])
     const [textLoading, setTextLoading] = useState(true);
 
@@ -34,7 +34,7 @@ const TopQuestions = ({ uuid }) => {
     const [prevResponseLen, setPrevResponseLen] = useState(0);
     // const [bookmarkStatus, setBookMarkStatus] = useState([0]);
 
-    // //console.log(pdfText, "in imp lines hehehehe")
+    // ////console.log(pdfText, "in imp lines hehehehe")
 
 
 
@@ -56,7 +56,7 @@ const TopQuestions = ({ uuid }) => {
             .then(res => {
 
 
-                console.log(res.data)
+                //console.log(res.data)
                 setTopQuestions(res.data)
                 setTextLoading(false)
 

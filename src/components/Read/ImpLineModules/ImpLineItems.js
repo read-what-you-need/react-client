@@ -40,7 +40,7 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
     let getQuestionEndPoint = "https://readneedapi.deeps.site/api/v2/set/textToQuestion"
 
 
-    // //console.log(content)
+    // ////console.log(content)
     const state = useContext(SearchContext);
 
     const [questionLoading, setQuestionLoading] = useState(null);
@@ -50,7 +50,7 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
 
 
     var score = parseFloat(score)
-    // //console.log(score)
+    // ////console.log(score)
     var IntScore = Math.floor(score * 100)
 
     let axiosConfig = {
@@ -69,10 +69,10 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
 
     }
 
-    console.log('search query present:', state.search)
+    //console.log('search query present:', state.search)
 
     const handleGetQuestionRequest = () => {
-        console.log(content)
+        //console.log(content)
 
         setQuestionLoading(true)
 
@@ -83,14 +83,14 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
         )
             .then(res => {
                 setQuestionLoading(false)
-                console.log(res.data)
+                //console.log(res.data)
     
                 var question = res.data
     
                 state.setSearch(question);
     
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
     
         
@@ -109,12 +109,12 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
 
 
     const handleBookmarkClick = () => {
-        console.log('bokmark')
+        //console.log('bokmark')
 
         setBookMarkReact(!bookMarkStatus)
 
         if (bookMarkStatus === true) {
-            console.log('bookmark unset')
+            //console.log('bookmark unset')
             // call delete bookmark
 
             removeBookMark({
@@ -124,12 +124,12 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
                     query: state.search
                 }
             }).catch(function (error) {
-                console.log(error)
+                //console.log(error)
                 throw new Error(error, ': in removing bookmark');
             });
 
         } else {
-            console.log('bookmark ser')
+            //console.log('bookmark ser')
             // call set bookmark
 
             setBookMark({
@@ -139,7 +139,7 @@ const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) =
                     query: state.search
                 }
             }).catch(function (error) {
-                console.log(error)
+                //console.log(error)
                 throw new Error(error, ': in setting bookmark');
             });
 

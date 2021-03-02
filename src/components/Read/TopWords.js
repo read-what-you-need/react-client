@@ -28,8 +28,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const TopWords = ({ uuid, query }) => {
 
-    let topWordsDataEndPoint = 'https://readneedapi.deeps.site/api/v2/top/words/'+ uuid
-    
+    let topWordsDataEndPoint = 'https://readneedapi.deeps.site/api/v2/top/words/' + uuid
+
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);
 
@@ -52,30 +52,30 @@ const TopWords = ({ uuid, query }) => {
         // redis cache implement here
         fetch(topWordsDataEndPoint)
             .then(res => {
-                console.log(res, res.data)
+                //console.log(res, res.data)
                 return res.json()
             })
             .then(data => {
-           
+
 
                 setTopN(data)
                 setTextLoading(false)
 
                 var firstTopWord = Object.entries(data)[0][0];
 
-                if (state.search === ''){
+                if (state.search === '') {
                     // search state is empty set it to top word one
                     // it means set search has been mutated by query string passed from url
                     // and that query is being used for showing important lines
                     state.setSearch(firstTopWord);
                 }
 
-                
+
 
 
                 setRandomWordsSegment(WordsSegment(data));
 
-            
+
 
             })
             .catch(error => {
@@ -173,11 +173,17 @@ const TopWords = ({ uuid, query }) => {
 
                                 <span class="keywords-show-less-button">
 
-                                    <IconButton onClick={(e) => {
-                                        SetShowCount(2)
-                                    }}>
-                                        <ExpandLessIcon />
-                                    </IconButton>
+
+                                    <Chip
+                                        key={Math.random()}
+                                        // avatar={<Avatar>{value}</Avatar>}
+                                        style={{ marginTop: 5}}
+                                        onClick={(e) => {
+                                            SetShowCount(2)
+                                        }}
+
+                                        label="show less" />
+
 
                                 </span>
                             </div>
@@ -330,7 +336,7 @@ function getRandomTopWords(firstSegment, secondSegment, thirdSegment) {
     const secondTopWord = getRandom(secondSegment)
     const thirdTopWord = getRandom(thirdSegment)
 
-    //console.log(firstTopWord, secondTopWord, thirdTopWord)
+    ////console.log(firstTopWord, secondTopWord, thirdTopWord)
 
     return [firstTopWord, secondTopWord, thirdTopWord]
 }

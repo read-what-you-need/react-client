@@ -15,7 +15,7 @@ const Faqs = () => {
 
                 <Col md="2">
 
-                 
+
 
                 </Col>
 
@@ -27,23 +27,17 @@ const Faqs = () => {
                         <div style={{ marginBottom: 50 }}></div>
 
                         <div className="faq-list">
-                            <li>How long does it usually take for the results to show up ?</li>
-                            <p>It can take anywhere between 10 seconds to 30 seconds, given the servers are not overloaded with requests.</p>
-
-                            <li>What does 20% loaded in the results page mean ?</li>
-                            <p>It means only 20% of the pdf is scanned uniformly and results are shown from that. This 10% limit on pdf is set, mainly because this a demo version to test the product.</p>
+                            <li>How long does it usually take for the files to get processed ?</li>
+                            <p>It can take anywhere between 10 to 30 minutes, given the servers are not overloaded with requests.</p>
+                            
+                            <li>Will the files be accessible once they are processed ?</li>
+                            <p>Yes, once processed files will be always available and can be accessed within 1 to 2 seconds</p>
 
                             <li>Will my pdf be stored ?</li>
-                            <p>The pdf is not stored. Only the encodings of the pdf that are used to serve smart results will be stored till tonight, after which they will be deleted.</p>
-
-                            <li>How to get 100% results shown for a pdf?</li>
-                            <p>If handful of people are interested to obtain full results, then we can start to rollout features that serve those needs.</p>
-
-                            <li>Why cannot we share the results page link to our friends ?</li>
-                            <p>This is just a demo test product, if more people are interested, we will work on rolling out this feature too. Let us know about it by filling out the feedback form 😄 !</p>
+                            <p>The pdf is not stored. Only the encodings of the pdf that are used to serve smart results will be stored.</p>
 
                             <li>Why use this?</li>
-                            <p>It mainly originates to discover nuggets of gold that lay hidden within books and access them quickly.</p>
+                            <p>To discover interesting content from files which are not easily searchable, so you can reach the ideas that click much sooner</p>
 
                             <li>How does this work ?</li>
                             <p>In the backend there's a simple semantic search that takes place on the sentence embeddings computed on the sentences from the whole pdf. The emebeddings are generated from a sentence transformer library built on top of hugging face. Citation below</p>

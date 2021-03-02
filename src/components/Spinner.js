@@ -7,7 +7,7 @@ const Spinner = () => (
 
     <div className="spinner">
 
-        <BeatLoader color={'#4A4A4A'} size={10} margin={2}/>
+        <BeatLoader color={'#4A4A4A'} size={17} margin={2}/>
 
     </div>
 

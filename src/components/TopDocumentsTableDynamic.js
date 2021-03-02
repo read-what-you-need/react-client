@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import {
   GET_USER_FILES
 } from './../queries';
@@ -20,11 +20,6 @@ import {
 - No, file name, date uploaded, processed
 
 */
-
-
-function createData(name, dateUploaded, processStatus) {
-  return { name, dateUploaded, processStatus };
-}
 
 
 
@@ -67,7 +62,7 @@ const TopDocumentsTable = ({ session }) => {
                 <TableRow key={file.name}>
                   <TableCell component="th" scope="row">    {index + 1}    </TableCell>
                   <TableCell > <Link to={'/read/' + file.uuid} >  {file.name}    </Link>    </TableCell>
-                  <TableCell align="right">{Date(file.createdDate).toLocaleString('en-US', {timeZone: 'UTC'})}</TableCell>
+                  <TableCell align="right">{humanReadableDate(file.createdDate)}</TableCell>
                   <TableCell align="right">{file.size}MB</TableCell>
                   <TableCell align="right"> {
 
@@ -94,6 +89,22 @@ const TopDocumentsTable = ({ session }) => {
 
   );
 }
+
+function humanReadableDate(unix_timestamp) {
+  var timestamp = parseInt(unix_timestamp)
+  var a = new Date(timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' at ' + hour + ':' + min // + ':' + sec ;
+  return time;
+}
+
+
 
 const useStyles = makeStyles({
   table: {

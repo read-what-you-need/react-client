@@ -38,7 +38,7 @@ const SmartSearch = () => {
 
     const handleKeyPress = (e) => {
         if(e.keyCode == 13){
-           //console.log('enter value pressed 😁', e.target.value);
+           ////console.log('enter value pressed 😁', e.target.value);
            state.setSearch(localInputValue);
         }
      }
@@ -47,7 +47,7 @@ const SmartSearch = () => {
         SetLocalInputValue(state.search)
     }, [state.search])
 
-    //console.log(localInputValue)
+    ////console.log(localInputValue)
 
     return (
         <Container className="top-key-words-container">
