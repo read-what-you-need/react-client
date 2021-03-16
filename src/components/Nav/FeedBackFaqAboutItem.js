@@ -37,7 +37,7 @@ const FeedBackFaqAboutItem = () => {
 
                 style={{ textDecoration: 'none', color: 'grey' }}
 
-                href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
+                href="https://l3sp0taqveu.typeform.com/to/b5guEylp">Feedback</a>
         )
     }
 
@@ -60,7 +60,7 @@ const FeedBackFaqAboutItem = () => {
 
                         style={{ textDecoration: 'none', color: 'grey' }}
 
-                        href="https://forms.gle/ZE73f4cdWVMmwkPy8"><ListItem button onClick={feedBack} className={classes.nested}>
+                        href="https://l3sp0taqveu.typeform.com/to/b5guEylp"><ListItem button onClick={feedBack} className={classes.nested}>
                             <ListItemIcon>
                                 <FeedbackIcon />
                             </ListItemIcon>

@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 
+
+import { Player, BigPlayButton } from 'video-react';
+
 import Navbar from './Nav/Railbar';
 
 
@@ -27,9 +30,21 @@ const Faqs = () => {
                         <div style={{ marginBottom: 50 }}></div>
 
                         <div className="faq-list">
+
+                            <li>How to use the site ?</li>
+
+
+                            <Player
+                                playsInline
+                                poster="/static/img/benj.jpg"
+                                src="https://readneedobjects.s3.ap-south-1.amazonaws.com/rwunv02_2.mp4"
+                            ><BigPlayButton position="center" /></Player>
+
+                            <div style={{ marginBottom: 20 }}></div>
+
                             <li>How long does it usually take for the files to get processed ?</li>
                             <p>It can take anywhere between 10 to 30 minutes, given the servers are not overloaded with requests.</p>
-                            
+
                             <li>Will the files be accessible once they are processed ?</li>
                             <p>Yes, once processed files will be always available and can be accessed within 1 to 2 seconds</p>
 

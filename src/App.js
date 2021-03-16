@@ -9,7 +9,8 @@ import TestNav from './TestNav'
 import ExampleBooks from './components/Read/ExampleBooks';
 import BooksList from './components/BooksList';
 
-import { Player, BigPlayButton } from 'video-react';
+import UploadButton from './components/Read/UploadButton';
+
 import { Tweet } from "react-twitter-widgets";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,6 +19,7 @@ import { Container, Row, Col } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 
 import './App.css';
+import IntroCards from './components/Home/IntroCards';
 
 
 // https://github.com/ndresx/react-countdown
@@ -75,29 +77,40 @@ const App = ({ session }) => {
 
             </Row>
 
-            <h2 className="sub-header-main-page"><span className="mark">Find interesting content </span> from your books easily</h2>
+            <h2 className="sub-header-main-page"><span className="mark">Find interesting content  from your books easily</span></h2>
 
-            {session && session.getCurrentUser ? null :
+            {/* {session && session.getCurrentUser ? null :
 
-              <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>}
-
-
-
-            <Player
-              playsInline
-              poster="/static/img/benj.jpg"
-              src="https://readneedobjects.s3.ap-south-1.amazonaws.com/rwunv02_2.mp4"
-            ><BigPlayButton position="center" /></Player>
-
-            <p className="main-page-try-before" >Try the AI in action</p>
+              <p className="instruction-below-header-main-page"><Link to="/login" > Login </Link> in to try with your own files</p>} */}
 
 
+
+            <div style={{ marginTop: 50 }}></div>
+
+            <IntroCards />
+
+
+            <div style={{ marginTop: 50 }}></div>
+
+            <UploadButton session={session} />
+
+
+            <div style={{ marginTop: 50 }}></div>
+
+
+            <p className="main-page-try-before" >Try the AI on these demo books</p>
 
             <hr className="break-80" />
 
-            <ExampleBooks/>
 
-            <Row style={{ marginBottom: 50 }}>
+
+            <ExampleBooks />
+
+
+
+
+
+            {/* <Row style={{ marginBottom: 50 }}>
 
               <Col>
 
@@ -110,7 +123,7 @@ const App = ({ session }) => {
               </Col>
 
 
-            </Row>
+            </Row> */}
 
 
             <Row>
@@ -135,9 +148,9 @@ const App = ({ session }) => {
 
                 <div className="btn-grad-container-journey" >
 
-                  <a style={{ textDecoration: 'none'}} target="blank" href="http://forms.gle/3kC9Rz6piAHptxS6A">
+                  <a style={{ textDecoration: 'none' }} target="blank" href="https://l3sp0taqveu.typeform.com/to/bcZWWYUi">
                     <Button variant="contained" component="label" >
-                    Connect with us!
+                      Connect with us!
                 </Button>
                   </a>
 
@@ -214,7 +227,7 @@ const App = ({ session }) => {
 
                 style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }}
 
-                href="https://forms.gle/ZE73f4cdWVMmwkPy8">Feedback</a>
+                href="https://l3sp0taqveu.typeform.com/to/b5guEylp">Feedback</a>
 
               <br />
 
@@ -227,7 +240,7 @@ const App = ({ session }) => {
 
               <br />
 
-  
+
 
 
             </Col>

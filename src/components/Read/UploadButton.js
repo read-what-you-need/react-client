@@ -200,8 +200,11 @@ const UploadButton = ({ session }) => {
 
     const onSelectFileHandler = event => {
 
-        // using nanoid of 12 characters length
 
+
+        // user logged in
+
+        // using nanoid of 12 characters length
         setUuidState(nanoid(12));
 
 
@@ -220,6 +223,7 @@ const UploadButton = ({ session }) => {
         setFileSize(Math.floor(event.target.files[0].size / 1000000))
         setFileName(event.target.files[0].name.replace('.pdf', ''))
 
+
     }
 
 
@@ -231,24 +235,46 @@ const UploadButton = ({ session }) => {
     const history = useHistory();
 
 
+
     return (
 
         <Container>
             <div className="btn-grad-container" >
 
 
-                <Button variant="contained" component="label" endIcon={<UploadIcon />}>
-                    Upload PDF File
+                {session.getCurrentUser !== null ?
+                    // for logged in user
+                    <Button variant="contained" component="label" endIcon={<UploadIcon />}>
+                        Upload your PDF File
                     <input
-                        accept=".pdf"
-                        type="file"
-                        onChange={onSelectFileHandler}
+                            accept=".pdf"
+                            type="file"
+                            onChange={onSelectFileHandler}
+                            style={{ display: "none" }}
+                        />
 
-                        style={{ display: "none" }}
-                    />
+                    </Button> : 
+                    
+                    // anonymous user redirected to login page
+                    <Button variant="contained" component="label" endIcon={<UploadIcon />} 
+                    
+                    onClick={ () => {
+                        history.push("/login")
+                    }}>
+                        Upload your PDF File
+                   
 
-                </Button>
+                    </Button>
+
+                }
+
+
+              
+
+
                 <br />
+
+
                 {!selectedFile && <span className="upload-limit-notice">*max upload file size 50 MB<br />**scanned pdfs not supported</span>}
                 <br />
 
