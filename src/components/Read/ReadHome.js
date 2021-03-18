@@ -16,6 +16,7 @@ import SmartSearch from './SmartSearch';
 import { SearchContextProvider, SearchContext } from './SearchContextMangement';
 
 import UnderProcess from './UnderProcess';
+import ReadAPIStatus from './ReadAPIStatus';
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
@@ -31,7 +32,7 @@ const ReadHome = ({ session, props }) => {
     // get from view or params from the url
     const _id = props.match.params._id;
     //console.log(props.match.params)
-    
+
     // if query is already passed as query string
     const query = queryString.parse(props.location.search)
 
@@ -41,7 +42,7 @@ const ReadHome = ({ session, props }) => {
 
 
     const [fileProcessStatus, setfileProcessStatus] = useState();
-   
+
     const [fileName, setFileName] = useState('');
 
 
@@ -79,12 +80,12 @@ const ReadHome = ({ session, props }) => {
                         {fileProcessStatus === "true" ? <SearchContextProvider sessionId={_id} query={query.query}>
 
 
-                            
+
                             <SmartSearch />
 
                             <div style={{ height: 10 }}></div>
 
-                            <TopWords uuid={_id} query={query.query}/>
+                            <TopWords uuid={_id} query={query.query} />
 
 
                             <div style={{ height: 10 }}></div>
@@ -98,18 +99,7 @@ const ReadHome = ({ session, props }) => {
                         </SearchContextProvider> : fileProcessStatus === "false" ? <UnderProcess /> : null}
 
 
-                        <div style={{ height: 10 }}></div>
-
-                        <img src={"https://healthchecks.io/badge/9eb09fbb-348a-4316-ba4d-c2e543/z-XVoCmN-2/search-function.svg"}/>
-                        
-                        <br/>
-
-                        <div style={{ height: 10 }}></div>
-
-                        <img src={"https://healthchecks.io/badge/9eb09fbb-348a-4316-ba4d-c2e543/e0lWy4vv-2/question-generator.svg"}/>
-
-                        
-
+                        {fileProcessStatus === "true" ? <ReadAPIStatus /> : null}
 
 
                     </div>

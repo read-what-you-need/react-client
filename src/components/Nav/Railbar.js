@@ -63,10 +63,6 @@ const RailBar = ({ session }) => {
         setOpen(false);
     };
 
-    fetch('https://healthchecks.io/badge/9eb09fbb-348a-4316-ba4d-c2e543/E6nWgXCq-2/site.json')
-    .then(resp => resp.json())
-    .then(data => console.log(data))
-
 
     return (
 
