@@ -54,7 +54,6 @@ margin-bottom: 20px;
   height: 100%;
   
   padding: 25px;
-  margin-right: 25px;
 
   background-color: white;
   border-radius: 26px;
@@ -243,6 +242,7 @@ margin-bottom: 20px;
 
  
 }
+
 
 .mark {
   margin: 0 -0.4em;
@@ -509,7 +509,7 @@ margin-bottom: 40px;
   
   border-radius: 10px;
   
-  margin-bottom: 70px;
+  margin-bottom: 10px;
 }
 .question-asked-no-times{
   color:rgba(0, 0, 255, 0.989);
