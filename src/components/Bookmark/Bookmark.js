@@ -62,7 +62,8 @@ const Bookmark = ({ session }) => {
         )
             .then(res => {
 
-
+                console.log(res.data['uuids'])
+                console.log(res.data['queries'])
                 // initial load
                 setUuidsList(uuidList.concat(res.data['uuids']))
                 setQueryList(queryList.concat(res.data['queries']))
@@ -211,16 +212,16 @@ const Bookmark = ({ session }) => {
                 <Col md="9" style={{ marginTop: 20 }}>
 
                     <h1 style={{ fontWeight: 200 }}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
-                    
+
                     <hr />
-                    
-                    <Col lg={{ size: "6", offset: 3 }} style={{ marginTop: 20, marginBottom:10 }}>
+
+                    <Col lg={{ size: "6", offset: 3 }} style={{ marginTop: 20, marginBottom: 10 }}>
                         <Alert severity="warning" style={{ fontSize: 18 }}>Experimental feature.</Alert>
 
-                    
+
                     </Col>
 
-                   
+
                     <Row>
                         {resultsLoadStatus === false ?
 
@@ -250,7 +251,7 @@ const Bookmark = ({ session }) => {
 
                                             <hr />
 
-                                            {uuidLast ? null : moreUuidsElement()}
+
 
                                         </Col>
 
@@ -279,6 +280,8 @@ const Bookmark = ({ session }) => {
 
                             })
                         }
+
+                        {uuidLast ? null : moreUuidsElement()}
 
                     </Row>
 
