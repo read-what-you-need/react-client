@@ -7,6 +7,9 @@ import { Badge } from 'reactstrap';
 
 import withAuth from './../withAuth';
 
+import Alert from '@material-ui/lab/Alert';
+
+
 const Bookmark = ({ session }) => {
 
     let bookmarkedFilesPoint = 'https://readneedapi.deeps.site/api/v2/bookmarks'
@@ -208,9 +211,16 @@ const Bookmark = ({ session }) => {
                 <Col md="9" style={{ marginTop: 20 }}>
 
                     <h1 style={{ fontWeight: 200 }}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
-
-
+                    
                     <hr />
+                    
+                    <Col lg={{ size: "6", offset: 3 }} style={{ marginTop: 20, marginBottom:10 }}>
+                        <Alert severity="warning" style={{ fontSize: 18 }}>Experimental feature.</Alert>
+
+                    
+                    </Col>
+
+                   
                     <Row>
                         {resultsLoadStatus === false ?
 
