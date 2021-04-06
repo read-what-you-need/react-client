@@ -214,12 +214,12 @@ const Bookmark = ({ session }) => {
                     <h1 style={{ fontWeight: 200 }}>Your bookmarks <i class="twa twa-bookmark"></i></h1>
 
                     <hr />
-
+                    {/* 
                     <Col lg={{ size: "6", offset: 3 }} style={{ marginTop: 20, marginBottom: 10 }}>
                         <Alert severity="warning" style={{ fontSize: 18 }}>Experimental feature.</Alert>
 
 
-                    </Col>
+                    </Col> */}
 
 
                     <Row>

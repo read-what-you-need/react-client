@@ -50,7 +50,7 @@ const App = ({ session }) => {
   return (
 
 
-    <Container style={{ paddingRight: 0, paddingLeft: 0 }}>
+    <Container style={{ paddingRight: 0, paddingLeft: 0 }} >
 
       <Row>
 
@@ -241,6 +241,16 @@ const App = ({ session }) => {
               <br />
 
 
+              <a target="blank"
+
+                style={{ textDecoration: 'none', color: 'grey', fontSize: 20 }}
+
+                href="mailto:ritik@readneed.org">Contact us</a>
+
+
+
+              <br />
+
 
 
             </Col>
@@ -264,6 +274,7 @@ const App = ({ session }) => {
           style={{ marginLeft: 10, marginTop: 10 }}
         />
       </div>
+
 
       <div style={{ height: 70 }}></div>
 

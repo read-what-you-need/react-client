@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {BeatLoader} from 'react-spinners';
+import {PulseLoader} from 'react-spinners';
 
 
 const Spinner = () => (
 
     <div className="spinner">
 
-        <BeatLoader color={'#4A4A4A'} size={17} margin={2}/>
+        <PulseLoader color={'#4A4A4A'} size={20} margin={2}/>
 
     </div>
 
