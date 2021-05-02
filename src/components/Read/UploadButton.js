@@ -51,7 +51,7 @@ import { Container } from '@material-ui/core';
 const UploadButton = ({ session }) => {
 
     let pdfToTextEndPoint = "https://predictorapi.deeps.site/pdf-to-text"
-    let setUuidNameMappingPoint = 'https://readneedapi.deeps.site/api/v2/set/uuidNameMap'
+    let setUuidNameMappingPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/set/uuidNameMap'
 
     let generateEmbeddingsEndPoint = ""
 

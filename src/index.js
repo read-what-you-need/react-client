@@ -31,7 +31,7 @@ import Profile from './components/Profile/Profile'
 
 
 const httpLink = createHttpLink({
-  uri: 'https://readneedapi.deeps.site/graphql'
+  uri: process.env.REACT_APP_GRAPHQL_API_ENDPOINT
 });
 
 

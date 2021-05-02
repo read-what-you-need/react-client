@@ -37,7 +37,7 @@ import {
 
 const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) => {
 
-    let getQuestionEndPoint = "https://readneedapi.deeps.site/api/v2/set/textToQuestion"
+    let getQuestionEndPoint = "process.env.REACT_APP_NODE_API_ENDPOINT+'/set/textToQuestion"
 
 
     // ////console.log(content)

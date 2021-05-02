@@ -28,7 +28,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const TopWords = ({ uuid, query }) => {
 
-    let topWordsDataEndPoint = 'https://readneedapi.deeps.site/api/v2/top/words/' + uuid
+    let topWordsDataEndPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/top/words/' + uuid
 
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);

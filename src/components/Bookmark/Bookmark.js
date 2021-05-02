@@ -12,7 +12,7 @@ import Alert from '@material-ui/lab/Alert';
 
 const Bookmark = ({ session }) => {
 
-    let bookmarkedFilesPoint = 'https://readneedapi.deeps.site/api/v2/bookmarks'
+    let bookmarkedFilesPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/bookmarks'
 
 
     const [uuidList, setUuidsList] = useState([])
