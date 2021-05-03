@@ -92,9 +92,6 @@ const Root = ({ refetch, session }) => {
       </Switch>
 
 
-
-
-
     </Router>
 
 
