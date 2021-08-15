@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap';
 
 
 import withAuth from '../withAuth';
-import UploadButton from '../Read/UploadButton';
+import UploadButton from '../UploadButton/UploadButton';
 
 
 

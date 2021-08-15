@@ -1,6 +1,5 @@
 .App {
   text-align: center;  
-
 }
 
 .App-read-page {
@@ -167,68 +166,6 @@ margin-bottom: 20px;
 #half-fade {
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-}
-
-.btn-grad-container .MuiButton-root {background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)}
-
-.btn-grad-container .MuiButton-root{
-  text-align: center;
-  border-radius: 50px;
-  font-size: 30px;
-  font-weight: 500;
-  margin: 10px;
-    
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  
-  color: white;            
-  box-shadow: 0 0 20px #eee;  
-
-  padding: 15px 45px;
-
-  background-size: 200% auto;
-
-  
-  
-}
-
-.btn-grad-container .MuiButton-root:hover{
-  background-position: right center; 
-  color: #fff;
-  text-decoration: none;
-}
-
-
-.btn-grad-container-journey .MuiButton-root {
-  background-image: linear-gradient(to right, #348F50 0%, #56B4D3  51%, #348F50  100%)
-}
-
-.btn-grad-container-journey .MuiButton-root{
-  border-radius: 50px;
-  font-size: 24px;
-  font-weight: 500;
-  margin: 10px;
-    
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  
-  color: white;            
-  box-shadow: 0 0 20px #eee;  
-
-  padding: 5px 45px;
-
-  background-size: 200% auto;
-
-  
-  
-}
-
-.btn-grad-container-journey .MuiButton-root:hover{
-  background-position: right center; 
-  color: #fff;
-  text-decoration: none;
 }
 
 .read-page-file-name{
@@ -500,17 +437,11 @@ margin-bottom: 40px;
   filter: drop-shadow(0px 1px 5px rgba(0, 0, 0, 0.1));
 }
 
-.break-80{
-   width: 95%;
-}
 
 
 .footer {
-  margin-top: 20px;
-  
-  border-radius: 10px;
-  
-  margin-bottom: 10px;
+ display: flex;
+ justify-content:space-around;
 }
 .question-asked-no-times{
   color:rgba(0, 0, 255, 0.989);
@@ -620,9 +551,8 @@ div.content {
 }
 
 .logo-resize{
-  width: 120px;
-  height: 110px;
-
+  width: 64px;
+  height: 64px;
 }
 
 
@@ -674,9 +604,6 @@ div.content {
     height: 40%;
   }
 
-  .btn-grad-container .MuiButton-root {
-    font-size: 18px;
-  }
 
   .Main-header {
     font-size: 36px;
@@ -746,13 +673,7 @@ div.content {
     font-size: 42px;
   }
 
- 
-.btn-grad-container-journey .MuiButton-root{
 
-  font-size: 20px;
-  
-}
- 
   
   
 }

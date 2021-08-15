@@ -20,6 +20,7 @@ import BookmarkLines from './components/Bookmark/BookmarkLines.js';
 
 import NavResponsive from './components/Nav/NavResponsive';
 import TestNav from './TestNav';
+import TestHtml from './TestHtml';
 import Faqs from "./components/Faqs";
 
 import withSession from './components/withSession';
@@ -63,13 +64,15 @@ const Root = ({ refetch, session }) => {
     <Router>
 
 
-      <NavResponsive session={session} />
+     
 
       <Switch>
 
 
 
         <Route path="/test" exact component={() => (<TestNav />)} />
+        
+        <Route path="/testhtml/:_id" exact component={(props) => (<TestHtml props={props} />)} />
 
         <Route path="/" exact component={() => (<App session={session} />)} />
 

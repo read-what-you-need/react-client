@@ -29,7 +29,7 @@ const BookmarkLines = ({ props }) => {
     const uuid = props.match.params.uuid;
     const queryId = props.match.params.queryId;
 
-    let bookmarkedLinesPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/getBookmarkLines/' + user + '/' + uuid + '/' + queryId
+    let bookmarkedLinesPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/getBookmarkLines/' + user + '/' + uuid + '/' + queryId
 
     useEffect(() => {
         axios.get(

@@ -1,0 +1,30 @@
+
+.btn-grad-container .MuiButton-root{
+  text-align: center;
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 10px;
+    
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  
+  color: white;            
+  box-shadow: 0 0 20px #eee;  
+
+  padding: 15px 45px;
+
+  background-size: 200% auto;
+
+  font-size: 18px;
+  background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)
+  
+}
+
+.btn-grad-container .MuiButton-root:hover{
+  background-position: right center; 
+  color: #fff;
+  text-decoration: none;
+}
+

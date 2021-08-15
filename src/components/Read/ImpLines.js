@@ -21,7 +21,7 @@ import {
 const ImpLines = ({ uuid, session }) => {
 
 
-    let smartSearchEndPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/getLines'
+    let smartSearchEndPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/getLines'
 
 
     // pdfText recieved from the db in the parent component

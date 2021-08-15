@@ -1,0 +1,9 @@
+.important-questions{
+    width: 800px;
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+.input-box-search-primary{
+    width: 75vh;
+}

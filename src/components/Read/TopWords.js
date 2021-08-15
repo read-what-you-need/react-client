@@ -28,7 +28,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const TopWords = ({ uuid, query }) => {
 
-    let topWordsDataEndPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/top/words/' + uuid
+    let topWordsDataEndPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/top/words/' + uuid
 
     const state = useContext(SearchContext);
     const discoverState = useContext(DiscoverContext);

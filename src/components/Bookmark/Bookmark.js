@@ -12,7 +12,7 @@ import Alert from '@material-ui/lab/Alert';
 
 const Bookmark = ({ session }) => {
 
-    let bookmarkedFilesPoint = process.env.REACT_APP_NODE_API_ENDPOINT+'/bookmarks'
+    let bookmarkedFilesPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/bookmarks'
 
 
     const [uuidList, setUuidsList] = useState([])

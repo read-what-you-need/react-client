@@ -54,7 +54,7 @@ const BottomNavbarAuth = ({ session }) => {
     const handleChange = (event, newValue) => {
         if (newValue === 'feedback') {
             // click link action
-            openInNewTab('https://l3sp0taqveu.typeform.com/to/b5guEylp')
+            openInNewTab('https://forms.gle/3kC9Rz6piAHptxS6A')
          
         }
         history.push(`/${newValue}`);
@@ -96,7 +96,7 @@ const BottomNavbarUnAuth = () => {
     const handleChange = (event, newValue) => {
         if (newValue === 'feedback') {
             // click link action
-            openInNewTab('https://l3sp0taqveu.typeform.com/to/b5guEylp')
+            openInNewTab('https://forms.gle/3kC9Rz6piAHptxS6A')
          
         }
         history.push(`/${newValue}`);

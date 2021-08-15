@@ -37,7 +37,7 @@ import {
 
 const ImpLineItems = ({ session, uuid, content, score, itemNo, bookmarkFlag }) => {
 
-    let getQuestionEndPoint = "process.env.REACT_APP_NODE_API_ENDPOINT+'/set/textToQuestion"
+    let getQuestionEndPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/set/textToQuestion'
 
 
     // ////console.log(content)

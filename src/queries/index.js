@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { recipeFragments } from './fragments';
+
 
 
 /* Recipes Queries */
@@ -104,11 +104,11 @@ mutation( $uuid: String!,  $query: String!, $line: String!)
 
 export const ADD_FILE = gql`
 
-mutation( $uuid: String!, $name: String!, $size: Int!,  $metaData: String!,  $uploadedBy: String!  )
+mutation( $hash: String!, $name: String!, $size: Int!,  $type: String!, )
   {
-    addFile( uuid:$uuid, name: $name, size: $size, metaData: $metaData, uploadedBy: $uploadedBy)
+    addFile( hash:$hash, name: $name, size: $size, type: $type)
     {
-      uuid, name, size, uploadedBy, createdDate
+      hash, name, size, type, createdDate
     }
   }
 `;
