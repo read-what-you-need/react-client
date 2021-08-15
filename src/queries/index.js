@@ -50,12 +50,12 @@ query($username: String!) {
 
 export const GET_FILE_DETAILS = gql`
 
-query($uuid: String!) {
-  getFileDetails(uuid: $uuid){
-    uuid
+query($hash: String!) {
+  getFileDetails(hash: $hash){
+    hash
     name
     size
-    metaData
+    type
     processStatus
   }
 }

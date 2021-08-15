@@ -3,7 +3,7 @@ import React from 'react';
 const ReadAPIStatus = () => {
     return (
 
-        <div>
+        <div className="App">
             
             <div style={{ height: 10 }}></div>
 

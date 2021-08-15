@@ -8,8 +8,6 @@ import ImpLines from './ImpLines'
 import TopQuestions from './TopQuestions'
 
 
-import Discover from './Discover'
-
 
 import { Container, Row, Col } from 'reactstrap';
 import SmartSearch from './SmartSearch';
@@ -48,7 +46,7 @@ const ReadHome = ({ session, props }) => {
 
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
         GET_FILE_DETAILS, {
-        variables: { uuid: _id }, onCompleted(data) {
+        variables: { hash: _id }, onCompleted(data) {
             //console.log('process status', data)
             var res = Object(queryData.getFileDetails)
             setfileProcessStatus(res['processStatus'])
@@ -64,17 +62,13 @@ const ReadHome = ({ session, props }) => {
 
             <Row>
 
-                <Col md="2">
 
-
-                </Col>
-
-                <Col md="10">
+                <Col md="12">
                     <div className="App-read-page">
 
 
                         {/* <h1 className="read-page-header">Read what you need</h1> */}
-                        <h1 className="read-page-file-name">{fileName}</h1>
+                        <h1>{fileName}</h1>
 
 
                         {fileProcessStatus === "true" ? <SearchContextProvider sessionId={_id} query={query.query}>
