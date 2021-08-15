@@ -76,7 +76,7 @@ const Root = ({ refetch, session }) => {
 
         <Route path="/" exact component={() => (<App session={session} />)} />
 
-        <Route path="/read/:_id" render={(props) => <ReadHome session={session} props={props} />} />
+        <Route path="/read/:_id" exact component={(props) => (<TestHtml props={props} />)} />
 
         
 

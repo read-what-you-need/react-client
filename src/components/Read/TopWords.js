@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
-import axios from 'axios';
+
 
 import { SearchContext } from './SearchContextMangement';
-import { DiscoverContext } from './DiscoverContextManagement';
+
 
 import FlatView from './TopWordsView/FlatView';
 import TableView from './TopWordsView/TableView';
@@ -15,7 +15,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { Container, Row, Col } from 'reactstrap';
 
 import KeyWordLoader from '../../Loaders/KeyWordLoader';
-import Button from '@material-ui/core/Button';
 
 
 
@@ -31,7 +30,6 @@ const TopWords = ({ uuid, query }) => {
     let topWordsDataEndPoint = process.env.REACT_APP_REDIS_API_ENDPOINT+'/top/words/' + uuid
 
     const state = useContext(SearchContext);
-    const discoverState = useContext(DiscoverContext);
 
     const [randomWordsSegment, setRandomWordsSegment] = useState();
     const [randomWords, setRandomWords] = useState();

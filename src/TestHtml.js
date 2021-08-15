@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./TestHtml.css";
 
-import TextSingleLineLoader from "./Loaders/TextSingleLineLoader";
-
 const TestHtml = ({ props }) => {
   const _id = props.match.params._id;
   const endpoint = process.env.REACT_APP_REDIS_API_ENDPOINT;
@@ -11,7 +9,7 @@ const TestHtml = ({ props }) => {
   const [lines, setLines] = useState(["loading"]);
   const [topWords, setTopWords] = useState(["loading"]);
   const [questions, setQuestions] = useState(["loading.."]);
-  const [resultsRequired, setResultsRequired] = useState(15);
+  const [resultsRequired, setResultsRequired] = useState(5);
 
   const [payload, setPayload] = useState({
     uuid: _id,
@@ -30,7 +28,7 @@ const TestHtml = ({ props }) => {
 
   // useEffect listening on json payload changes
   useEffect(() => {
-    fetch("https://readneedapi.deeps.site/api/v2/getLines", {
+    fetch(endpoint + "getLines", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -43,11 +41,12 @@ const TestHtml = ({ props }) => {
   }, [payload]);
 
   const getFileName = (_id) => {
-    fetch(endpoint + "/getFileName/" + _id)
+    fetch(endpoint + "/getFileDetails/" + _id)
       .then((response) => response.json())
       .then((data) => {
-        setName(data["name"]);
-        return data["name"];
+        console.log(data)
+        setName(data.name);
+        return data.name;
       })
       .catch((error) => {
         console.log("error fetching name from id");
@@ -117,14 +116,14 @@ const TestHtml = ({ props }) => {
               });
             }}
           >
-            {question} + -<br />
+            {question}<br />
           </a>
         ))}
       </div>
 
       <div>
         <br />
-        genre from file:
+        most freq word from file:
         {topWords.map((words, idx) => (
           <a className="link-wrap" href="#" key={idx}>
             {" "}
@@ -139,11 +138,17 @@ const TestHtml = ({ props }) => {
         <br />
         {lines.map((Lines, idx) => (
           <li>
-            <a className="link-wrap" href="#" key={idx}>
+            <a onClick={() => {
+              setPayload({...payload, query: Lines["line"]})
+            }} className="link-wrap" href="#" key={idx}>
               {Lines["line"]}
             </a>
           </li>
         ))}
+        <button onClick={() => {
+          setResultsRequired(resultsRequired+5)
+          setPayload({...payload, maxResults: resultsRequired+5})
+        }}>load more !</button>
       </div>
     </div>
   );
