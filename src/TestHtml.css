@@ -9,5 +9,10 @@ body {
 
 .lines{
    margin-top:10px;
+   width:600px;
+   text-align: justify;
 }
 
+.pure-g{
+    margin-top:50px;
+}
