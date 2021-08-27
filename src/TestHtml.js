@@ -90,8 +90,8 @@ const TestHtml = ({ props }) => {
 
   return (
     <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-4-24  pure-u-xl-6-24"> </div>
-      <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-11-24">
+      <div class="pure-u-1 pure-u-md-4-24  pure-u-xl-7-24"> </div>
+      <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-10-24">
         <p>{name}</p>
 
         <input
