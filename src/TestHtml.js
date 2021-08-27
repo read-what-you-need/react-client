@@ -12,6 +12,9 @@ const TestHtml = ({ props }) => {
   const [questions, setQuestions] = useState(["loading.."]);
   const [resultsRequired, setResultsRequired] = useState(5);
 
+  const [clikcedLines, setClikcedLines] = useState([]);
+  console.log(clikcedLines);
+
   const [payload, setPayload] = useState({
     uuid: _id,
     query: "",
@@ -127,9 +130,10 @@ const TestHtml = ({ props }) => {
           ))}
         </div>
 
-        <div className="freq-words"> 
+        <div className="freq-words">
           <br />
-          Frequent words:<br/>
+          Frequent words:
+          <br />
           {topWords.slice(0, topWordsCount).map((words, idx) => (
             <a
               onClick={() => {
@@ -142,7 +146,7 @@ const TestHtml = ({ props }) => {
               {" "}
               {words.toLowerCase()}:{" "}
             </a>
-          ))} 
+          ))}
           <button
             onClick={() => {
               setTopWordsCount(topWordsCount + 3);
@@ -161,6 +165,7 @@ const TestHtml = ({ props }) => {
               <a
                 onClick={() => {
                   setPayload({ ...payload, query: Lines["line"] });
+                  setClikcedLines([...clikcedLines, Lines["line"]]);
                 }}
                 className="link-wrap"
                 href="#"
@@ -180,7 +185,19 @@ const TestHtml = ({ props }) => {
           </button>
         </div>
       </div>
-      <div class="pure-u-1 pure-u-md-4-24 pure-u-xl-6-24"> </div>
+      <div class="pure-u-1 pure-u-md-4-24 pure-u-xl-6-24">
+        Clicked lines
+        <br />
+        {clikcedLines.map((clickedLines) => {
+          return (
+            <span>
+              {clickedLines}
+              <br />
+              <br/>
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 };
