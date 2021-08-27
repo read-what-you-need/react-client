@@ -70,7 +70,7 @@ const UploadButton = () => {
         //check in redis if file is unique or not
       )
       .then((response) => {
-        console.log(response);
+        console.log(response?.data);
         return response.data;
       })
       .then((data) => {

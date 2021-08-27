@@ -1,9 +1,13 @@
-.important-questions{
-    width: 800px;
-    max-height: 250px;
-    overflow-y: scroll;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;600&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+
 }
 
-.input-box-search-primary{
-    width: 75vh;
+.lines{
+   margin-top:10px;
 }
+

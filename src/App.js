@@ -19,12 +19,8 @@ const App = ({ session }) => {
           
           <img src={logo} alt="logo" />
           <h1>Read what you need</h1>
-
      
-
           <UploadButton session={session} />
-
-       
 
           <Footer/>
 

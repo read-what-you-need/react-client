@@ -8,6 +8,7 @@ const TestHtml = ({ props }) => {
   const [name, setName] = useState("loading...");
   const [lines, setLines] = useState(["loading"]);
   const [topWords, setTopWords] = useState(["loading"]);
+  const [topWordsCount, setTopWordsCount] = useState(3);
   const [questions, setQuestions] = useState(["loading.."]);
   const [resultsRequired, setResultsRequired] = useState(5);
 
@@ -44,7 +45,7 @@ const TestHtml = ({ props }) => {
     fetch(endpoint + "/getFileDetails/" + _id)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setName(data.name);
         return data.name;
       })
@@ -57,7 +58,8 @@ const TestHtml = ({ props }) => {
     fetch(endpoint + "/top/words/" + _id)
       .then((response) => response.json())
       .then((data) => {
-        setTopWords(Object.keys(data).slice(0, 5));
+        console.log(data);
+        setTopWords(Object.keys(data));
         return data;
       })
       .catch((error) => {
@@ -87,69 +89,98 @@ const TestHtml = ({ props }) => {
   };
 
   return (
-    <div style={{ marginLeft: 100 }}>
-      <p>file: {name}</p>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-4-24  pure-u-xl-6-24"> </div>
+      <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-11-24">
+        <p>file: {name}</p>
 
-      <input
-        className="input-box-search-primary"
-        type="search"
-        name="search1"
-        id=""
-        onChange={handleInputChange}
-      ></input>
+        <input
+          className="input-box-search-primary"
+          type="search"
+          name="search1"
+          id=""
+          value={payload.query}
+          onChange={handleInputChange}
+        ></input>
 
-      <div className="important-questions">
-        <br />
-        most important questions:
-        <br />
-        {questions.map((question, idx) => (
-          <a
-            className="link-wrap"
-            href="#/"
-            key={idx}
+        <div className="important-questions">
+          <br />
+          most important questions:
+          <br />
+          {questions.map((question, idx) => (
+            <a
+              className="link-wrap"
+              href="#/"
+              key={idx}
+              onClick={() => {
+                setPayload({
+                  uuid: _id,
+                  query: question,
+                  maxResults: resultsRequired,
+                  accuracyGreaterThan: 0.2,
+                });
+              }}
+            >
+              {question}
+              <br />
+            </a>
+          ))}
+        </div>
+
+        <div>
+          <br />
+          most freq word from file:<br/>
+          {topWords.slice(0, topWordsCount).map((words, idx) => (
+            <a
+              onClick={() => {
+                setPayload({ ...payload, query: words });
+              }}
+              className="link-wrap"
+              href="#"
+              key={idx}
+            >
+              {" "}
+              {words.toLowerCase()}:{" "}
+            </a>
+          ))}
+          <button
             onClick={() => {
-              setPayload({
-                uuid: _id,
-                query: question,
-                maxResults: resultsRequired,
-                accuracyGreaterThan: 0.2,
-              });
+              setTopWordsCount(topWordsCount + 3);
             }}
           >
-            {question}<br />
-          </a>
-        ))}
-      </div>
+            load more!
+          </button>
+        </div>
 
-      <div>
-        <br />
-        most freq word from file:
-        {topWords.map((words, idx) => (
-          <a className="link-wrap" href="#" key={idx}>
-            {" "}
-            {words.toLowerCase()}:{" "}
-          </a>
-        ))}
+        <div className="important-lines">
+          <br />
+          Important lines:
+          <br />
+          {lines.map((Lines, idx) => (
+            <div className="lines">
+              <a
+                onClick={() => {
+                  setPayload({ ...payload, query: Lines["line"] });
+                }}
+                className="link-wrap"
+                href="#"
+                key={idx}
+              >
+                {Lines["line"]}
+              </a>
+            </div>
+          ))}
+          <button
+            onClick={() => {
+              setResultsRequired(resultsRequired + 5);
+              setPayload({ ...payload, maxResults: resultsRequired + 5 });
+            }}
+          >
+            load more !
+          </button>
+        </div>
       </div>
-
-      <div className="box">
-        <br />
-        Important lines:
-        <br />
-        {lines.map((Lines, idx) => (
-          <li>
-            <a onClick={() => {
-              setPayload({...payload, query: Lines["line"]})
-            }} className="link-wrap" href="#" key={idx}>
-              {Lines["line"]}
-            </a>
-          </li>
-        ))}
-        <button onClick={() => {
-          setResultsRequired(resultsRequired+5)
-          setPayload({...payload, maxResults: resultsRequired+5})
-        }}>load more !</button>
-      </div>
+      <div class="pure-u-1 pure-u-md-4-24 pure-u-xl-6-24"> </div>
     </div>
   );
 };
