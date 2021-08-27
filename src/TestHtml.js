@@ -92,7 +92,7 @@ const TestHtml = ({ props }) => {
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-4-24  pure-u-xl-6-24"> </div>
       <div class="pure-u-1 pure-u-md-16-24 pure-u-xl-11-24">
-        <p>file: {name}</p>
+        <p>{name}</p>
 
         <input
           className="input-box-search-primary"
@@ -105,7 +105,7 @@ const TestHtml = ({ props }) => {
 
         <div className="important-questions">
           <br />
-          most important questions:
+          Important questions:
           <br />
           {questions.map((question, idx) => (
             <a
@@ -127,9 +127,9 @@ const TestHtml = ({ props }) => {
           ))}
         </div>
 
-        <div>
+        <div className="freq-words"> 
           <br />
-          most freq word from file:<br/>
+          Frequent words:<br/>
           {topWords.slice(0, topWordsCount).map((words, idx) => (
             <a
               onClick={() => {
@@ -142,7 +142,7 @@ const TestHtml = ({ props }) => {
               {" "}
               {words.toLowerCase()}:{" "}
             </a>
-          ))}
+          ))} 
           <button
             onClick={() => {
               setTopWordsCount(topWordsCount + 3);

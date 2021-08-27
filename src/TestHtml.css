@@ -13,6 +13,17 @@ body {
    text-align: justify;
 }
 
+.freq-words {
+    width:600px;
+   text-align: justify;
+}
+
+.lines {
+    border-bottom: 1px solid #eaecef;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .pure-g{
     margin-top:50px;
 }
