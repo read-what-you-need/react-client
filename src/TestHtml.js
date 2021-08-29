@@ -172,6 +172,8 @@ const TestHtml = ({ props }) => {
                 key={idx}
               >
                 {Lines["line"]}
+                <br/>
+                <button>like</button> <button>dislike</button>   <button>mark as read</button> 
               </a>
             </div>
           ))}
